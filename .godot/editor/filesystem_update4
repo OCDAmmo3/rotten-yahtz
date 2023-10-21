@@ -1,0 +1,14 @@
+res://default_env.tres
+res://diceScenes/dicePossibilities/DiceSelectable.tscn
+res://diceScenes/dicePossibilities/DiceSelectable.gd
+res://Combat.tscn
+res://diceScenes/dicePossibilities/d6_dice.tscn
+res://characterScenes/player/Player.gd
+res://diceScenes/dicePossibilities/d6_dice.gd
+res://diceScenes/standard6sided/6dDiceSelector.tscn
+res://playerControls/DiceSelectionWindow.gd
+res://diceScenes/standard4sided/4dDiceSelector.tscn
+res://diceScenes/dicePossibilities/SelectionCheckBox.gd
+res://playerControls/diceSelectionMenu/SelectButton.gd
+res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd
+res://diceScenes/standard2sided/2dDiceSelector.tscn
