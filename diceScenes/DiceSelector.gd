@@ -11,3 +11,6 @@ func roll_dice():
 
 func on_selected(toggled):
 	_selected = toggled
+
+func get_dice_name():
+	return dice_sprite.get_dice_name()

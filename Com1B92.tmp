@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=18 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/RemoveDiceButton.gd" id="6_6uqlt"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd" id="7_txwxw"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/SelectButton.gd" id="8_3fc1p"]
+[ext_resource type="Script" path="res://DiceRemovalSelection.gd" id="9_jioce"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
 load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
@@ -162,3 +163,13 @@ script = ExtResource("6_6uqlt")
 [node name="RemoveDiceButtonLabel" type="Label" parent="Control/DiceSelectionWindow/RemoveDiceButtonContainer"]
 layout_mode = 2
 text = "Remove dice"
+
+[node name="DiceRemovalSelection" type="HBoxContainer" parent="Control"]
+visible = false
+modulate = Color(1, 0, 1, 1)
+layout_mode = 0
+offset_left = 482.0
+offset_top = 443.0
+offset_right = 522.0
+offset_bottom = 483.0
+script = ExtResource("9_jioce")

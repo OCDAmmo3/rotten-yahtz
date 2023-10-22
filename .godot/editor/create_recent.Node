@@ -1,11 +1,11 @@
-Button
-Label
-PanelContainer
 VBoxContainer
-Control
+Label
+Button
 Sprite2D
-CheckBox
+Control
+PanelContainer
 HBoxContainer
+CheckBox
 CheckButton
 AnimationPlayer
 Timer
