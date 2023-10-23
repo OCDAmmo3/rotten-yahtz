@@ -27,6 +27,7 @@ func _ready():
 	_create_dice_selectables()
 
 func _create_dice_selectables():
+	selected = null
 	var unique_dice_options = []
 	while unique_dice_options.size() < amount_of_dice_options:
 		var dice_option = dice_options[randi_range(0, dice_options.size() - 1)]
@@ -49,4 +50,4 @@ func submit_chosen_dice():
 	if selected != null:
 		var new_dice = selected.instantiate()
 		player_node.add_dice(new_dice)
-		get_parent().hide()
+		get_parent().get_parent().close_dice_removal_window()

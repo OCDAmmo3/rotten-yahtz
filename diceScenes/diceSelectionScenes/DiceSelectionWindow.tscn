@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://dha0uskmqrfvk"]
+
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd" id="1_n6yob"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/SelectButton.gd" id="2_kcad1"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/RemoveDiceButton.gd" id="3_mjep3"]
+[ext_resource type="Script" path="res://SkipButtonButton.gd" id="4_j5frx"]
+
+[sub_resource type="GDScript" id="GDScript_0fn5p"]
+script/source = "extends PanelContainer
+
+func on_skip_pressed():
+	var dice_selection_window = get_parent()
+	dice_selection_window.get_parent().remove_child(dice_selection_window)
+"
+
+[node name="DiceSelectionWindow" type="VBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+offset_left = 474.0
+offset_top = 284.0
+offset_right = 534.0
+offset_bottom = 344.0
+
+[node name="DiceSelectionOptions" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_constants/separation = 60
+script = ExtResource("1_n6yob")
+
+[node name="DiceSelectionSubmit" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="SelectButton" type="Button" parent="DiceSelectionSubmit"]
+layout_mode = 2
+script = ExtResource("2_kcad1")
+
+[node name="Select" type="Label" parent="DiceSelectionSubmit"]
+layout_mode = 2
+text = "Select"
+
+[node name="RemoveDiceButtonContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="RemoveDiceButton" type="Button" parent="RemoveDiceButtonContainer"]
+layout_mode = 2
+script = ExtResource("3_mjep3")
+
+[node name="RemoveDiceButtonLabel" type="Label" parent="RemoveDiceButtonContainer"]
+layout_mode = 2
+text = "Remove dice"
+
+[node name="SkipButton" type="PanelContainer" parent="."]
+layout_mode = 2
+script = SubResource("GDScript_0fn5p")
+
+[node name="Button" type="Button" parent="SkipButton"]
+layout_mode = 2
+script = ExtResource("4_j5frx")
+
+[node name="Label" type="Label" parent="SkipButton"]
+layout_mode = 2
+text = "Skip"

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b75fr2k8qrdcu"]
+
+[ext_resource type="Script" path="res://DiceRemovalSelection.gd" id="1_dfoik"]
+
+[node name="DiceRemovalSelection" type="HBoxContainer"]
+offset_left = 272.0
+offset_top = 439.0
+offset_right = 312.0
+offset_bottom = 542.0
+theme_override_constants/separation = 30
+script = ExtResource("1_dfoik")

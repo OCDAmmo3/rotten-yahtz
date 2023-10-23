@@ -2,10 +2,10 @@ Button
 Label
 PanelContainer
 VBoxContainer
-Control
 Sprite2D
-CheckBox
+Control
 HBoxContainer
+CheckBox
 CheckButton
 AnimationPlayer
 Timer

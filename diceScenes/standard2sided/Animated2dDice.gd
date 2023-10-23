@@ -3,6 +3,7 @@ extends AnimatedSprite2D
 @onready var timer = $Timer
 @export var timer_lower_bound = 1.5
 @export var timer_upper_bound = 2.5
+var _dice_name = "D2"
 
 signal roll_finished
 
@@ -21,3 +22,6 @@ func _stop_roll_animation():
 
 func get_rolled_value():
 	return 1 if frame == 0 else 2
+
+func get_dice_name():
+	return _dice_name
