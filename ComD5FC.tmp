@@ -1,10 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=18 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
 [ext_resource type="Script" path="res://PlayerHealthBar.gd" id="3_a2xor"]
 [ext_resource type="Script" path="res://playerControls/RollButton.gd" id="4_nj5ko"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/RemoveDiceButton.gd" id="6_6uqlt"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd" id="7_txwxw"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/SelectButton.gd" id="8_3fc1p"]
+[ext_resource type="Script" path="res://SkipButtonButton.gd" id="9_bkjnq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
 load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
@@ -122,3 +126,51 @@ offset_bottom = 40.0
 
 [node name="DicePool" type="HBoxContainer" parent="Control/DicePoolContainer"]
 layout_mode = 2
+
+[node name="DiceSelectionWindow" type="VBoxContainer" parent="Control"]
+visible = false
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 474.0
+offset_top = 284.0
+offset_right = 534.0
+offset_bottom = 344.0
+
+[node name="DiceSelectionOptions" type="HBoxContainer" parent="Control/DiceSelectionWindow"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_constants/separation = 60
+script = ExtResource("7_txwxw")
+
+[node name="DiceSelectionSubmit" type="PanelContainer" parent="Control/DiceSelectionWindow"]
+layout_mode = 2
+
+[node name="Select" type="Label" parent="Control/DiceSelectionWindow/DiceSelectionSubmit"]
+layout_mode = 2
+text = "Select"
+
+[node name="SelectButton" type="Button" parent="Control/DiceSelectionWindow/DiceSelectionSubmit"]
+layout_mode = 2
+script = ExtResource("8_3fc1p")
+
+[node name="RemoveDiceButtonContainer" type="PanelContainer" parent="Control/DiceSelectionWindow"]
+layout_mode = 2
+
+[node name="RemoveDiceButton" type="Button" parent="Control/DiceSelectionWindow/RemoveDiceButtonContainer"]
+layout_mode = 2
+script = ExtResource("6_6uqlt")
+
+[node name="RemoveDiceButtonLabel" type="Label" parent="Control/DiceSelectionWindow/RemoveDiceButtonContainer"]
+layout_mode = 2
+text = "Remove dice"
+
+[node name="SkipButton" type="PanelContainer" parent="Control/DiceSelectionWindow"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/DiceSelectionWindow/SkipButton"]
+layout_mode = 2
+text = "Skip"
+
+[node name="Button" type="Button" parent="Control/DiceSelectionWindow/SkipButton"]
+layout_mode = 2
+script = ExtResource("9_bkjnq")

@@ -1,9 +1,9 @@
-VBoxContainer
-Label
 Button
+Label
+PanelContainer
+VBoxContainer
 Sprite2D
 Control
-PanelContainer
 HBoxContainer
 CheckBox
 CheckButton

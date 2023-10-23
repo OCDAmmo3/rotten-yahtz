@@ -2,7 +2,11 @@ res://default_env.tres
 res://Combat.tscn
 res://diceScenes/dicePossibilities/DiceSelectable.tscn
 res://diceScenes/dicePossibilities/DiceRemovalSelectable.tscn
-res://characterScenes/player/Player.gd
 res://diceScenes/diceSelectionScenes/DiceRemovalSelection.tscn
-res://DiceRemovalSelector.gd
+res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd
+res://diceScenes/diceSelectionScenes/DiceRemovalSelectable.tscn
 res://DiceRemovalSelection.gd
+res://SkipButtonButton.gd
+res://characterScenes/player/Player.gd
+res://diceScenes/diceSelectionScenes/DiceSelectionWindow.tscn
+res://playerControls/diceSelectionMenu/SelectButton.gd
