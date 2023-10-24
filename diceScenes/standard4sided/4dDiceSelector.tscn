@@ -1,14 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://bt03dpeksl2s5"]
+[gd_scene load_steps=9 format=3 uid="uid://bt03dpeksl2s5"]
 
 [ext_resource type="Script" path="res://diceScenes/DiceSelector.gd" id="1_i135h"]
-[ext_resource type="Texture2D" uid="uid://cd20hy6byo8gi" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-1.png" id="2_qixoh"]
-[ext_resource type="Texture2D" uid="uid://bej0ekkaervah" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-1-ud.png" id="3_7vjv2"]
-[ext_resource type="Texture2D" uid="uid://c1fn1v0i01051" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-2.png" id="4_vjgs0"]
-[ext_resource type="Texture2D" uid="uid://cnkeccxiv8rso" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-2-ud.png" id="5_ue7ev"]
-[ext_resource type="Texture2D" uid="uid://brqdta312ajw6" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-3.png" id="6_42rap"]
-[ext_resource type="Texture2D" uid="uid://buihu2v88q30x" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-3-ud.png" id="7_rg7i1"]
-[ext_resource type="Texture2D" uid="uid://dnabypxhnkh3d" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-4.png" id="8_j55ll"]
-[ext_resource type="Texture2D" uid="uid://bbhrsx5stvd11" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-4-ud.png" id="9_f707t"]
+[ext_resource type="Texture2D" uid="uid://bkpnnnncs74fj" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-1.png" id="2_qixoh"]
+[ext_resource type="Texture2D" uid="uid://cbdgf5gntp1no" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-2.png" id="4_vjgs0"]
+[ext_resource type="Texture2D" uid="uid://biqb7hkclgl4j" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-3.png" id="6_42rap"]
+[ext_resource type="Texture2D" uid="uid://c8n4synu67nxl" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-4.png" id="8_j55ll"]
 [ext_resource type="Script" path="res://diceScenes/standard4sided/Animated4dDice.gd" id="10_l5jat"]
 [ext_resource type="Script" path="res://diceScenes/SelectDice.gd" id="11_ingi2"]
 
@@ -19,25 +15,13 @@ animations = [{
 "texture": ExtResource("2_qixoh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_7vjv2")
-}, {
-"duration": 1.0,
 "texture": ExtResource("4_vjgs0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_ue7ev")
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_42rap")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_rg7i1")
-}, {
-"duration": 1.0,
 "texture": ExtResource("8_j55ll")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_f707t")
 }],
 "loop": true,
 "name": &"Dice rolling",
@@ -49,7 +33,9 @@ script = ExtResource("1_i135h")
 
 [node name="CheckButton" type="CheckButton" parent="."]
 modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
 show_behind_parent = true
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("11_ingi2")
 
@@ -62,8 +48,8 @@ script = ExtResource("11_ingi2")
 [node name="Symbol" type="Node2D" parent="DiceRoll/DiceVisual"]
 
 [node name="AnimatedDice" type="AnimatedSprite2D" parent="DiceRoll/DiceVisual/Symbol"]
-position = Vector2(-21, -31)
-scale = Vector2(0.186, 0.186)
+position = Vector2(0, -4)
+scale = Vector2(0.117188, 0.13)
 sprite_frames = SubResource("SpriteFrames_ahwc5")
 animation = &"Dice rolling"
 centered = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bej0ekkaervah"
-path="res://.godot/imported/4-sided-1-ud.png-47ac5e8f6aea90876f51d12c7942ec72.ctex"
+uid="uid://fx2taxleokfh"
+path="res://.godot/imported/gutter_rat_0.png-74beeeff5bbe96576a94286016c63f50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://diceScenes/assets/diceFaceImages/d4/4-sided-1-ud.png"
-dest_files=["res://.godot/imported/4-sided-1-ud.png-47ac5e8f6aea90876f51d12c7942ec72.ctex"]
+source_file="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_0.png"
+dest_files=["res://.godot/imported/gutter_rat_0.png-74beeeff5bbe96576a94286016c63f50.ctex"]
 
 [params]
 
