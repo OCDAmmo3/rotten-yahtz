@@ -1,13 +1,32 @@
-[gd_scene load_steps=21 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=40 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
+[ext_resource type="Texture2D" uid="uid://b3fbfrlbmytix" path="res://characterScenes/assets/scoring/PlayerScorecard.png" id="3_rt2d2"]
 [ext_resource type="Script" path="res://characterScenes/enemies/Enemy.gd" id="4_eumfb"]
 [ext_resource type="Script" path="res://playerControls/RollButton.gd" id="4_nj5ko"]
 [ext_resource type="Texture2D" uid="uid://fx2taxleokfh" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_0.png" id="4_np0v7"]
 [ext_resource type="Texture2D" uid="uid://cce8h5ofdya7d" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_1.png" id="5_0jta0"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
 [ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
+[ext_resource type="Texture2D" uid="uid://dr5p2ceuqwfwa" path="res://characterScenes/assets/scoring/scoring_ones.png" id="10_8pfsm"]
+[ext_resource type="Texture2D" uid="uid://wchucs6o6e0y" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="11_h5jbr"]
+[ext_resource type="Texture2D" uid="uid://bxwhixxm0b0qo" path="res://characterScenes/assets/scoring/scoring_fives.png" id="12_loa5u"]
+[ext_resource type="Texture2D" uid="uid://ckkfarax31scv" path="res://characterScenes/assets/scoring/scoring_sixes.png" id="13_d2oud"]
+[ext_resource type="Texture2D" uid="uid://cs4m6pxalr3wh" path="res://diceScenes/assets/diceFaceImages/d6/dice-5.png" id="13_p38l5"]
+[ext_resource type="Texture2D" uid="uid://db80hy6w2uofg" path="res://characterScenes/assets/scoring/scoring_fours.png" id="14_hw5og"]
+[ext_resource type="Texture2D" uid="uid://bciarv2nhmwaq" path="res://characterScenes/assets/scoring/scoring_twos.png" id="15_2ywhp"]
+[ext_resource type="Texture2D" uid="uid://dkdl0jt261gtb" path="res://diceScenes/assets/diceFaceImages/d6/dice-6.png" id="15_lo4kg"]
+[ext_resource type="Texture2D" uid="uid://ncj45r4ki4yk" path="res://characterScenes/assets/scoring/scoring_threes.png" id="16_lmbi6"]
+[ext_resource type="Texture2D" uid="uid://bwvutmkcv3pgy" path="res://diceScenes/assets/diceFaceImages/d6/dice-4.png" id="17_bw6cb"]
+[ext_resource type="Texture2D" uid="uid://cixwlwjuh7xvq" path="res://diceScenes/assets/diceFaceImages/d6/dice-2.png" id="19_4qe27"]
+[ext_resource type="Texture2D" uid="uid://cuxcu8aor5y65" path="res://diceScenes/assets/diceFaceImages/d6/dice-3.png" id="21_2532l"]
+[ext_resource type="Texture2D" uid="uid://dl87c78b6rux2" path="res://characterScenes/assets/scoring/scoring_score.png" id="22_83yis"]
+[ext_resource type="Texture2D" uid="uid://b8i6t8quxdpck" path="res://characterScenes/assets/scoring/scoring_total.png" id="23_1urg3"]
+[ext_resource type="Texture2D" uid="uid://bipksk74snrde" path="res://characterScenes/assets/scoring/scoring_bonus.png" id="24_w8wdy"]
+[ext_resource type="Texture2D" uid="uid://cvvsuqj8q86ro" path="res://characterScenes/assets/scoring/scoring_lower.png" id="25_7hqrj"]
+[ext_resource type="Texture2D" uid="uid://b1i3jen4nmmir" path="res://characterScenes/assets/scoring/scoring_section.png" id="26_2g8va"]
+[ext_resource type="Texture2D" uid="uid://soovmr0kx8hm" path="res://characterScenes/assets/scoring/scoring_upper.png" id="27_c3ogq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
 load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
@@ -95,6 +114,7 @@ bg_color = Color(0.721569, 0.215686, 0.192157, 1)
 script = ExtResource("2")
 
 [node name="Observable" type="Node2D" parent="."]
+visible = false
 
 [node name="Player" type="Node2D" parent="Observable"]
 position = Vector2(168, 206)
@@ -143,6 +163,7 @@ value = 100.0
 script = ExtResource("7_48lcp")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -179,3 +200,115 @@ script = ExtResource("5_5yqr3")
 [node name="AddDiceButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
 text = "Add Dice"
+
+[node name="PlayerScorecard" type="PanelContainer" parent="."]
+offset_left = 168.0
+offset_top = 206.0
+offset_right = 208.0
+offset_bottom = 246.0
+
+[node name="ScorecardSelectionGrid" type="GridContainer" parent="PlayerScorecard"]
+layout_mode = 2
+
+[node name="ScorecardBackground" type="Sprite2D" parent="PlayerScorecard"]
+position = Vector2(-178, -206)
+scale = Vector2(0.631836, 0.631836)
+texture = ExtResource("3_rt2d2")
+centered = false
+
+[node name="ScoringOnes" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 398.046)
+scale = Vector2(0.388607, 0.388607)
+texture = ExtResource("10_8pfsm")
+
+[node name="Dice-1" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringOnes"]
+position = Vector2(215.854, -16.2905)
+scale = Vector2(0.318181, 0.318181)
+texture = ExtResource("11_h5jbr")
+
+[node name="ScoringFives" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 781.057)
+scale = Vector2(0.388606, 0.388606)
+texture = ExtResource("12_loa5u")
+
+[node name="Dice-5" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringFives"]
+position = Vector2(215.854, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("13_p38l5")
+
+[node name="ScoringSixes" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 877.601)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("13_d2oud")
+
+[node name="Dice-6" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringSixes"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("15_lo4kg")
+
+[node name="ScoringFours" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 686.096)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("14_hw5og")
+
+[node name="Dice-4" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringFours"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("17_bw6cb")
+
+[node name="ScoringTwos" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 494.591)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("15_2ywhp")
+
+[node name="Dice-2" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringTwos"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("19_4qe27")
+
+[node name="ScoringThrees" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 589.552)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("16_lmbi6")
+
+[node name="Dice-3" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringThrees"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("21_2532l")
+
+[node name="ScoringScore" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 973.354)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("22_83yis")
+
+[node name="ScoringTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringScore"]
+position = Vector2(728.281, 0)
+texture = ExtResource("23_1urg3")
+
+[node name="ScoringBonus" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1069.9)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("24_w8wdy")
+
+[node name="ScoringTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1166.44)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("23_1urg3")
+
+[node name="ScoringLower" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1262.99)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("25_7hqrj")
+
+[node name="ScoringSection" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringLower"]
+position = Vector2(780, 6.10352e-05)
+texture = ExtResource("26_2g8va")
+
+[node name="ScoringUpper" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 303.876)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("27_c3ogq")
+
+[node name="ScoringSection" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringUpper"]
+position = Vector2(780, 6.10352e-05)
+texture = ExtResource("26_2g8va")
