@@ -97,20 +97,21 @@ script = ExtResource("2")
 [node name="Observable" type="Node2D" parent="."]
 
 [node name="Player" type="Node2D" parent="Observable"]
+position = Vector2(168, 206)
 script = ExtResource("2_t5hs3")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Observable/Player"]
-position = Vector2(183, 429)
+position = Vector2(105, 236)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1j1vr")
 animation = &"Player groove"
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="Observable/Player"]
 custom_minimum_size = Vector2(100, 10)
-offset_left = 124.0
-offset_top = 292.0
-offset_right = 224.0
-offset_bottom = 319.0
+offset_left = 46.0
+offset_top = 103.0
+offset_right = 146.0
+offset_bottom = 130.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
@@ -119,21 +120,21 @@ value = 100.0
 script = SubResource("GDScript_lkdbd")
 
 [node name="Enemy" type="Node2D" parent="Observable"]
-position = Vector2(840, 0)
+position = Vector2(818, 206)
 script = ExtResource("4_eumfb")
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="Observable/Enemy"]
-position = Vector2(60, 470)
+position = Vector2(84, 286)
 scale = Vector2(0.320313, 0.320313)
 sprite_frames = SubResource("SpriteFrames_tcjcl")
 animation = &"Groove"
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="Observable/Enemy"]
 custom_minimum_size = Vector2(100, 10)
-offset_left = 14.0
-offset_top = 351.0
-offset_right = 114.0
-offset_bottom = 378.0
+offset_left = 38.0
+offset_top = 163.0
+offset_right = 138.0
+offset_bottom = 190.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_sl2c0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pq5ul")

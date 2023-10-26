@@ -1,69 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://iw28jybbrohc"]
+[gd_scene load_steps=4 format=3 uid="uid://cstyh1c8756ia"]
 
 [ext_resource type="Script" path="res://diceScenes/DiceSelector.gd" id="1_25dxl"]
-[ext_resource type="Texture2D" uid="uid://474xq2jcl5u2" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="2_ym3op"]
-[ext_resource type="Texture2D" uid="uid://diybatq1nk2av" path="res://diceScenes/assets/diceFaceImages/d6/dice-2.png" id="3_s80yv"]
-[ext_resource type="Texture2D" uid="uid://bkwyxp434idj1" path="res://diceScenes/assets/diceFaceImages/d6/dice-3.png" id="4_bc5xm"]
-[ext_resource type="Texture2D" uid="uid://djc6atie6w5hs" path="res://diceScenes/assets/diceFaceImages/d6/dice-4.png" id="5_vgbih"]
-[ext_resource type="Texture2D" uid="uid://b7kf5nvibe8xd" path="res://diceScenes/assets/diceFaceImages/d6/dice-5.png" id="6_0x4j5"]
-[ext_resource type="Texture2D" uid="uid://f7w1dikel4oi" path="res://diceScenes/assets/diceFaceImages/d6/dice-6.png" id="7_s6mnh"]
-[ext_resource type="Script" path="res://diceScenes/standard6sided/Animated6dDice.gd" id="8_qaj1w"]
+[ext_resource type="PackedScene" uid="uid://cgan5glhm2vxv" path="res://diceScenes/standard6sided/6dDiceRoller.tscn" id="2_rmotu"]
 [ext_resource type="Script" path="res://diceScenes/SelectDice.gd" id="9_0tawq"]
 
-[sub_resource type="SpriteFrames" id="1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_ym3op")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_s80yv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_bc5xm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_vgbih")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_0x4j5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_s6mnh")
-}],
-"loop": true,
-"name": &"Dice rolling",
-"speed": 20.0
-}]
-
-[node name="DiceSelector" type="PanelContainer"]
-custom_minimum_size = Vector2(62, 62)
-offset_right = 62.0
-offset_bottom = 62.0
+[node name="6dDiceSelector" type="PanelContainer"]
+offset_right = 60.0
+offset_bottom = 60.0
 script = ExtResource("1_25dxl")
 
 [node name="CheckButton" type="CheckButton" parent="."]
 modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("9_0tawq")
 
-[node name="DiceRoll" type="Node2D" parent="."]
-
-[node name="DiceVisual" type="Node2D" parent="DiceRoll"]
-
-[node name="Background" type="Node2D" parent="DiceRoll/DiceVisual"]
-
-[node name="Symbol" type="Node2D" parent="DiceRoll/DiceVisual"]
-
-[node name="AnimatedDice" type="AnimatedSprite2D" parent="DiceRoll/DiceVisual/Symbol"]
-scale = Vector2(0.118164, 0.118164)
-sprite_frames = SubResource("1")
-animation = &"Dice rolling"
-centered = false
-script = ExtResource("8_qaj1w")
-timer_upper_bound = 3.0
-
-[node name="Timer" type="Timer" parent="DiceRoll/DiceVisual/Symbol/AnimatedDice"]
-wait_time = 2.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DiceRoll/DiceVisual"]
+[node name="DiceRoll" parent="." instance=ExtResource("2_rmotu")]
+layout_mode = 2

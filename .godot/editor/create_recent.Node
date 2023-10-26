@@ -1,9 +1,9 @@
+Node2D
+PanelContainer
 ProgressBar
 AnimatedSprite2D
-Node2D
 Button
 Label
-PanelContainer
 VBoxContainer
 Sprite2D
 Control

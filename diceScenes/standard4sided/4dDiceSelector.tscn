@@ -1,32 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bt03dpeksl2s5"]
+[gd_scene load_steps=4 format=3 uid="uid://bt03dpeksl2s5"]
 
 [ext_resource type="Script" path="res://diceScenes/DiceSelector.gd" id="1_i135h"]
-[ext_resource type="Texture2D" uid="uid://bkpnnnncs74fj" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-1.png" id="2_qixoh"]
-[ext_resource type="Texture2D" uid="uid://cbdgf5gntp1no" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-2.png" id="4_vjgs0"]
-[ext_resource type="Texture2D" uid="uid://biqb7hkclgl4j" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-3.png" id="6_42rap"]
-[ext_resource type="Texture2D" uid="uid://c8n4synu67nxl" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-4.png" id="8_j55ll"]
-[ext_resource type="Script" path="res://diceScenes/standard4sided/Animated4dDice.gd" id="10_l5jat"]
+[ext_resource type="PackedScene" uid="uid://b4uifkvp7ck6y" path="res://diceScenes/standard4sided/4dDiceRoller.tscn" id="3_d7ra6"]
 [ext_resource type="Script" path="res://diceScenes/SelectDice.gd" id="11_ingi2"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ahwc5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_qixoh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_vjgs0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_42rap")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_j55ll")
-}],
-"loop": true,
-"name": &"Dice rolling",
-"speed": 20.0
-}]
 
 [node name="FourSidedDice" type="PanelContainer"]
 script = ExtResource("1_i135h")
@@ -39,23 +15,4 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("11_ingi2")
 
-[node name="DiceRoll" type="Node2D" parent="."]
-
-[node name="DiceVisual" type="Node2D" parent="DiceRoll"]
-
-[node name="Background" type="Node2D" parent="DiceRoll/DiceVisual"]
-
-[node name="Symbol" type="Node2D" parent="DiceRoll/DiceVisual"]
-
-[node name="AnimatedDice" type="AnimatedSprite2D" parent="DiceRoll/DiceVisual/Symbol"]
-position = Vector2(0, -4)
-scale = Vector2(0.117188, 0.13)
-sprite_frames = SubResource("SpriteFrames_ahwc5")
-animation = &"Dice rolling"
-centered = false
-script = ExtResource("10_l5jat")
-
-[node name="Timer" type="Timer" parent="DiceRoll/DiceVisual/Symbol/AnimatedDice"]
-wait_time = 2.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DiceRoll/DiceVisual"]
+[node name="DiceRoll" parent="." instance=ExtResource("3_d7ra6")]

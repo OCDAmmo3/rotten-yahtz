@@ -25,8 +25,7 @@ func _load_dice():
 		add_dice(new_dice)
 
 func _load_dice_pool():
-	var control = get_node("/root/BattleRollScene/Control/")
-	control.add_child(dice_pool)
+	add_child(dice_pool)
 
 func on_add_dice_pressed():
 	var dice_selection = dice_selection_window.instantiate()
