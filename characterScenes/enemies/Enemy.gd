@@ -8,6 +8,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var health_points = 100
 @onready var enemy_health_bar = get_node("/root/BattleRollScene/Observable/Enemy/EnemyHealthBar/")
 @onready var MAX_HEALTH = enemy_health_bar.get_max_health()
+@onready var _roll_count = 3
 
 func _ready():
 	enemy_sprite.play("Groove")
@@ -29,3 +30,9 @@ func add_dice(new_dice):
 
 func _remove_dice(selected_dice):
 	dice_pool.remove_child(selected_dice)
+
+func get_roll_count():
+	return _roll_count
+
+func roll_used():
+	_roll_count = _roll_count - 1
