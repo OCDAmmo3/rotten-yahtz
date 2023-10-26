@@ -17,4 +17,3 @@ layout_mode = 2
 script = ExtResource("9_0tawq")
 
 [node name="DiceRoll" parent="." instance=ExtResource("2_rmotu")]
-layout_mode = 2

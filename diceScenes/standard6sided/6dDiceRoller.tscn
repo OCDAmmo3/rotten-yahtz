@@ -34,7 +34,9 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="DiceRoll" type="Node2D"]
+[node name="DiceRoll" type="PanelContainer"]
+custom_minimum_size = Vector2(60, 60)
+mouse_filter = 2
 
 [node name="DiceVisual" type="Node2D" parent="."]
 
@@ -48,7 +50,6 @@ sprite_frames = SubResource("1")
 animation = &"Dice rolling"
 centered = false
 script = ExtResource("7_p5dnt")
-timer_upper_bound = 3.0
 
 [node name="Timer" type="Timer" parent="DiceVisual/Symbol/AnimatedDice"]
 wait_time = 2.0

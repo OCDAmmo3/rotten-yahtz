@@ -26,7 +26,8 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="DiceRoll" type="Node2D"]
+[node name="DiceRoll" type="PanelContainer"]
+mouse_filter = 2
 
 [node name="DiceVisual" type="Node2D" parent="."]
 

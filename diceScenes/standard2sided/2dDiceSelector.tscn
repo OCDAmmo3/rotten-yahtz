@@ -1,97 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://cqc33euvvhmac"]
+[gd_scene load_steps=4 format=3 uid="uid://cqc33euvvhmac"]
 
 [ext_resource type="Script" path="res://diceScenes/DiceSelector.gd" id="1_h5w6k"]
-[ext_resource type="Texture2D" uid="uid://bxrj45k64av0y" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_3.png" id="2_5mhph"]
-[ext_resource type="Texture2D" uid="uid://c6k7rynf8mtgd" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_2.png" id="3_sn6t6"]
-[ext_resource type="Texture2D" uid="uid://btky1pqoseo8m" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_1.png" id="4_rv6kp"]
-[ext_resource type="Texture2D" uid="uid://c843farh0k7lu" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_0.png" id="5_rwii3"]
-[ext_resource type="Texture2D" uid="uid://d1rxwd3pf5310" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_4.png" id="6_4g1ac"]
-[ext_resource type="Texture2D" uid="uid://dtgi5vddxasr3" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_8.png" id="7_81qq8"]
-[ext_resource type="Texture2D" uid="uid://d10tngxvcvowq" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_7.png" id="8_bq2xv"]
-[ext_resource type="Texture2D" uid="uid://chhowxupseg6a" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_6.png" id="9_2nv2u"]
-[ext_resource type="Texture2D" uid="uid://bctnlc6efnol1" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_5.png" id="10_cnchc"]
-[ext_resource type="Script" path="res://diceScenes/standard2sided/Animated2dDice.gd" id="11_1yqrn"]
+[ext_resource type="PackedScene" uid="uid://c8fapqvagm1co" path="res://diceScenes/standard2sided/2dDiceRoller.tscn" id="3_sl2dq"]
 [ext_resource type="Script" path="res://diceScenes/SelectDice.gd" id="12_ds708"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_wojgj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_5mhph")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_sn6t6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_rv6kp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_rwii3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_4g1ac")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_81qq8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_bq2xv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_2nv2u")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_cnchc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_2nv2u")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_bq2xv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_81qq8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_4g1ac")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_rwii3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_rv6kp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_sn6t6")
-}],
-"loop": true,
-"name": &"Dice rolling",
-"speed": 45.0
-}]
 
 [node name="DiceSelector" type="PanelContainer"]
 script = ExtResource("1_h5w6k")
-
-[node name="DiceRoll" type="Node2D" parent="."]
-
-[node name="DiceVisual" type="Node2D" parent="DiceRoll"]
-
-[node name="Background" type="Node2D" parent="DiceRoll/DiceVisual"]
-
-[node name="Symbol" type="Node2D" parent="DiceRoll/DiceVisual"]
-
-[node name="AnimatedDice" type="AnimatedSprite2D" parent="DiceRoll/DiceVisual/Symbol"]
-scale = Vector2(0.121094, 0.121094)
-sprite_frames = SubResource("SpriteFrames_wojgj")
-animation = &"Dice rolling"
-centered = false
-script = ExtResource("11_1yqrn")
-
-[node name="Timer" type="Timer" parent="DiceRoll/DiceVisual/Symbol/AnimatedDice"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DiceRoll/DiceVisual/Symbol"]
 
 [node name="CheckButton" type="CheckButton" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 script = ExtResource("12_ds708")
+
+[node name="DiceRoll" parent="." instance=ExtResource("3_sl2dq")]
+layout_mode = 2

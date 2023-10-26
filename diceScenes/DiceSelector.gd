@@ -8,7 +8,6 @@ func roll_dice_if_selected():
 		return await dice_sprite.roll_dice()
 
 func on_selected(toggled):
-	print("still hitting here")
 	_selected = toggled
 
 func get_dice_name():
