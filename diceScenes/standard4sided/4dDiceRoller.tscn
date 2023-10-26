@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4uifkvp7ck6y"]
+
+[ext_resource type="Texture2D" uid="uid://bkpnnnncs74fj" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-1.png" id="1_d7bgr"]
+[ext_resource type="Texture2D" uid="uid://cbdgf5gntp1no" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-2.png" id="2_ifabx"]
+[ext_resource type="Texture2D" uid="uid://biqb7hkclgl4j" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-3.png" id="3_rnvo2"]
+[ext_resource type="Texture2D" uid="uid://c8n4synu67nxl" path="res://diceScenes/assets/diceFaceImages/d4/4-sided-4.png" id="4_2su4q"]
+[ext_resource type="Script" path="res://diceScenes/standard4sided/Animated4dDice.gd" id="5_bi43i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ahwc5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_d7bgr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ifabx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rnvo2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2su4q")
+}],
+"loop": true,
+"name": &"Dice rolling",
+"speed": 20.0
+}]
+
+[node name="DiceRoll" type="PanelContainer"]
+mouse_filter = 2
+
+[node name="DiceVisual" type="Node2D" parent="."]
+
+[node name="Background" type="Node2D" parent="DiceVisual"]
+
+[node name="Symbol" type="Node2D" parent="DiceVisual"]
+
+[node name="AnimatedDice" type="AnimatedSprite2D" parent="DiceVisual/Symbol"]
+position = Vector2(0, -4)
+scale = Vector2(0.117188, 0.13)
+sprite_frames = SubResource("SpriteFrames_ahwc5")
+animation = &"Dice rolling"
+centered = false
+script = ExtResource("5_bi43i")
+
+[node name="Timer" type="Timer" parent="DiceVisual/Symbol/AnimatedDice"]
+wait_time = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DiceVisual"]

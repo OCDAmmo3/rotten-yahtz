@@ -7,10 +7,17 @@ var _dice_name = "D2"
 
 signal roll_finished
 
+func _ready():
+	timer.connect("timeout", Callable(self, "_stop_roll_animation"))
+
+func roll_dice():
+	play_roll_animation()
+	await roll_finished
+	return get_rolled_value()
+
 func play_roll_animation():
 	play("Dice rolling")
 	timer.wait_time = randf_range(timer_lower_bound, timer_upper_bound)
-	timer.connect("timeout", Callable(self, "_stop_roll_animation"))
 	timer.start()
 
 func _stop_roll_animation():

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b707drcc80rbr"]
+
+[node name="DicePoolContainer" type="MarginContainer"]
+
+[node name="DicePool" type="HBoxContainer" parent="."]
+layout_mode = 2
