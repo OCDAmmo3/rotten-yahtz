@@ -59,6 +59,12 @@ var lower_score_options = [
 		"sprite": null,
 		"score_function": Callable(score_some_of_a_kind).bind(4),
 		"tooltip": "Add total of all dice, 4 of a kind each count three times"
+	},
+	{
+		"label": "Full House",
+		"sprite": null,
+		"score_function": Callable(score_full_house).bind(),
+		"tooltip": "Double score for top 3, heal for bottom 2"
 	}
 ]
 
@@ -140,6 +146,22 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 	
 	total_lower_score += score
 	set_total_lower_score()
+
+func score_full_house(score_option_node):
+	var score = 0
+	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
+	var has_three_of_a_kind = player_dice_pool.get_children().map(func(dice):
+		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
+	).filter(func(value):
+		has_dice_times[value] += 1
+		
+		return has_dice_times[value] >= 3
+	)
+	if has_three_of_a_kind.size() > 0:
+		score = player_dice_pool.get_children().reduce((func(accum, dice):
+			var dice_value = dice.find_child("AnimatedDice", true, false).get_rolled_value()
+			return accum + dice_value * 2 if has_three_of_a_kind.has(dice_value) else accum + dice_value
+		), 0)
 
 func set_total_upper_score():
 	upper_score_option_row.find_child("Right").text = str(total_upper_score)
