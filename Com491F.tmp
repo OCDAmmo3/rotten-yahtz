@@ -1,0 +1,424 @@
+[gd_scene load_steps=49 format=3 uid="uid://cyqibwcbiv7kp"]
+
+[ext_resource type="Script" path="res://Combat.gd" id="2"]
+[ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
+[ext_resource type="Texture2D" uid="uid://b3fbfrlbmytix" path="res://characterScenes/assets/scoring/PlayerScorecard.png" id="3_rt2d2"]
+[ext_resource type="Script" path="res://characterScenes/enemies/Enemy.gd" id="4_eumfb"]
+[ext_resource type="Script" path="res://playerControls/RollButton.gd" id="4_nj5ko"]
+[ext_resource type="Texture2D" uid="uid://fx2taxleokfh" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_0.png" id="4_np0v7"]
+[ext_resource type="Texture2D" uid="uid://cce8h5ofdya7d" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_1.png" id="5_0jta0"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
+[ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
+[ext_resource type="Texture2D" uid="uid://dr5p2ceuqwfwa" path="res://characterScenes/assets/scoring/scoring_ones.png" id="10_8pfsm"]
+[ext_resource type="Texture2D" uid="uid://wchucs6o6e0y" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="11_h5jbr"]
+[ext_resource type="Texture2D" uid="uid://bxwhixxm0b0qo" path="res://characterScenes/assets/scoring/scoring_fives.png" id="12_loa5u"]
+[ext_resource type="Texture2D" uid="uid://ckkfarax31scv" path="res://characterScenes/assets/scoring/scoring_sixes.png" id="13_d2oud"]
+[ext_resource type="Texture2D" uid="uid://cs4m6pxalr3wh" path="res://diceScenes/assets/diceFaceImages/d6/dice-5.png" id="13_p38l5"]
+[ext_resource type="Texture2D" uid="uid://db80hy6w2uofg" path="res://characterScenes/assets/scoring/scoring_fours.png" id="14_hw5og"]
+[ext_resource type="Texture2D" uid="uid://bciarv2nhmwaq" path="res://characterScenes/assets/scoring/scoring_twos.png" id="15_2ywhp"]
+[ext_resource type="Texture2D" uid="uid://dkdl0jt261gtb" path="res://diceScenes/assets/diceFaceImages/d6/dice-6.png" id="15_lo4kg"]
+[ext_resource type="Texture2D" uid="uid://ncj45r4ki4yk" path="res://characterScenes/assets/scoring/scoring_threes.png" id="16_lmbi6"]
+[ext_resource type="Texture2D" uid="uid://bwvutmkcv3pgy" path="res://diceScenes/assets/diceFaceImages/d6/dice-4.png" id="17_bw6cb"]
+[ext_resource type="Texture2D" uid="uid://cixwlwjuh7xvq" path="res://diceScenes/assets/diceFaceImages/d6/dice-2.png" id="19_4qe27"]
+[ext_resource type="Texture2D" uid="uid://cuxcu8aor5y65" path="res://diceScenes/assets/diceFaceImages/d6/dice-3.png" id="21_2532l"]
+[ext_resource type="Texture2D" uid="uid://dl87c78b6rux2" path="res://characterScenes/assets/scoring/scoring_score.png" id="22_83yis"]
+[ext_resource type="Texture2D" uid="uid://b8i6t8quxdpck" path="res://characterScenes/assets/scoring/scoring_total.png" id="23_1urg3"]
+[ext_resource type="Texture2D" uid="uid://bipksk74snrde" path="res://characterScenes/assets/scoring/scoring_bonus.png" id="24_w8wdy"]
+[ext_resource type="Texture2D" uid="uid://cvvsuqj8q86ro" path="res://characterScenes/assets/scoring/scoring_lower.png" id="25_7hqrj"]
+[ext_resource type="Texture2D" uid="uid://b1i3jen4nmmir" path="res://characterScenes/assets/scoring/scoring_section.png" id="26_2g8va"]
+[ext_resource type="Texture2D" uid="uid://soovmr0kx8hm" path="res://characterScenes/assets/scoring/scoring_upper.png" id="27_c3ogq"]
+[ext_resource type="Texture2D" uid="uid://cxks2lpcb3org" path="res://characterScenes/assets/scoring/scoring_3oak.png" id="28_x7lmt"]
+[ext_resource type="Texture2D" uid="uid://b7rijyupyykkq" path="res://characterScenes/assets/scoring/scoring_4oak.png" id="29_dyv4b"]
+[ext_resource type="Texture2D" uid="uid://cuu4sft8gyr6f" path="res://characterScenes/assets/scoring/scoring_full.png" id="30_svmys"]
+[ext_resource type="Texture2D" uid="uid://ckd77fx568s06" path="res://characterScenes/assets/scoring/scoring_smstr.png" id="31_3bhn0"]
+[ext_resource type="Texture2D" uid="uid://bygxb8c1fraq1" path="res://characterScenes/assets/scoring/scoring_lgstr.png" id="32_eg25q"]
+[ext_resource type="Texture2D" uid="uid://byvtscbtso7am" path="res://characterScenes/assets/scoring/scoring_yahtz.png" id="33_i7y2b"]
+[ext_resource type="Texture2D" uid="uid://cwlghd8jnjbxy" path="res://characterScenes/assets/scoring/scoring_chance.png" id="34_stoab"]
+[ext_resource type="Texture2D" uid="uid://c55yf5u5hfs60" path="res://characterScenes/assets/scoring/scoring_grand.png" id="35_mhgwv"]
+[ext_resource type="Script" path="res://GridContainer.gd" id="36_two6t"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
+load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_80cug"]
+load_path = "res://.godot/imported/player_sprite_1.png-1d8dca62f7c732071931f31f89cb489f.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qjs81"]
+load_path = "res://.godot/imported/player_sprite_2.png-62cbd1eb0756a9ddc6e531c7511fa754.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l3wpt"]
+load_path = "res://.godot/imported/player_sprite_4.png-d3265bca8ae962296595932adbd23a0c.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1j1vr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_lk6lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_80cug")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_qjs81")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_l3wpt")
+}],
+"loop": true,
+"name": &"Player groove",
+"speed": 4.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_887lp"]
+bg_color = Color(0, 0.0235294, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knc8e"]
+bg_color = Color(0, 0.607843, 0.192157, 1)
+
+[sub_resource type="GDScript" id="GDScript_lkdbd"]
+script/source = "extends ProgressBar
+
+func heal_player(amount_to_heal):
+	var current_health = get_current_health()
+	self.value = current_health + amount_to_heal
+
+func lose_health(amount_to_lose):
+	var current_health = get_current_health()
+	self.value = current_health - amount_to_lose
+
+func get_current_health():
+	return self.value
+
+func get_max_health():
+	return self.max_value
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tcjcl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_np0v7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0jta0")
+}],
+"loop": true,
+"name": &"Groove",
+"speed": 2.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl2c0"]
+bg_color = Color(0.721569, 0.215686, 0.192157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pq5ul"]
+bg_color = Color(0.721569, 0.215686, 0.192157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udrcq"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="BattleRollScene" type="Node"]
+script = ExtResource("2")
+
+[node name="Observable" type="Node2D" parent="."]
+
+[node name="Player" type="Node2D" parent="Observable"]
+position = Vector2(168, 206)
+script = ExtResource("2_t5hs3")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="Observable/Player"]
+position = Vector2(105, 236)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1j1vr")
+animation = &"Player groove"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="Observable/Player"]
+custom_minimum_size = Vector2(100, 10)
+offset_left = 46.0
+offset_top = 103.0
+offset_right = 146.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
+step = 1.0
+value = 100.0
+script = SubResource("GDScript_lkdbd")
+
+[node name="Enemy" type="Node2D" parent="Observable"]
+position = Vector2(818, 206)
+script = ExtResource("4_eumfb")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="Observable/Enemy"]
+position = Vector2(84, 286)
+scale = Vector2(0.320313, 0.320313)
+sprite_frames = SubResource("SpriteFrames_tcjcl")
+animation = &"Groove"
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="Observable/Enemy"]
+custom_minimum_size = Vector2(100, 10)
+offset_left = 38.0
+offset_top = 163.0
+offset_right = 138.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_sl2c0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pq5ul")
+step = 1.0
+value = 100.0
+script = ExtResource("7_48lcp")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerControls" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 551.0
+offset_right = 510.0
+offset_bottom = 591.0
+
+[node name="GameplayButtons" type="VBoxContainer" parent="Control/PlayerControls"]
+layout_mode = 2
+
+[node name="RollButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
+layout_mode = 2
+
+[node name="RollButton" type="Button" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
+layout_mode = 2
+script = ExtResource("4_nj5ko")
+
+[node name="RollButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
+layout_mode = 2
+text = "Roll"
+
+[node name="AddDiceButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
+layout_mode = 2
+
+[node name="AddDiceButton" type="Button" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
+layout_mode = 2
+script = ExtResource("5_5yqr3")
+
+[node name="AddDiceButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
+layout_mode = 2
+text = "Add Dice"
+
+[node name="PlayerScorecard" type="PanelContainer" parent="."]
+offset_left = 187.0
+offset_top = 205.0
+offset_right = 227.0
+offset_bottom = 245.0
+
+[node name="ScorecardBackground" type="Sprite2D" parent="PlayerScorecard"]
+position = Vector2(408, -206)
+scale = Vector2(0.263021, 0.262891)
+texture = ExtResource("3_rt2d2")
+centered = false
+
+[node name="ScoringOnes" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 398.046)
+scale = Vector2(0.388607, 0.388607)
+texture = ExtResource("10_8pfsm")
+
+[node name="Dice-1" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringOnes"]
+position = Vector2(215.854, -16.2905)
+scale = Vector2(0.318181, 0.318181)
+texture = ExtResource("11_h5jbr")
+
+[node name="ScoringTwos" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 494.591)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("15_2ywhp")
+
+[node name="Dice-2" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringTwos"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("19_4qe27")
+
+[node name="ScoringThrees" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 589.552)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("16_lmbi6")
+
+[node name="Dice-3" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringThrees"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("21_2532l")
+
+[node name="ScoringFours" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 686.096)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("14_hw5og")
+
+[node name="Dice-4" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringFours"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("17_bw6cb")
+
+[node name="ScoringFives" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 781.057)
+scale = Vector2(0.388606, 0.388606)
+texture = ExtResource("12_loa5u")
+
+[node name="Dice-5" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringFives"]
+position = Vector2(215.854, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("13_p38l5")
+
+[node name="ScoringSixes" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 877.601)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("13_d2oud")
+
+[node name="Dice-6" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringSixes"]
+position = Vector2(215.887, -16.291)
+scale = Vector2(0.318, 0.318)
+texture = ExtResource("15_lo4kg")
+
+[node name="ScoringScore" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 973.354)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("22_83yis")
+
+[node name="ScoringTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringScore"]
+position = Vector2(728.281, 0)
+texture = ExtResource("23_1urg3")
+
+[node name="ScoringBonus" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1069.9)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("24_w8wdy")
+
+[node name="ScoringTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1166.44)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("23_1urg3")
+
+[node name="ScoringLower" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1262.99)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("25_7hqrj")
+
+[node name="ScoringSection" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringLower"]
+position = Vector2(780, 6.10352e-05)
+texture = ExtResource("26_2g8va")
+
+[node name="ScoringUpper" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 303.876)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("27_c3ogq")
+
+[node name="ScoringSection" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringUpper"]
+position = Vector2(780, 6.10352e-05)
+texture = ExtResource("26_2g8va")
+
+[node name="Scoring3Oak" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1357.95)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("28_x7lmt")
+
+[node name="Scoring4Oak" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1454.49)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("29_dyv4b")
+
+[node name="ScoringFull" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1549.45)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("30_svmys")
+
+[node name="ScoringSmstr" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1644.41)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("31_3bhn0")
+
+[node name="ScoringLgstr" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1740.96)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("32_eg25q")
+
+[node name="ScoringYahtz" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1837.5)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("33_i7y2b")
+
+[node name="ScoringChance" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 1934.05)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("34_stoab")
+
+[node name="ScoringYahtzBonus" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 2035.34)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("33_i7y2b")
+
+[node name="ScoringBonus" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringYahtzBonus"]
+position = Vector2(126.127, 211.566)
+texture = ExtResource("24_w8wdy")
+
+[node name="ScoringGrand" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 2415.18)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("35_mhgwv")
+
+[node name="ScoringTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringGrand"]
+position = Vector2(724.212, 0)
+texture = ExtResource("23_1urg3")
+
+[node name="ScoringLowerTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 2320.22)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("25_7hqrj")
+
+[node name="ScoringTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringLowerTotal"]
+position = Vector2(724.212, 0)
+texture = ExtResource("23_1urg3")
+
+[node name="ScoringUpperTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground"]
+position = Vector2(229.49, 2223.68)
+scale = Vector2(0.389, 0.389)
+texture = ExtResource("27_c3ogq")
+
+[node name="ScoringTotal" type="Sprite2D" parent="PlayerScorecard/ScorecardBackground/ScoringUpperTotal"]
+position = Vector2(724.212, 0)
+texture = ExtResource("23_1urg3")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 4.0
+columns = 2
+script = ExtResource("36_two6t")
+
+[node name="LeftContainer" type="PanelContainer" parent="GridContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_udrcq")
+
+[node name="Left" type="Label" parent="GridContainer/LeftContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Ones"
+
+[node name="Dice-1" type="Sprite2D" parent="GridContainer/LeftContainer/Left"]
+position = Vector2(77, 17)
+scale = Vector2(0.0460938, 0.0460938)
+texture = ExtResource("11_h5jbr")
+
+[node name="RightContainer" type="PanelContainer" parent="GridContainer"]
+layout_mode = 2
+
+[node name="Right" type="Label" parent="GridContainer/RightContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "5"
