@@ -150,18 +150,31 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 func score_full_house(score_option_node):
 	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
-	var has_three_of_a_kind = player_dice_pool.get_children().map(func(dice):
+	var player_dice_values = player_dice_pool.get_children().map(func(dice):
 		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
-	).filter(func(value):
-		has_dice_times[value] += 1
-		
-		return has_dice_times[value] >= 3
 	)
+	player_dice_values.sort_custom(func(a, b): return a > b)
+	for value in player_dice_values:
+		has_dice_times[value] += 1
+	var has_three_of_a_kind = player_dice_values.filter(func(value): return has_dice_times[value] >= 3)
 	if has_three_of_a_kind.size() > 0:
-		score = player_dice_pool.get_children().reduce((func(accum, dice):
-			var dice_value = dice.find_child("AnimatedDice", true, false).get_rolled_value()
-			return accum + dice_value * 2 if has_three_of_a_kind.has(dice_value) else accum + dice_value
-		), 0)
+		var has_different_two_of_a_kind = player_dice_values.filter(func(value):
+			return has_dice_times[value] >= 2 && value != has_three_of_a_kind[0])
+		if has_different_two_of_a_kind.size() > 0:
+			score = player_dice_values.reduce((func(accum, value):
+				if has_different_two_of_a_kind[0] == value:
+					player.find_child("PlayerHealthBar").heal_player(value)
+				if has_three_of_a_kind[0] == value:
+					return accum + value
+				else:
+					return accum
+			), 25)
+
+	score_option_node.find_child("Right").text = str(score)
+	score_option_node.disabled = true
+
+	total_lower_score += score
+	set_total_lower_score()
 
 func set_total_upper_score():
 	upper_score_option_row.find_child("Right").text = str(total_upper_score)

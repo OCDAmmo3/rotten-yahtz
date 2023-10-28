@@ -7,7 +7,6 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 
 @onready var dice_pool = dice_pool_scene.instantiate()
 @onready var player_sprite = $PlayerSprite
-@onready var health_points = 100
 @onready var player_health_bar = get_node("/root/BattleRollScene/Observable/Player/PlayerHealthBar/")
 @onready var MAX_HEALTH = player_health_bar.get_max_health()
 @onready var difficulty = 0
@@ -15,7 +14,6 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 
 func _ready():
 	player_sprite.play("Player groove")
-	player_health_bar.heal_player(MAX_HEALTH)
 	_load_dice()
 	_load_dice_pool()
 
