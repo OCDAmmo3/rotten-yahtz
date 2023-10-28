@@ -4,6 +4,9 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 
 @onready var player = get_node("/root/BattleRollScene/Observable/Player/")
 @onready var player_dice_pool = player.find_child("DicePool", true, false)
+@onready var player_dice_values = player_dice_pool.get_children().map(func(dice):
+	return dice.find_child("AnimatedDice", true, false).get_rolled_value()
+)
 @onready var upper_score_option_row = create_score_option(upper_total_score_option)
 @onready var lower_score_option_row = create_score_option(lower_total_score_option)
 @onready var total_upper_score = 0
@@ -65,6 +68,18 @@ var lower_score_options = [
 		"sprite": null,
 		"score_function": Callable(score_full_house).bind(),
 		"tooltip": "Double score for top 3, heal for bottom 2"
+	},
+	{
+		"label": "Sm Straight",
+		"sprite": null,
+		"score_function": Callable(score_straight).bind(4),
+		"tooltip": "Score for 30 + highest value in straight"
+	},
+	{
+		"label": "Lg Straight",
+		"sprite": null,
+		"score_function": Callable(score_straight).bind(5),
+		"tooltip": "Score for 40 + highest value in straight * 2"
 	}
 ]
 
@@ -86,6 +101,11 @@ signal changed_upper_total
 func _ready():
 	create_upper_children(upper_score_options)
 	create_lower_children(lower_score_options)
+
+func get_player_dice_values():
+	player_dice_values = player_dice_pool.get_children().map(func(dice):
+		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
+	)
 
 func create_upper_children(upper_score_options):
 	var upper_score_options_node = find_child("UpperSectionScoreOptions")
@@ -115,9 +135,9 @@ func create_score_option(score_option):
 	return score_option_row
 
 func score_num(score_option_node, num):
-	var score = player_dice_pool.get_children().reduce((func(accum, dice):
-		var dice_value = dice.find_child("AnimatedDice", true, false).get_rolled_value()
-		return accum + dice_value if dice_value == num else accum
+	get_player_dice_values()
+	var score = player_dice_values.reduce((func(accum, value):
+		return accum + value if value == num else accum
 	), 0)
 	score_option_node.find_child("Right").text = str(score)
 	score_option_node.disabled = true
@@ -126,19 +146,16 @@ func score_num(score_option_node, num):
 	set_total_upper_score()
 
 func score_some_of_a_kind(score_option_node, num_of_kind):
+	get_player_dice_values()
 	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
-	var has_three_of_a_kind = player_dice_pool.get_children().map(func(dice):
-		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
-	).filter(func(value):
+	var has_three_of_a_kind = player_dice_values.filter(func(value):
 		has_dice_times[value] += 1
-		
 		return has_dice_times[value] >= num_of_kind
 	)
 	if has_three_of_a_kind.size() > 0:
-		score = player_dice_pool.get_children().reduce((func(accum, dice):
-			var dice_value = dice.find_child("AnimatedDice", true, false).get_rolled_value()
-			return accum + dice_value * (num_of_kind - 1) if has_three_of_a_kind.has(dice_value) else accum + dice_value
+		score = player_dice_values.reduce((func(accum, value):
+			return accum + value * (num_of_kind - 1) if has_three_of_a_kind.has(value) else accum + value
 		), 0)
 
 	score_option_node.find_child("Right").text = str(score)
@@ -148,11 +165,9 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 	set_total_lower_score()
 
 func score_full_house(score_option_node):
+	get_player_dice_values()
 	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
-	var player_dice_values = player_dice_pool.get_children().map(func(dice):
-		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
-	)
 	player_dice_values.sort_custom(func(a, b): return a > b)
 	for value in player_dice_values:
 		has_dice_times[value] += 1
@@ -161,14 +176,41 @@ func score_full_house(score_option_node):
 		var has_different_two_of_a_kind = player_dice_values.filter(func(value):
 			return has_dice_times[value] >= 2 && value != has_three_of_a_kind[0])
 		if has_different_two_of_a_kind.size() > 0:
-			score = player_dice_values.reduce((func(accum, value):
-				if has_different_two_of_a_kind[0] == value:
-					player.find_child("PlayerHealthBar").heal_player(value)
-				if has_three_of_a_kind[0] == value:
-					return accum + value
-				else:
-					return accum
-			), 25)
+			score += 25
+			score += has_three_of_a_kind[0] * 3
+			player.find_child("PlayerHealthBar").heal_player(has_different_two_of_a_kind[0] * 2)
+
+	score_option_node.find_child("Right").text = str(score)
+	score_option_node.disabled = true
+
+	total_lower_score += score
+	set_total_lower_score()
+
+func score_straight(score_option_node, str_size):
+	get_player_dice_values()
+	var score = 0
+	player_dice_values.sort()
+	var sequential_size = 0
+	var highest_in_straight
+	var unique_values = []
+	for value in player_dice_values:
+		if not unique_values.has(value):
+			unique_values.push_back(value)
+
+	for index in unique_values.size():
+		var value = unique_values[index]
+		print("sequential", sequential_size, value)
+		if index + 1 < unique_values.size() && value + 1 == unique_values[index + 1]:
+			sequential_size += 1
+			highest_in_straight = unique_values[index + 1]
+		elif sequential_size >= str_size:
+			break
+		else:
+			sequential_size = 0
+
+	if sequential_size >= str_size:
+		score += (str_size - 1) * 10
+		score += highest_in_straight if str_size == 4 else highest_in_straight * 2
 
 	score_option_node.find_child("Right").text = str(score)
 	score_option_node.disabled = true
