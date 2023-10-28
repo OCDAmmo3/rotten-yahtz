@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://wchucs6o6e0y" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="1_4iq5j"]
 
 [node name="ScoreOptionRow" type="Button"]
-custom_minimum_size = Vector2(356, 40)
+custom_minimum_size = Vector2(356, 30)
 offset_right = 265.0
 offset_bottom = 38.0
 size_flags_horizontal = 3
@@ -24,12 +24,12 @@ mouse_filter = 2
 [node name="Left" type="Label" parent="HBoxContainer/LeftContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 18
 text = "Ones"
 
 [node name="Dice" type="Sprite2D" parent="HBoxContainer/LeftContainer/Left"]
-position = Vector2(101, 17)
-scale = Vector2(0.0460938, 0.0460938)
+position = Vector2(86, 14.1)
+scale = Vector2(0.0347657, 0.0347657)
 texture = ExtResource("1_4iq5j")
 
 [node name="RightContainer" type="PanelContainer" parent="HBoxContainer"]
@@ -40,5 +40,5 @@ mouse_filter = 2
 [node name="Right" type="Label" parent="HBoxContainer/RightContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1

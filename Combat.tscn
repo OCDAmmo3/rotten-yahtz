@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cce8h5ofdya7d" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_1.png" id="5_0jta0"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
 [ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
-[ext_resource type="Script" path="res://GridContainer.gd" id="36_two6t"]
+[ext_resource type="Script" path="res://Scorecard.gd" id="9_dy3cc"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
 load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
@@ -121,7 +121,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
 step = 1.0
-value = 100.0
+value = 50.0
 script = SubResource("GDScript_lkdbd")
 
 [node name="Enemy" type="Node2D" parent="Observable"]
@@ -191,7 +191,7 @@ offset_top = 12.0
 offset_right = 1046.0
 offset_bottom = 143.0
 theme_override_constants/separation = -2
-script = ExtResource("36_two6t")
+script = ExtResource("9_dy3cc")
 
 [node name="ScorecardHeader" type="PanelContainer" parent="Scorecard"]
 custom_minimum_size = Vector2(265, 0)
