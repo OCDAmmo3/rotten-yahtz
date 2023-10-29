@@ -52,10 +52,14 @@ func get_roll_count():
 func roll_used():
 	_roll_count = _roll_count - 1
 	_has_rolled = true
+	for dice in dice_pool.get_child(0).get_children():
+		dice.find_child("CheckButton").toggle_mode = true
 
 func get_has_rolled():
 	return _has_rolled
 
 func rolls_reset():
 	_roll_count = _default_roll_count
-	_has_rolled = false
+	_has_rolled = false 
+	for dice in dice_pool.get_child(0).get_children():
+		dice.find_child("CheckButton").toggle_mode = false

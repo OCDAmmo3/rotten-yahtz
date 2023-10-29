@@ -43,7 +43,7 @@ func new_selected(node_to_select, chosen_dice_node):
 	var selectable_options = get_children()
 	selected = chosen_dice_node
 	for option in selectable_options:
-		if option != node_to_select:
+		if node_to_select == null || option != node_to_select:
 			option.unselect()
 
 func submit_chosen_dice():

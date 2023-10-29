@@ -7,6 +7,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var player_dice_values = player_dice_pool.get_children().map(func(dice):
 	return dice.find_child("AnimatedDice", true, false).get_rolled_value()
 )
+@onready var player_has_rolled = false
 @onready var upper_score_option_row = create_score_option(upper_total_score_option)
 @onready var upper_bonus_option_row = create_score_option(upper_bonus_score_option)
 @onready var upper_final_option_row = create_score_option(upper_final_total_score_option)
@@ -137,10 +138,11 @@ func _ready():
 	create_upper_children(upper_score_options)
 	create_lower_children(lower_score_options)
 
-func get_player_dice_values():
+func get_player_data():
 	player_dice_values = player_dice_pool.get_children().map(func(dice):
 		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
 	)
+	player_has_rolled = player.get_has_rolled()
 
 func create_upper_children(upper_score_options):
 	var upper_score_options_node = find_child("UpperSectionScoreOptions")
@@ -179,7 +181,9 @@ func create_score_option(score_option):
 	return score_option_row
 
 func score_num(score_option_node, num):
-	get_player_dice_values()
+	get_player_data()
+	if not player_has_rolled:
+		return
 	var score = player_dice_values.reduce((func(accum, value):
 		return accum + value if value == num else accum
 	), 0)
@@ -190,7 +194,9 @@ func score_num(score_option_node, num):
 	set_total_upper_score()
 
 func score_some_of_a_kind(score_option_node, num_of_kind):
-	get_player_dice_values()
+	get_player_data()
+	if not player_has_rolled:
+		return
 	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
 	var has_num_of_a_kind = player_dice_values.filter(func(value):
@@ -209,7 +215,9 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 	set_total_lower_score()
 
 func score_full_house(score_option_node):
-	get_player_dice_values()
+	get_player_data()
+	if not player_has_rolled:
+		return
 	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
 	player_dice_values.sort_custom(func(a, b): return a > b)
@@ -231,7 +239,9 @@ func score_full_house(score_option_node):
 	set_total_lower_score()
 
 func score_straight(score_option_node, str_size):
-	get_player_dice_values()
+	get_player_data()
+	if not player_has_rolled:
+		return
 	var score = 0
 	player_dice_values.sort()
 	var sequential_size = 1
@@ -243,7 +253,6 @@ func score_straight(score_option_node, str_size):
 
 	for index in unique_values.size():
 		var value = unique_values[index]
-		print("sequential", sequential_size, value)
 		if index + 1 < unique_values.size() && value + 1 == unique_values[index + 1]:
 			sequential_size += 1
 			highest_in_straight = unique_values[index + 1]
@@ -263,7 +272,9 @@ func score_straight(score_option_node, str_size):
 	set_total_lower_score()
 
 func score_yahtzee(score_option_node):
-	get_player_dice_values()
+	get_player_data()
+	if not player_has_rolled:
+		return
 	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
 	var has_yahtzee = player_dice_values.filter(func(value):
@@ -283,7 +294,9 @@ func score_yahtzee(score_option_node):
 	set_total_lower_score()
 
 func score_chance(score_option_node):
-	get_player_dice_values()
+	get_player_data()
+	if not player_has_rolled:
+		return
 	var score = 0
 	for value in player_dice_values:
 		score += value
@@ -315,3 +328,4 @@ func set_total_lower_score():
 func set_grand_total_score():
 	grand_total_score = total_lower_score + total_upper_score + upper_bonus_score
 	grand_total_option_row.find_child("Right").text = str(grand_total_score)
+	player.rolls_reset()
