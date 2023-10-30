@@ -3,6 +3,7 @@ extends VBoxContainer
 var score_option_row_scene = preload("res://characterScenes/scorecard/score_option_row.tscn")
 
 @onready var player = get_node("/root/BattleRollScene/Observable/Player/")
+@onready var enemy = get_node("/root/BattleRollScene/Observable/Enemy/")
 @onready var player_dice_pool = player.find_child("DicePool", true, false)
 @onready var player_dice_values = player_dice_pool.get_children().map(func(dice):
 	return dice.find_child("AnimatedDice", true, false).get_rolled_value()
@@ -17,6 +18,9 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var upper_bonus_score = 0
 @onready var total_lower_score = 0
 @onready var grand_total_score = 0
+
+func change_visible():
+	visible = not visible
 
 var upper_score_options = [
 	{
@@ -61,43 +65,43 @@ var lower_score_options = [
 		"label": "3 of a kind",
 		"sprite": null,
 		"score_function": Callable(score_some_of_a_kind).bind(3),
-		"tooltip": "Add total of all dice, 3 of a kind each count twice"
+		"tooltip": "Needs three of any same kind value. Add total of all dice, 3 of a kind each count twice"
 	},
 	{
 		"label": "4 of a kind",
 		"sprite": null,
 		"score_function": Callable(score_some_of_a_kind).bind(4),
-		"tooltip": "Add total of all dice, 4 of a kind each count three times"
+		"tooltip": "Needs four of any same kind value. Add total of all dice, 4 of a kind each count three times"
 	},
 	{
 		"label": "Full House",
 		"sprite": null,
 		"score_function": Callable(score_full_house).bind(),
-		"tooltip": "Double score for top 3, heal for bottom 2"
+		"tooltip": "Needs three of any same kind value, two of another. Double score for top 3, heal for bottom 2"
 	},
 	{
 		"label": "Sm Straight",
 		"sprite": null,
 		"score_function": Callable(score_straight).bind(4),
-		"tooltip": "Score for 30 + highest value in straight"
+		"tooltip": "Needs a sequence of 4 or more values. Score for 30 + highest value in straight"
 	},
 	{
 		"label": "Lg Straight",
 		"sprite": null,
 		"score_function": Callable(score_straight).bind(5),
-		"tooltip": "Score for 40 + highest value in straight * 2"
+		"tooltip": "Needs a sequence of 5 or more values. Score for 40 + highest value in straight * 2"
 	},
 	{
 		"label": "YAHTZEE",
 		"sprite": null,
 		"score_function": Callable(score_yahtzee).bind(),
-		"tooltip": "Score for 50, also ALL dice values add to score and heal player"
+		"tooltip": "Needs five of any same kind value. Score for 50, also ALL dice values add to score and heal player"
 	},
 	{
 		"label": "Chance",
 		"sprite": null,
 		"score_function": Callable(score_chance).bind(),
-		"tooltip": "Score half total roll value"
+		"tooltip": "No specific requirements need met, can score at any time. Score half total roll value"
 	}
 ]
 
@@ -329,3 +333,4 @@ func set_grand_total_score():
 	grand_total_score = total_lower_score + total_upper_score + upper_bonus_score
 	grand_total_option_row.find_child("Right").text = str(grand_total_score)
 	player.rolls_reset()
+	enemy.rolls_reset()

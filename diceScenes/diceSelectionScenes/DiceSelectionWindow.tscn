@@ -15,10 +15,10 @@ func on_skip_pressed():
 
 [node name="DiceSelectionWindow" type="VBoxContainer"]
 custom_minimum_size = Vector2(60, 60)
-offset_left = 474.0
-offset_top = 284.0
-offset_right = 534.0
-offset_bottom = 344.0
+offset_left = 176.0
+offset_top = 141.0
+offset_right = 296.0
+offset_bottom = 260.0
 
 [node name="DiceSelectionOptions" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(20, 20)
