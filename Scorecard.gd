@@ -9,6 +9,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 	return dice.find_child("AnimatedDice", true, false).get_rolled_value()
 )
 @onready var player_has_rolled = false
+
 @onready var upper_score_option_row = create_score_option(upper_total_score_option)
 @onready var upper_bonus_option_row = create_score_option(upper_bonus_score_option)
 @onready var upper_final_option_row = create_score_option(upper_final_total_score_option)
@@ -18,6 +19,10 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var upper_bonus_score = 0
 @onready var total_lower_score = 0
 @onready var grand_total_score = 0
+
+var _selected_score_option = null
+var _selected_score = 0
+var _score_to_set = "upper"
 
 func change_visible():
 	visible = not visible
@@ -139,40 +144,49 @@ var grand_total_score_option = {
 signal changed_upper_total
 
 func _ready():
-	create_upper_children(upper_score_options)
-	create_lower_children(lower_score_options)
+	create_upper_children()
+	create_lower_children()
 
-func get_player_data():
+func initiate_score_selection(selected_score_node):
+	_selected_score = 0
+	if _selected_score_option != null:
+		_selected_score_option.find_child("Right").text = ""
 	player_dice_values = player_dice_pool.get_children().map(func(dice):
 		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
 	)
 	player_has_rolled = player.get_has_rolled()
+	_selected_score_option = selected_score_node
 
-func create_upper_children(upper_score_options):
+func create_upper_children():
 	var upper_score_options_node = find_child("UpperSectionScoreOptions")
 	for upper_score_option in upper_score_options:
 		var score_option_row = create_score_option(upper_score_option)
 		upper_score_options_node.add_child(score_option_row)
 
 	upper_score_option_row.disabled = true
+	upper_score_option_row.find_child("Right").text = "0"
 	upper_score_options_node.add_child(upper_score_option_row)
 
 	upper_bonus_option_row.disabled = true
+	upper_bonus_option_row.find_child("Right").text = "0"
 	upper_score_options_node.add_child(upper_bonus_option_row)
 
 	upper_final_option_row.disabled = true
+	upper_final_option_row.find_child("Right").text = "0"
 	upper_score_options_node.add_child(upper_final_option_row)
 
-func create_lower_children(lower_score_options):
+func create_lower_children():
 	var lower_score_options_node = find_child("LowerSectionScoreOptions")
 	for lower_score_option in lower_score_options:
 		var score_option_row = create_score_option(lower_score_option)
 		lower_score_options_node.add_child(score_option_row)
 
 	lower_score_option_row.disabled = true
+	lower_score_option_row.find_child("Right").text = "0"
 	lower_score_options_node.add_child(lower_score_option_row)
 
 	grand_total_option_row.disabled = true
+	grand_total_option_row.find_child("Right").text = "0"
 	lower_score_options_node.add_child(grand_total_option_row)
 
 func create_score_option(score_option):
@@ -185,44 +199,36 @@ func create_score_option(score_option):
 	return score_option_row
 
 func score_num(score_option_node, num):
-	get_player_data()
+	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var score = player_dice_values.reduce((func(accum, value):
+	_selected_score = player_dice_values.reduce((func(accum, value):
 		return accum + value if value == num else accum
 	), 0)
-	score_option_node.find_child("Right").text = str(score)
-	score_option_node.disabled = true
-
-	total_upper_score += score
-	set_total_upper_score()
+	score_option_node.find_child("Right").text = str(_selected_score)
+	_score_to_set = "upper"
 
 func score_some_of_a_kind(score_option_node, num_of_kind):
-	get_player_data()
+	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
 	var has_num_of_a_kind = player_dice_values.filter(func(value):
 		has_dice_times[value] += 1
 		return has_dice_times[value] >= num_of_kind
 	)
 	if has_num_of_a_kind.size() > 0:
-		score = player_dice_values.reduce((func(accum, value):
+		_selected_score = player_dice_values.reduce((func(accum, value):
 			return accum + value * (num_of_kind - 1) if has_num_of_a_kind.has(value) else accum + value
 		), 0)
 
-	score_option_node.find_child("Right").text = str(score)
-	score_option_node.disabled = true
-	
-	total_lower_score += score
-	set_total_lower_score()
+	score_option_node.find_child("Right").text = str(_selected_score)
+	_score_to_set = "lower"
 
 func score_full_house(score_option_node):
-	get_player_data()
+	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
 	player_dice_values.sort_custom(func(a, b): return a > b)
 	for value in player_dice_values:
@@ -232,21 +238,17 @@ func score_full_house(score_option_node):
 		var has_different_two_of_a_kind = player_dice_values.filter(func(value):
 			return has_dice_times[value] >= 2 && value != has_three_of_a_kind[0])
 		if has_different_two_of_a_kind.size() > 0:
-			score += 25
-			score += has_three_of_a_kind[0] * 3
+			_selected_score += 25
+			_selected_score += has_three_of_a_kind[0] * 3
 			player.find_child("PlayerHealthBar").heal_player(has_different_two_of_a_kind[0] * 2)
 
-	score_option_node.find_child("Right").text = str(score)
-	score_option_node.disabled = true
-
-	total_lower_score += score
-	set_total_lower_score()
+	score_option_node.find_child("Right").text = str(_selected_score)
+	_score_to_set = "lower"
 
 func score_straight(score_option_node, str_size):
-	get_player_data()
+	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var score = 0
 	player_dice_values.sort()
 	var sequential_size = 1
 	var highest_in_straight
@@ -266,51 +268,53 @@ func score_straight(score_option_node, str_size):
 			sequential_size = 1
 
 	if sequential_size >= str_size:
-		score += (str_size - 1) * 10
-		score += highest_in_straight if str_size == 4 else highest_in_straight * 2
+		_selected_score += (str_size - 1) * 10
+		_selected_score += highest_in_straight if str_size == 4 else highest_in_straight * 2
 
-	score_option_node.find_child("Right").text = str(score)
-	score_option_node.disabled = true
-
-	total_lower_score += score
-	set_total_lower_score()
+	score_option_node.find_child("Right").text = str(_selected_score)
+	_score_to_set = "lower"
 
 func score_yahtzee(score_option_node):
-	get_player_data()
+	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var score = 0
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
 	var has_yahtzee = player_dice_values.filter(func(value):
 		has_dice_times[value] += 1
 		return has_dice_times[value] >= 5
 	)
 	if has_yahtzee.size() > 0:
-		score += 50
+		_selected_score += 50
 		for value in player_dice_values:
-			score += value
+			_selected_score += value
 			player.find_child("PlayerHealthBar").heal_player(value)
 
-	score_option_node.find_child("Right").text = str(score)
-	score_option_node.disabled = true
-	
-	total_lower_score += score
-	set_total_lower_score()
+	score_option_node.find_child("Right").text = str(_selected_score)
+	_score_to_set = "lower"
 
 func score_chance(score_option_node):
-	get_player_data()
+	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var score = 0
 	for value in player_dice_values:
-		score += value
-	score = floor(score / 2)
+		_selected_score += value
+	_selected_score = floor(_selected_score / 2)
 
-	score_option_node.find_child("Right").text = str(score)
-	score_option_node.disabled = true
+	score_option_node.find_child("Right").text = str(_selected_score)
+	_score_to_set = "lower"
 
-	total_lower_score += score
-	set_total_lower_score()
+func on_submit_pressed():
+	if _selected_score_option != null:
+		_selected_score_option.disabled = true
+		_selected_score_option = null
+
+		if _score_to_set == "upper":
+			total_upper_score += _selected_score
+		else:
+			total_lower_score += _selected_score
+
+		set_total_lower_score()
+		set_total_upper_score()
 
 func set_upper_bonus_score():
 	upper_bonus_score = 35 if total_upper_score >= 63 else 0
