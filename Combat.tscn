@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=26 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://cce8h5ofdya7d" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_1.png" id="5_0jta0"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
 [ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
+[ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="7_t0vkd"]
+[ext_resource type="Script" path="res://Scorecard.gd" id="9_dy3cc"]
+[ext_resource type="Script" path="res://ShowScorecardButton.gd" id="9_ph8fm"]
+[ext_resource type="Script" path="res://SubmitScoreButton.gd" id="11_5wn3x"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
 load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
@@ -17,9 +21,6 @@ load_path = "res://.godot/imported/player_sprite_1.png-1d8dca62f7c732071931f31f8
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qjs81"]
 load_path = "res://.godot/imported/player_sprite_2.png-62cbd1eb0756a9ddc6e531c7511fa754.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wdj3g"]
-load_path = "res://.godot/imported/player_sprite_3.png-e543085da324b3e7b235b164c3254791.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l3wpt"]
 load_path = "res://.godot/imported/player_sprite_4.png-d3265bca8ae962296595932adbd23a0c.ctex"
@@ -35,9 +36,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("CompressedTexture2D_qjs81")
-}, {
-"duration": 1.0,
-"texture": SubResource("CompressedTexture2D_wdj3g")
 }, {
 "duration": 1.0,
 "texture": SubResource("CompressedTexture2D_l3wpt")
@@ -56,19 +54,26 @@ bg_color = Color(0, 0.607843, 0.192157, 1)
 [sub_resource type="GDScript" id="GDScript_lkdbd"]
 script/source = "extends ProgressBar
 
+func _ready():
+	_set_health(get_max_health())
+
 func heal_player(amount_to_heal):
 	var current_health = get_current_health()
-	self.value = current_health + amount_to_heal
+	_set_health(current_health + amount_to_heal)
 
 func lose_health(amount_to_lose):
 	var current_health = get_current_health()
-	self.value = current_health - amount_to_lose
+	_set_health(current_health - amount_to_lose)
 
 func get_current_health():
-	return self.value
+	return int($Label.text)
 
 func get_max_health():
 	return self.max_value
+
+func _set_health(number):
+	self.value = number
+	$Label.text = str(self.value)
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tcjcl"]
@@ -86,10 +91,23 @@ animations = [{
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl2c0"]
-bg_color = Color(0.721569, 0.215686, 0.192157, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pq5ul"]
 bg_color = Color(0.721569, 0.215686, 0.192157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qci7"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xclj"]
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
 
 [node name="BattleRollScene" type="Node"]
 script = ExtResource("2")
@@ -116,8 +134,16 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
 step = 1.0
-value = 100.0
+value = 50.0
+show_percentage = false
 script = SubResource("GDScript_lkdbd")
+
+[node name="Label" type="Label" parent="Observable/Player/PlayerHealthBar"]
+custom_minimum_size = Vector2(100, 10)
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+horizontal_alignment = 1
 
 [node name="Enemy" type="Node2D" parent="Observable"]
 position = Vector2(818, 206)
@@ -140,7 +166,16 @@ theme_override_styles/background = SubResource("StyleBoxFlat_sl2c0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pq5ul")
 step = 1.0
 value = 100.0
+show_percentage = false
 script = ExtResource("7_48lcp")
+
+[node name="Label" type="Label" parent="Observable/Enemy/EnemyHealthBar"]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -160,6 +195,7 @@ layout_mode = 2
 
 [node name="RollButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 
 [node name="RollButton" type="Button" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
@@ -167,10 +203,13 @@ script = ExtResource("4_nj5ko")
 
 [node name="RollButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.831373, 0.831373, 0.831373, 1)
 text = "Roll"
+horizontal_alignment = 1
 
 [node name="AddDiceButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 
 [node name="AddDiceButton" type="Button" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
@@ -179,3 +218,73 @@ script = ExtResource("5_5yqr3")
 [node name="AddDiceButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
 text = "Add Dice"
+horizontal_alignment = 1
+
+[node name="ShowScorecardButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
+layout_mode = 2
+theme = ExtResource("7_t0vkd")
+
+[node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
+layout_mode = 2
+script = ExtResource("9_ph8fm")
+
+[node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
+layout_mode = 2
+text = "Scorecard"
+horizontal_alignment = 1
+
+[node name="Scorecard" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 793.0
+offset_right = 1149.0
+offset_bottom = 146.0
+theme_override_constants/separation = -2
+script = ExtResource("9_dy3cc")
+
+[node name="ScorecardHeader" type="PanelContainer" parent="Scorecard"]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7qci7")
+
+[node name="RottenYahtz" type="Label" parent="Scorecard/ScorecardHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Rotten Yahtz"
+
+[node name="UpperSectionHeader" type="PanelContainer" parent="Scorecard"]
+layout_mode = 2
+
+[node name="UpperSection" type="Label" parent="Scorecard/UpperSectionHeader"]
+layout_mode = 2
+text = "Upper Section"
+
+[node name="UpperSectionScoreOptions" type="VBoxContainer" parent="Scorecard"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="LowerSectionHeader" type="PanelContainer" parent="Scorecard"]
+layout_mode = 2
+
+[node name="LowerSection" type="Label" parent="Scorecard/LowerSectionHeader"]
+layout_mode = 2
+text = "Lower Section"
+
+[node name="LowerSectionScoreOptions" type="VBoxContainer" parent="Scorecard"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="PanelContainer" type="PanelContainer" parent="Scorecard"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SubmitScoreButton" type="Button" parent="Scorecard/PanelContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("11_5wn3x")
+
+[node name="SubmitScoreButtonLabel" type="Label" parent="Scorecard/PanelContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_6xclj")
+text = "Submit"

@@ -24,6 +24,8 @@ enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [gui]
 
+theme/custom="res://characterScenes/temporary_theme_name.tres"
+theme/custom_font="res://fonts/PixelTandysoft-0rJG.ttf"
 common/drop_mouse_on_gui_input_disabled=true
 
 [physics]

@@ -43,11 +43,13 @@ func new_selected(node_to_select, chosen_dice_node):
 	var selectable_options = get_children()
 	selected = chosen_dice_node
 	for option in selectable_options:
-		if option != node_to_select:
+		if node_to_select == null || option != node_to_select:
 			option.unselect()
+		else:
+			option.find_child("Sprite").modulate = Color("#bbbbbb")
 
 func submit_chosen_dice():
 	if selected != null:
 		var new_dice = selected.instantiate()
 		player_node.add_dice(new_dice)
-		get_parent().get_parent().close_dice_removal_window()
+		get_parent().get_parent().close_dice_selection_window()

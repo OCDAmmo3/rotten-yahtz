@@ -8,11 +8,12 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var health_points = 100
 @onready var enemy_health_bar = get_node("/root/BattleRollScene/Observable/Enemy/EnemyHealthBar/")
 @onready var MAX_HEALTH = enemy_health_bar.get_max_health()
-@onready var _roll_count = 3
+@onready var _default_roll_count = 3
+@onready var _roll_count = _default_roll_count
+@onready var _has_rolled = false
 
 func _ready():
 	enemy_sprite.play("Groove")
-	enemy_health_bar.heal_enemy(MAX_HEALTH)
 	_load_dice()
 	_load_dice_pool()
 
@@ -36,3 +37,8 @@ func get_roll_count():
 
 func roll_used():
 	_roll_count = _roll_count - 1
+	_has_rolled = true
+
+func rolls_reset():
+	_roll_count = _default_roll_count
+	_has_rolled = false

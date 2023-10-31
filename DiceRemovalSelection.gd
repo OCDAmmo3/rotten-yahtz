@@ -18,7 +18,7 @@ var dice_options = [
 	}
 ]
 
-@onready var dice_pool = get_node("/root/BattleRollScene/Control/DicePoolContainer/DicePool")
+@onready var dice_pool = get_node("/root/BattleRollScene/Observable/Player/DicePoolContainer/DicePool")
 var dice_selectable = preload("res://diceScenes/diceSelectionScenes/DiceRemovalSelectable.tscn")
 
 func _ready():
@@ -47,4 +47,4 @@ func remove_selected(dice_name, node):
 	).front()
 	dice_pool.remove_child(dice_node)
 	remove_child(node)
-	get_parent().close_dice_removal_window()
+	get_parent().close_dice_selection_window()
