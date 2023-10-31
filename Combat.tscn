@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=26 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cce8h5ofdya7d" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_1.png" id="5_0jta0"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
 [ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
+[ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="7_t0vkd"]
 [ext_resource type="Script" path="res://Scorecard.gd" id="9_dy3cc"]
 [ext_resource type="Script" path="res://ShowScorecardButton.gd" id="9_ph8fm"]
 [ext_resource type="Script" path="res://SubmitScoreButton.gd" id="11_5wn3x"]
@@ -170,6 +171,7 @@ layout_mode = 2
 
 [node name="RollButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 
 [node name="RollButton" type="Button" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
@@ -177,10 +179,13 @@ script = ExtResource("4_nj5ko")
 
 [node name="RollButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.831373, 0.831373, 0.831373, 1)
 text = "Roll"
+horizontal_alignment = 1
 
 [node name="AddDiceButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 
 [node name="AddDiceButton" type="Button" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
@@ -189,9 +194,11 @@ script = ExtResource("5_5yqr3")
 [node name="AddDiceButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
 text = "Add Dice"
+horizontal_alignment = 1
 
 [node name="ShowScorecardButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 
 [node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
 layout_mode = 2
@@ -200,6 +207,7 @@ script = ExtResource("9_ph8fm")
 [node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
 layout_mode = 2
 text = "Scorecard"
+horizontal_alignment = 1
 
 [node name="Scorecard" type="VBoxContainer" parent="."]
 visible = false

@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cstyh1c8756ia"]
+[gd_scene load_steps=5 format=3 uid="uid://cstyh1c8756ia"]
 
 [ext_resource type="Script" path="res://diceScenes/DiceSelector.gd" id="1_25dxl"]
+[ext_resource type="Theme" uid="uid://dk8vwpstc6pfj" path="res://dice_theme.tres" id="1_l8fpy"]
 [ext_resource type="PackedScene" uid="uid://cgan5glhm2vxv" path="res://diceScenes/standard6sided/6dDiceRoller.tscn" id="2_rmotu"]
 [ext_resource type="Script" path="res://diceScenes/SelectDice.gd" id="9_0tawq"]
 
 [node name="6dDiceSelector" type="PanelContainer"]
 offset_right = 60.0
 offset_bottom = 60.0
+theme = ExtResource("1_l8fpy")
 script = ExtResource("1_25dxl")
 
 [node name="CheckButton" type="CheckButton" parent="."]

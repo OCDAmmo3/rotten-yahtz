@@ -9,6 +9,10 @@ func roll_dice_if_selected():
 
 func on_selected(toggled):
 	_selected = toggled
+	if toggled:
+		dice_sprite.modulate = Color("#bbbbbb")
+	else:
+		dice_sprite.modulate = Color("#ffffff")
 
 func get_dice_name():
 	return dice_sprite.get_dice_name()
