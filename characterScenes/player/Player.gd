@@ -40,7 +40,7 @@ func on_remove_dice_pressed():
 	var dice_removal_window = dice_removal_selection.instantiate()
 	add_child(dice_removal_window)
 
-func close_dice_removal_window():
+func close_dice_selection_window():
 	remove_child(get_node("/root/BattleRollScene/Observable/Player/DiceRemovalSelection/"))
 	remove_child(get_node("/root/BattleRollScene/Observable/Player/DiceSelectionWindow/"))
 	_dice_window_opened = false
@@ -68,3 +68,6 @@ func rolls_reset():
 	_has_rolled = false 
 	for dice in dice_pool.get_child(0).get_children():
 		dice.find_child("CheckButton").toggle_mode = false
+
+func deal_damage(_damage_value):
+	get_parent().find_child("EnemyHealthBar").lose_health(_damage_value)

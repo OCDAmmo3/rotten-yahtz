@@ -10,8 +10,7 @@
 script/source = "extends PanelContainer
 
 func on_skip_pressed():
-	var dice_selection_window = get_parent()
-	dice_selection_window.get_parent().remove_child(dice_selection_window)
+	get_parent().get_parent().close_dice_selection_window()
 "
 
 [node name="DiceSelectionWindow" type="VBoxContainer"]

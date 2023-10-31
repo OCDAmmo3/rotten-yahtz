@@ -47,4 +47,4 @@ func remove_selected(dice_name, node):
 	).front()
 	dice_pool.remove_child(dice_node)
 	remove_child(node)
-	get_parent().close_dice_removal_window()
+	get_parent().close_dice_selection_window()

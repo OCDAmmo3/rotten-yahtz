@@ -22,6 +22,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 
 var _selected_score_option = null
 var _selected_score = 0
+var _health_to_heal = 0
 var _score_to_set = "upper"
 
 func change_visible():
@@ -141,8 +142,6 @@ var grand_total_score_option = {
 	"tooltip": "Grand total of top and bottom sections"
 }
 
-signal changed_upper_total
-
 func _ready():
 	create_upper_children()
 	create_lower_children()
@@ -240,7 +239,7 @@ func score_full_house(score_option_node):
 		if has_different_two_of_a_kind.size() > 0:
 			_selected_score += 25
 			_selected_score += has_three_of_a_kind[0] * 3
-			player.find_child("PlayerHealthBar").heal_player(has_different_two_of_a_kind[0] * 2)
+			_health_to_heal += has_different_two_of_a_kind[0] * 2
 
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
@@ -287,7 +286,7 @@ func score_yahtzee(score_option_node):
 		_selected_score += 50
 		for value in player_dice_values:
 			_selected_score += value
-			player.find_child("PlayerHealthBar").heal_player(value)
+			_health_to_heal += value
 
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
@@ -307,6 +306,8 @@ func on_submit_pressed():
 	if _selected_score_option != null:
 		_selected_score_option.disabled = true
 		_selected_score_option = null
+		
+		player.deal_damage(_selected_score)
 
 		if _score_to_set == "upper":
 			total_upper_score += _selected_score
@@ -336,5 +337,9 @@ func set_total_lower_score():
 func set_grand_total_score():
 	grand_total_score = total_lower_score + total_upper_score + upper_bonus_score
 	grand_total_option_row.find_child("Right").text = str(grand_total_score)
+	
+	player.find_child("PlayerHealthBar").heal_player(_health_to_heal)
+	_health_to_heal = 0
+	
 	player.rolls_reset()
 	enemy.rolls_reset()

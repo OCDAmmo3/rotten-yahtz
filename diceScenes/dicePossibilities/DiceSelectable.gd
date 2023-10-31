@@ -2,7 +2,7 @@ extends Control
 
 var _given_dice_when_chosen
 
-func on_selected(button_pressed: bool):
+func on_selected(button_pressed):
 	if button_pressed:
 		get_parent().new_selected(self, _given_dice_when_chosen)
 
@@ -14,4 +14,5 @@ func create_node_values(dice_values):
 	_given_dice_when_chosen = dice_values.node
 
 func unselect():
+	$Control/Sprite.modulate = Color("#ffffff")
 	$Control/Sprite/SelectionCheckBox.button_pressed = false

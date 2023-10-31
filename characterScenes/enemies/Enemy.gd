@@ -14,7 +14,6 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 
 func _ready():
 	enemy_sprite.play("Groove")
-	enemy_health_bar.heal_enemy(MAX_HEALTH)
 	_load_dice()
 	_load_dice_pool()
 

@@ -54,19 +54,26 @@ bg_color = Color(0, 0.607843, 0.192157, 1)
 [sub_resource type="GDScript" id="GDScript_lkdbd"]
 script/source = "extends ProgressBar
 
+func _ready():
+	_set_health(get_max_health())
+
 func heal_player(amount_to_heal):
 	var current_health = get_current_health()
-	self.value = current_health + amount_to_heal
+	_set_health(current_health + amount_to_heal)
 
 func lose_health(amount_to_lose):
 	var current_health = get_current_health()
-	self.value = current_health - amount_to_lose
+	_set_health(current_health - amount_to_lose)
 
 func get_current_health():
-	return self.value
+	return int($Label.text)
 
 func get_max_health():
 	return self.max_value
+
+func _set_health(number):
+	self.value = number
+	$Label.text = str(self.value)
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tcjcl"]
@@ -84,7 +91,7 @@ animations = [{
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl2c0"]
-bg_color = Color(0.721569, 0.215686, 0.192157, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pq5ul"]
 bg_color = Color(0.721569, 0.215686, 0.192157, 1)
@@ -128,7 +135,15 @@ theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
 step = 1.0
 value = 50.0
+show_percentage = false
 script = SubResource("GDScript_lkdbd")
+
+[node name="Label" type="Label" parent="Observable/Player/PlayerHealthBar"]
+custom_minimum_size = Vector2(100, 10)
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+horizontal_alignment = 1
 
 [node name="Enemy" type="Node2D" parent="Observable"]
 position = Vector2(818, 206)
@@ -151,7 +166,16 @@ theme_override_styles/background = SubResource("StyleBoxFlat_sl2c0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pq5ul")
 step = 1.0
 value = 100.0
+show_percentage = false
 script = ExtResource("7_48lcp")
+
+[node name="Label" type="Label" parent="Observable/Enemy/EnemyHealthBar"]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

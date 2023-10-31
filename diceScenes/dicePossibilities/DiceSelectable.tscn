@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c605oljufrpsq"]
+[gd_scene load_steps=4 format=3 uid="uid://c605oljufrpsq"]
 
 [ext_resource type="Script" path="res://diceScenes/dicePossibilities/DiceSelectable.gd" id="1_wvwb2"]
+[ext_resource type="Theme" uid="uid://dk8vwpstc6pfj" path="res://dice_theme.tres" id="2_7taen"]
 [ext_resource type="Script" path="res://diceScenes/diceSelectionScenes/SelectionCheckBox.gd" id="2_so6m7"]
 
 [node name="DiceSelectable" type="VBoxContainer"]
@@ -12,8 +13,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wvwb2")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="PanelContainer" parent="."]
 layout_mode = 2
+theme = ExtResource("2_7taen")
 
 [node name="Sprite" type="Sprite2D" parent="Control"]
 position = Vector2(0, -83)

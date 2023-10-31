@@ -3,7 +3,6 @@ extends VBoxContainer
 var _expected_name
 
 func on_pressed():
-	print("hello")
 	get_parent().remove_selected(_expected_name, self)
 
 func create_node_values(dice_values):
