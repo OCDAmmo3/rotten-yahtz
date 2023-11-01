@@ -1,17 +1,22 @@
-var dice_options = [
+extends Node2D
+
+@export var dice_options = [
 	{
 		"name": "D6",
-		"node": preload("res://diceScenes/standard6sided/6dDiceSelector.tscn"),
-		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-6.png")
+		"node": DiceOptions.dice_options.D6,
+		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-6.png"),
+		"tooltip": "Standard 6 sided dice with values 1-6"
 	},
 	{
 		"name": "D4",
-		"node": preload("res://diceScenes/standard4sided/4dDiceSelector.tscn"),
-		"sprite": preload("res://diceScenes/assets/diceFaceImages/d4/4-sided-4.png")
+		"node": DiceOptions.dice_options.D4,
+		"sprite": preload("res://diceScenes/assets/diceFaceImages/d4/4-sided-4.png"),
+		"tooltip": "Standard 4 sided dice with values 1-4"
 	},
 	{
 		"name": "D2",
-		"node": preload("res://diceScenes/standard2sided/2dDiceSelector.tscn"),
-		"sprite": preload("res://diceScenes/assets/diceFaceImages/d2/coin_dice_5.png")
+		"node": DiceOptions.dice_options.D2,
+		"sprite": preload("res://diceScenes/assets/diceFaceImages/d2/coin_dice_5.png"),
+		"tooltip": "Standard 2 sided coin with values 1 and 2"
 	}
 ]

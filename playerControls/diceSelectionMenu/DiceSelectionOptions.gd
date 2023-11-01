@@ -1,29 +1,11 @@
 extends HBoxContainer
 
 @onready var player_node = get_node("/root/BattleRollScene/Observable/Player/")
+@onready var dice_selector_node = preload("res://diceScenes/DiceSelector.tscn")
 @onready var amount_of_dice_options = 3
+@onready var dice_options = DiceSelectables.dice_options
 var selected
 
-var dice_options = [
-	{
-		"name": "D6",
-		"node": preload("res://diceScenes/standard6sided/6dDiceSelector.tscn"),
-		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-6.png"),
-		"tooltip": "Standard 6 sided dice with values 1-6"
-	},
-	{
-		"name": "D4",
-		"node": preload("res://diceScenes/standard4sided/4dDiceSelector.tscn"),
-		"sprite": preload("res://diceScenes/assets/diceFaceImages/d4/4-sided-4.png"),
-		"tooltip": "Standard 4 sided dice with values 1-4"
-	},
-	{
-		"name": "D2",
-		"node": preload("res://diceScenes/standard2sided/2dDiceSelector.tscn"),
-		"sprite": preload("res://diceScenes/assets/diceFaceImages/d2/coin_dice_5.png"),
-		"tooltip": "Standard 2 sided coin with values 1 and 2"
-	}
-]
 var dice_selectable = preload("res://diceScenes/dicePossibilities/DiceSelectable.tscn")
 
 func _ready():
@@ -53,6 +35,7 @@ func new_selected(node_to_select, chosen_dice_node):
 
 func submit_chosen_dice():
 	if selected != null:
-		var new_dice = selected.instantiate()
+		var new_dice = dice_selector_node.instantiate()
+		new_dice.find_child("AnimatedDice").set_values(selected)
 		player_node.add_dice(new_dice)
 		get_parent().get_parent().close_dice_selection_window()
