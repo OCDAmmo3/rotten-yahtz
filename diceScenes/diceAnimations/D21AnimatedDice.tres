@@ -1,0 +1,79 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://dx0hq2rki346s"]
+
+[ext_resource type="Texture2D" uid="uid://dkdl0jt261gtb" path="res://diceScenes/assets/diceFaceImages/d6/dice-6.png" id="1_uq6oc"]
+[ext_resource type="Texture2D" uid="uid://cs4m6pxalr3wh" path="res://diceScenes/assets/diceFaceImages/d6/dice-5.png" id="2_uv75c"]
+[ext_resource type="Texture2D" uid="uid://bwvutmkcv3pgy" path="res://diceScenes/assets/diceFaceImages/d6/dice-4.png" id="3_1batd"]
+[ext_resource type="Texture2D" uid="uid://cuxcu8aor5y65" path="res://diceScenes/assets/diceFaceImages/d6/dice-3.png" id="4_knw3k"]
+[ext_resource type="Texture2D" uid="uid://cixwlwjuh7xvq" path="res://diceScenes/assets/diceFaceImages/d6/dice-2.png" id="5_oc6e8"]
+[ext_resource type="Texture2D" uid="uid://wchucs6o6e0y" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="6_fg2lh"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_uq6oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uv75c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1batd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_knw3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_oc6e8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fg2lh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_uq6oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uv75c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1batd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_knw3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_oc6e8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_uq6oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uv75c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1batd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_knw3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_uq6oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uv75c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1batd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_uq6oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uv75c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_uq6oc")
+}],
+"loop": true,
+"name": &"Dice rolling",
+"speed": 20.0
+}]

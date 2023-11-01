@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://38rngo6024ef"]
+
+[ext_resource type="Texture2D" uid="uid://bxrj45k64av0y" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_3.png" id="1_n0bus"]
+[ext_resource type="Texture2D" uid="uid://c6k7rynf8mtgd" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_2.png" id="2_48xn3"]
+[ext_resource type="Texture2D" uid="uid://btky1pqoseo8m" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_1.png" id="3_7xsn1"]
+[ext_resource type="Texture2D" uid="uid://c843farh0k7lu" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_0.png" id="4_txfk6"]
+[ext_resource type="Texture2D" uid="uid://d1rxwd3pf5310" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_4.png" id="5_s37t6"]
+[ext_resource type="Texture2D" uid="uid://dtgi5vddxasr3" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_8.png" id="6_n01x0"]
+[ext_resource type="Texture2D" uid="uid://d10tngxvcvowq" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_7.png" id="7_2yi7i"]
+[ext_resource type="Texture2D" uid="uid://chhowxupseg6a" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_6.png" id="8_5r7mp"]
+[ext_resource type="Texture2D" uid="uid://bctnlc6efnol1" path="res://diceScenes/assets/diceFaceImages/d2/coin_dice_5.png" id="9_omq34"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n0bus")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_48xn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7xsn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_txfk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s37t6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_n01x0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2yi7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5r7mp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_omq34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5r7mp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2yi7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_n01x0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s37t6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_txfk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7xsn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_48xn3")
+}],
+"loop": true,
+"name": &"Dice rolling",
+"speed": 45.0
+}]
