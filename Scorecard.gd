@@ -121,7 +121,7 @@ var upper_bonus_score_option = {
 	"label": "BONUS",
 	"sprite": null,
 	"score_function": null,
-	"tooltip": "If total of all numeric values is 63 or more, gain 35 bonus points"
+	"tooltip": "If total of all numeric values is 63 or more, gain 35 bonus points - does not contribute to damage"
 }
 var upper_final_total_score_option = {
 	"label": "UPPER TOTAL",
@@ -307,7 +307,8 @@ func on_submit_pressed():
 		_selected_score_option.disabled = true
 		_selected_score_option = null
 		
-		player.deal_damage(_selected_score)
+		var multiplier = player.get_roll_count()
+		player.deal_damage(_selected_score * (multiplier if multiplier > 0 else 1))
 
 		if _score_to_set == "upper":
 			total_upper_score += _selected_score
