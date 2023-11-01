@@ -14,6 +14,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
 var _dice_window_opened = false
+var _removal_window_opened = false
 
 func _ready():
 	player_sprite.play("Player groove")
@@ -37,11 +38,14 @@ func on_add_dice_pressed():
 		_dice_window_opened = true
 
 func on_remove_dice_pressed():
-	var dice_removal_window = dice_removal_selection.instantiate()
-	add_child(dice_removal_window)
+	if !_removal_window_opened:
+		var dice_removal_window = dice_removal_selection.instantiate()
+		add_child(dice_removal_window)
+		_removal_window_opened = true
 
 func close_dice_selection_window():
 	remove_child(get_node("/root/BattleRollScene/Observable/Player/DiceRemovalSelection/"))
+	_removal_window_opened = false
 	remove_child(get_node("/root/BattleRollScene/Observable/Player/DiceSelectionWindow/"))
 	_dice_window_opened = false
 
@@ -55,7 +59,7 @@ func get_roll_count():
 	return _roll_count
 
 func roll_used():
-	_roll_count = _roll_count - 1
+	_roll_count -= 1
 	_has_rolled = true
 	for dice in dice_pool.get_child(0).get_children():
 		dice.find_child("CheckButton").toggle_mode = true

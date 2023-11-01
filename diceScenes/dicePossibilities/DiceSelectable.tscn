@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c605oljufrpsq"]
+[gd_scene load_steps=5 format=3 uid="uid://c605oljufrpsq"]
 
 [ext_resource type="Script" path="res://diceScenes/dicePossibilities/DiceSelectable.gd" id="1_wvwb2"]
 [ext_resource type="Theme" uid="uid://dk8vwpstc6pfj" path="res://dice_theme.tres" id="2_7taen"]
 [ext_resource type="Script" path="res://diceScenes/diceSelectionScenes/SelectionCheckBox.gd" id="2_so6m7"]
+[ext_resource type="Texture2D" uid="uid://wchucs6o6e0y" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="2_wk4th"]
 
 [node name="DiceSelectable" type="VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
@@ -11,23 +12,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 script = ExtResource("1_wvwb2")
 
-[node name="Control" type="PanelContainer" parent="."]
+[node name="SpriteContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
 theme = ExtResource("2_7taen")
 
-[node name="Sprite" type="Sprite2D" parent="Control"]
-position = Vector2(0, -83)
+[node name="Sprite" type="Sprite2D" parent="SpriteContainer"]
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("2_wk4th")
 centered = false
 
-[node name="SelectionCheckBox" type="CheckBox" parent="Control/Sprite"]
+[node name="SelectionCheckBox" type="CheckBox" parent="SpriteContainer/Sprite"]
 modulate = Color(1, 1, 1, 0)
-offset_right = 1152.0
-offset_bottom = 565.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 script = ExtResource("2_so6m7")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-horizontal_alignment = 2
+horizontal_alignment = 1

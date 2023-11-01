@@ -5,7 +5,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 
 @onready var dice_pool = dice_pool_scene.instantiate()
 @onready var enemy_sprite = $EnemySprite
-@onready var health_points = 100
+@onready var health_points = 1000
 @onready var enemy_health_bar = get_node("/root/BattleRollScene/Observable/Enemy/EnemyHealthBar/")
 @onready var MAX_HEALTH = enemy_health_bar.get_max_health()
 @onready var _default_roll_count = 3
