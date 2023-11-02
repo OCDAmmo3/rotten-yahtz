@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8fapqvagm1co"]
+
+[ext_resource type="SpriteFrames" uid="uid://dx0hq2rki346s" path="res://diceScenes/diceAnimations/D21AnimatedDice.tres" id="1_ipy65"]
+[ext_resource type="Script" path="res://diceScenes/AnimatedDice.gd" id="2_2mgyw"]
+
+[node name="DiceRoll" type="PanelContainer"]
+custom_minimum_size = Vector2(60, 60)
+
+[node name="DiceVisual" type="Node2D" parent="."]
+
+[node name="Background" type="Node2D" parent="DiceVisual"]
+
+[node name="Symbol" type="Node2D" parent="DiceVisual"]
+
+[node name="AnimatedDice" type="AnimatedSprite2D" parent="DiceVisual/Symbol"]
+scale = Vector2(0.121094, 0.121094)
+sprite_frames = ExtResource("1_ipy65")
+animation = &"Dice rolling"
+centered = false
+script = ExtResource("2_2mgyw")
+
+[node name="Timer" type="Timer" parent="DiceVisual/Symbol/AnimatedDice"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DiceVisual/Symbol"]

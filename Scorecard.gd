@@ -5,9 +5,8 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var player = get_node("/root/BattleRollScene/Observable/Player/")
 @onready var enemy = get_node("/root/BattleRollScene/Observable/Enemy/")
 @onready var player_dice_pool = player.find_child("DicePool", true, false)
-@onready var player_dice_values = player_dice_pool.get_children().map(func(dice):
-	return dice.find_child("AnimatedDice", true, false).get_rolled_value()
-)
+@onready var player_dice_values = []
+@onready var player_dice_bonus_functions = []
 @onready var player_has_rolled = false
 
 @onready var upper_score_option_row = create_score_option(upper_total_score_option)
@@ -150,9 +149,16 @@ func initiate_score_selection(selected_score_node):
 	_selected_score = 0
 	if _selected_score_option != null:
 		_selected_score_option.find_child("Right").text = ""
-	player_dice_values = player_dice_pool.get_children().map(func(dice):
-		return dice.find_child("AnimatedDice", true, false).get_rolled_value()
-	)
+	player_dice_values = []
+	player_dice_bonus_functions = []
+	for dice in player_dice_pool.get_children():
+		var animated_dice = dice.find_child("AnimatedDice", true, false)
+		var dice_value = animated_dice.get_rolled_value()
+		player_dice_values.push_back(dice_value)
+		var dice_bonus_function = animated_dice.get_bonus_function()
+		if dice_bonus_function != null:
+			dice_bonus_function.call(player_dice_values, dice_value)
+
 	player_has_rolled = player.get_has_rolled()
 	_selected_score_option = selected_score_node
 

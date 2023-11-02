@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dsspwnq2ydr65"]
+
+[ext_resource type="Texture2D" uid="uid://wchucs6o6e0y" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="1_svqni"]
+[ext_resource type="Texture2D" uid="uid://cixwlwjuh7xvq" path="res://diceScenes/assets/diceFaceImages/d6/dice-2.png" id="2_wfcmx"]
+[ext_resource type="Texture2D" uid="uid://cuxcu8aor5y65" path="res://diceScenes/assets/diceFaceImages/d6/dice-3.png" id="3_a4gn4"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_svqni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wfcmx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a4gn4")
+}],
+"loop": true,
+"name": &"Dice rolling",
+"speed": 20.0
+}]

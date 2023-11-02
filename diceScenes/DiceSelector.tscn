@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cstyh1c8756ia"]
+
+[ext_resource type="Theme" uid="uid://dk8vwpstc6pfj" path="res://dice_theme.tres" id="1_lganl"]
+[ext_resource type="Script" path="res://diceScenes/DiceSelector.gd" id="2_wjsvo"]
+[ext_resource type="Script" path="res://diceScenes/SelectDice.gd" id="3_dxpta"]
+[ext_resource type="PackedScene" uid="uid://c8fapqvagm1co" path="res://diceScenes/DiceRoller.tscn" id="4_oo453"]
+
+[node name="DiceSelector" type="PanelContainer"]
+offset_right = 60.0
+offset_bottom = 60.0
+theme = ExtResource("1_lganl")
+script = ExtResource("2_wjsvo")
+
+[node name="CheckButton" type="CheckButton" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("3_dxpta")
+
+[node name="DiceRoll" parent="." instance=ExtResource("4_oo453")]
+layout_mode = 2
+mouse_filter = 2

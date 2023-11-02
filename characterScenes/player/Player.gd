@@ -1,6 +1,6 @@
 extends Node2D
 
-var dice_scene = preload("res://diceScenes/standard6sided/6dDiceSelector.tscn")
+var dice_scene = preload("res://diceScenes/DiceSelector.tscn")
 var dice_removal_selection = preload("res://diceScenes/diceSelectionScenes/DiceRemovalSelection.tscn")
 var dice_selection_window = preload("res://diceScenes/diceSelectionScenes/DiceSelectionWindow.tscn")
 var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
@@ -25,6 +25,7 @@ func _load_dice():
 	var amount_of_dice = 6
 	for n in amount_of_dice:
 		var new_dice = dice_scene.instantiate()
+		new_dice.find_child("AnimatedDice").set_values(DiceOptions.dice_options.D6)
 		new_dice.find_child("CheckButton").toggle_mode = false
 		add_dice(new_dice)
 
@@ -59,10 +60,11 @@ func get_roll_count():
 	return _roll_count
 
 func roll_used():
-	_roll_count -= 1
-	_has_rolled = true
 	for dice in dice_pool.get_child(0).get_children():
 		dice.find_child("CheckButton").toggle_mode = true
+
+	_roll_count -= 1
+	_has_rolled = true
 
 func get_has_rolled():
 	return _has_rolled
@@ -72,6 +74,7 @@ func rolls_reset():
 	_has_rolled = false 
 	for dice in dice_pool.get_child(0).get_children():
 		dice.find_child("CheckButton").toggle_mode = false
+		dice.find_child("AnimatedDice").reset_previous_frame()
 
 func deal_damage(_damage_value):
 	get_parent().find_child("EnemyHealthBar").lose_health(_damage_value)
