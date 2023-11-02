@@ -4,10 +4,10 @@ extends AnimatedSprite2D
 @export var timer_lower_bound = 1.5
 @export var timer_upper_bound = 2.5
 var _dice_name
-var _final_frame_options
 var _final_frame_func
 var _roll_value_func
 var _bonus_function
+var _previous_frame = null
 
 signal roll_finished
 
@@ -16,7 +16,6 @@ func _ready():
 
 func set_values(values):
 	_dice_name = values.dice_name
-	_final_frame_options = values.final_frame_options
 	_final_frame_func = values.final_frame_func
 	_roll_value_func = values.roll_value_func
 	_bonus_function = values.bonus_function
@@ -35,9 +34,12 @@ func play_roll_animation():
 func _stop_roll_animation():
 	stop()
 	timer.stop()
-	var final_number = randi_range(_final_frame_options.low, _final_frame_options.high)
-	frame = _final_frame_func.call(final_number)
+	frame = _final_frame_func.call(_previous_frame)
+	_previous_frame = frame
 	emit_signal("roll_finished")
+
+func reset_previous_frame():
+	_previous_frame = null
 
 func get_rolled_value():
 	return _roll_value_func.call(frame)
