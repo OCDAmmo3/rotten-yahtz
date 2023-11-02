@@ -9,7 +9,8 @@ extends Node2D
 		},
 		"final_frame_func": Callable(func(final_number): return 0 if final_number == 0 else 8),
 		"roll_value_func": Callable(func(current_frame): return 1 if current_frame == 0 else 2),
-		"sprite_frames": load("res://diceScenes/diceAnimations/D2AnimatedDice.tres")
+		"sprite_frames": load("res://diceScenes/diceAnimations/D2AnimatedDice.tres"),
+		"bonus_function": null
 	},
 	"D4": {
 		"dice_name": "D4",
@@ -19,7 +20,8 @@ extends Node2D
 		},
 		"final_frame_func": Callable(func(final_number): return final_number).bind(),
 		"roll_value_func": Callable(func(current_frame): return current_frame + 1).bind(),
-		"sprite_frames": load("res://diceScenes/diceAnimations/D4AnimatedDice.tres")
+		"sprite_frames": load("res://diceScenes/diceAnimations/D4AnimatedDice.tres"),
+		"bonus_function": null
 	},
 	"D6": {
 		"dice_name": "D6",
@@ -29,7 +31,8 @@ extends Node2D
 		},
 		"final_frame_func": Callable(func(final_number): return final_number).bind(),
 		"roll_value_func": Callable(func(current_frame): return current_frame + 1).bind(),
-		"sprite_frames": load("res://diceScenes/diceAnimations/D6AnimatedDice.tres")
+		"sprite_frames": load("res://diceScenes/diceAnimations/D6AnimatedDice.tres"),
+		"bonus_function": null
 	},
 	"D5": {
 		"dice_name": "D5",
@@ -39,7 +42,8 @@ extends Node2D
 		},
 		"final_frame_func": Callable(func(final_number): return final_number).bind(),
 		"roll_value_func": Callable(func(current_frame): return current_frame + 1).bind(),
-		"sprite_frames": load("res://diceScenes/diceAnimations/D5AnimatedDice.tres")
+		"sprite_frames": load("res://diceScenes/diceAnimations/D5AnimatedDice.tres"),
+		"bonus_function": null
 	},
 	"D21": {
 		"dice_name": "D21",
@@ -62,6 +66,18 @@ extends Node2D
 				else:
 					return 1
 				).bind(),
-		"sprite_frames": load("res://diceScenes/diceAnimations/D21AnimatedDice.tres")
+		"sprite_frames": load("res://diceScenes/diceAnimations/D21AnimatedDice.tres"),
+		"bonus_function": null
+	},
+	"LowRoller": {
+		"dice_name": "Low Roller",
+		"final_frame_options": {
+			"low": 0,
+			"high": 2
+		},
+		"final_frame_func": Callable(func(final_number): return final_number).bind(),
+		"roll_value_func": Callable(func(current_frame): return current_frame + 1).bind(),
+		"sprite_frames": load("res://diceScenes/diceAnimations/LowRollerAnimatedDice.tres"),
+		"bonus_function": Callable(func(current_values, value): current_values.push_back(value)).bind()
 	}
 }

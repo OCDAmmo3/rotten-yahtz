@@ -35,5 +35,12 @@ extends Node2D
 		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-6.png"),
 		"tooltip": "21 sided dice with 6 sixes, 5 fives, 4 fours, 3 threes, 2 twos and 1 one",
 		"rarity": "R"
+	},
+	{
+		"name": "Low Roller",
+		"node": DiceOptions.dice_options.LowRoller,
+		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-3.png"),
+		"tooltip": "6 sided dice with values 1-3 twice, value counting towards score twice",
+		"rarity": "C"
 	}
 ]

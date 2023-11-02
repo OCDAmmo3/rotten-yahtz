@@ -7,6 +7,7 @@ var _dice_name
 var _final_frame_options
 var _final_frame_func
 var _roll_value_func
+var _bonus_function
 
 signal roll_finished
 
@@ -18,6 +19,7 @@ func set_values(values):
 	_final_frame_options = values.final_frame_options
 	_final_frame_func = values.final_frame_func
 	_roll_value_func = values.roll_value_func
+	_bonus_function = values.bonus_function
 	sprite_frames = values.sprite_frames
 
 func roll_dice():
@@ -39,6 +41,9 @@ func _stop_roll_animation():
 
 func get_rolled_value():
 	return _roll_value_func.call(frame)
+
+func get_bonus_function():
+	return _bonus_function
 
 func get_dice_name():
 	return _dice_name
