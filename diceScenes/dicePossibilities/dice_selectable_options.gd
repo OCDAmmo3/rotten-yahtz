@@ -42,5 +42,11 @@ extends Node2D
 		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-3.png"),
 		"tooltip": "6 sided dice with values 1-3 twice, value counting towards score twice",
 		"rarity": "C"
+	},
+	{
+		"name": "Slimy Dice",
+		"node": DiceOptions.dice_options.SlimyDice,
+		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-1.png"),
+		"tooltip": "Standard 6 sided dice with slime effect - value only changes by 1 each roll"
 	}
 ]
