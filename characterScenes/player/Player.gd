@@ -25,7 +25,7 @@ func _load_dice():
 	var amount_of_dice = 6
 	for n in amount_of_dice:
 		var new_dice = dice_scene.instantiate()
-		new_dice.find_child("AnimatedDice").set_values(DiceOptions.dice_options.D6)
+		new_dice.find_child("AnimatedDice").set_values(DiceOptions.dice_options.SlimyDice)
 		new_dice.find_child("CheckButton").toggle_mode = false
 		add_dice(new_dice)
 
