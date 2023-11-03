@@ -223,8 +223,10 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 		return has_dice_times[value] >= num_of_kind
 	)
 	if has_num_of_a_kind.size() > 0:
-		_selected_score = player_dice_values.reduce((func(accum, value):
-			return accum + value * (num_of_kind - 1) if has_num_of_a_kind.has(value) else accum + value
+		print(has_num_of_a_kind[0])
+		_selected_score += has_num_of_a_kind[0] * num_of_kind * (num_of_kind - 2)
+		_selected_score += player_dice_values.reduce((func(accum, value):
+			return accum + value
 		), 0)
 
 	score_option_node.find_child("Right").text = str(_selected_score)
