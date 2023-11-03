@@ -1,6 +1,6 @@
 extends Node2D
 
-var dice_scene = preload("res://diceScenes/DiceRoller.tscn")
+var dice_scene = preload("res://diceScenes/DiceSelector.tscn")
 var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 
 @onready var dice_pool = dice_pool_scene.instantiate()
@@ -21,6 +21,7 @@ func _load_dice():
 	var amount_of_dice = 3
 	for n in amount_of_dice:
 		var new_dice = dice_scene.instantiate()
+		new_dice.find_child("CheckButton").disabled = true
 		new_dice.find_child("AnimatedDice").set_values(DiceOptions.dice_options.D6)
 		add_dice(new_dice)
 

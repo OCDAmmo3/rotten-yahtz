@@ -14,5 +14,8 @@ func on_selected(toggled):
 	else:
 		dice_sprite.modulate = Color("#ffffff")
 
+func get_dice_selected():
+	return _selected
+
 func get_dice_name():
 	return dice_sprite.get_dice_name()
