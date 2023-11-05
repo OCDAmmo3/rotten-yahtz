@@ -18,7 +18,7 @@ func _ready():
 	_load_dice_pool()
 
 func _load_dice():
-	var amount_of_dice = 3
+	var amount_of_dice = 5
 	for n in amount_of_dice:
 		var new_dice = dice_scene.instantiate()
 		new_dice.find_child("CheckButton").disabled = true

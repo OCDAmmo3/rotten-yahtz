@@ -10,7 +10,7 @@ extends Node
 signal all_dice_finished_rolling
 
 func _ready():
-	for dice in player_dice_pool:
+	for dice in player_dice_pool + enemy_dice_pools:
 		dice.find_child("AnimatedDice").connect("roll_finished", Callable(func():
 			_dice_finished_rolling += 1
 			if _all_dice_finished_rolling():
@@ -44,7 +44,7 @@ func on_roll_pressed():
 
 func _all_dice_finished_rolling():
 	var unselected_dice = 0
-	for dice in player_dice_pool:
+	for dice in player_dice_pool + enemy_dice_pools:
 		if !dice.get_dice_selected():
 			unselected_dice += 1
 	return _dice_finished_rolling == unselected_dice

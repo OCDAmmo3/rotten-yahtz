@@ -12,6 +12,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var _all_score_options = []
 @onready var _open_score_options = []
 @onready var _possibilities = []
+@onready var _optimal_choice = null
 
 var upper_score_options = [
 	{
@@ -23,31 +24,31 @@ var upper_score_options = [
 	{
 		"label": "Twos",
 		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-2.png"),
-		"score_function": null,
+		"score_function": Callable(score_num).bind(2),
 		"tooltip": "Count and add only twos"
 	},
 	{
 		"label": "Threes",
 		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-3.png"),
-		"score_function": null,
+		"score_function": Callable(score_num).bind(3),
 		"tooltip": "Count and add only threes"
 	},
 	{
 		"label": "Fours",
 		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-4.png"),
-		"score_function": null,
+		"score_function": Callable(score_num).bind(4),
 		"tooltip": "Count and add only fours"
 	},
 	{
 		"label": "Fives",
 		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-5.png"),
-		"score_function": null,
+		"score_function": Callable(score_num).bind(5),
 		"tooltip": "Count and add only fives"
 	},
 	{
 		"label": "Sixes",
 		"sprite": preload("res://diceScenes/assets/diceFaceImages/d6/dice-6.png"),
-		"score_function": null,
+		"score_function": Callable(score_num).bind(6),
 		"tooltip": "Count and add only sixes"
 	}
 ]
@@ -86,15 +87,39 @@ func create_score_option(score_option):
 	return score_option_row
 
 func find_optimal_choice():
+	_optimal_choice = null
 	_find_possibilities()
+	var max_score = [{"current_score": 0}]
+	var highest_value = [{"value": 0}]
+	for possibility in _possibilities:
+		if possibility.current_score > max_score[0].current_score:
+			max_score = [possibility]
+		elif possibility.current_score == max_score[0].current_score:
+			max_score.push_back(possibility)
+		if possibility.value > highest_value[0].value:
+			highest_value = [possibility]
+		elif possibility.value == highest_value[0].value:
+			highest_value.push_back(possibility)
+
+	if highest_value.size() > 1:
+		for possibility in highest_value:
+			var thing = max_score.find(possibility)
+			if thing != -1:
+				_optimal_choice = possibility
+	
+	if _optimal_choice == null:
+		highest_value.sort_custom(func(a,b): return a.current_score > b.current_score)
+		_optimal_choice = highest_value[0]
+
+	_optimal_choice.dice_selection_func.call()
 
 func _find_possibilities():
 	_set_open_score_options()
 	_possibilities = []
 	for _open_score_option in _open_score_options:
 		_open_score_option.disabled = false
-		_open_score_option.emit_signal("pressed")
-	print(_possibilities)
+		await _open_score_option.emit_signal("pressed")
+		_open_score_option.disabled = true
 
 func _set_open_score_options():
 	_open_score_options = []
@@ -114,12 +139,26 @@ func score_num(num_to_score):
 		else:
 			non_matching_dice.push_back(dice)
 
+	var possibility = {
+		"dice_selection_func": Callable(select_numeric).bind(num_to_score),
+		"current_score": current_score,
+		"value": float(current_score) / float(enemy_dice_pool.get_child_count() * num_to_score)
+	}
 	for index in non_matching_dice.size():
-		var possibility = {
+		possibility[str(index + 1)] = {
 			"score": current_score + num_to_score * (index + 1),
 			"chance_to_roll": find_chance_of_certain_dice_value(float(non_matching_dice.size()), float(index + 1), 6.0)
 		}
-		_possibilities.push_back(possibility)
+	_possibilities.push_back(possibility)
+
+func select_numeric(num_to_select):
+	for dice in enemy_dice_pool.get_children():
+		var dice_check_button = dice.find_child("CheckButton")
+		dice_check_button.disabled = false
+		dice_check_button.emit_signal("toggled", false)
+		if dice.find_child("AnimatedDice").get_rolled_value() == num_to_select:
+			dice_check_button.emit_signal("toggled", true)
+			dice_check_button.disabled = true
 
 func find_chance_of_certain_dice_value(num_of_dice_to_be_rolled, desired_num_of_dice, num_of_faces):
 	var num_of_valid_combinations = n_choose_k(num_of_dice_to_be_rolled, desired_num_of_dice)
