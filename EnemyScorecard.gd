@@ -106,7 +106,7 @@ func _set_open_score_options():
 func score_num(num_to_score):
 	var current_score = 0
 	var non_matching_dice = []
-	for dice in enemy_dice_pool.get_children():
+	for dice in enemy_dice_pool.get_children():	
 		var animated_dice = dice.find_child("AnimatedDice", true, false)
 		var dice_value = animated_dice.get_rolled_value()
 		if dice_value == num_to_score:
@@ -117,6 +117,23 @@ func score_num(num_to_score):
 	for index in non_matching_dice.size():
 		var possibility = {
 			"score": current_score + num_to_score * (index + 1),
-			"chance_to_roll": 1 - pow((5.0/6.0),(index + 1))
+			"chance_to_roll": find_chance_of_certain_dice_value(float(non_matching_dice.size()), float(index + 1), 6.0)
 		}
 		_possibilities.push_back(possibility)
+
+func find_chance_of_certain_dice_value(num_of_dice_to_be_rolled, desired_num_of_dice, num_of_faces):
+	var num_of_valid_combinations = n_choose_k(num_of_dice_to_be_rolled, desired_num_of_dice)
+	var probability_of_certain_dice_value = 1.0 / num_of_faces
+	var probability_of_desired_dice = pow(probability_of_certain_dice_value, desired_num_of_dice)
+	var probability_other_dice_against = pow(1.0 - probability_of_certain_dice_value, num_of_dice_to_be_rolled - desired_num_of_dice)
+
+	return num_of_valid_combinations * probability_of_desired_dice * probability_other_dice_against
+
+func n_choose_k(n, k):
+	return calc_factorial(n) / (calc_factorial(n - k) * calc_factorial(k))
+
+func calc_factorial(num):
+	var factorial_total = 1
+	for n in num:
+		factorial_total *= n + 1
+	return factorial_total
