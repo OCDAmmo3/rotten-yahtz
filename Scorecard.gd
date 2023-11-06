@@ -311,6 +311,7 @@ func score_chance(score_option_node):
 	_score_to_set = "lower"
 
 func on_submit_pressed():
+	player.set_submit_score_pressed(true)
 	if _selected_score_option != null:
 		_selected_score_option.disabled = true
 		_selected_score_option = null
@@ -349,6 +350,6 @@ func set_grand_total_score():
 	
 	player.find_child("PlayerHealthBar").heal_player(_health_to_heal)
 	_health_to_heal = 0
-	
-	player.rolls_reset()
-	enemy.rolls_reset()
+		
+	if enemy.get_submit_score_pressed():
+		get_node("/root/BattleRollScene").rolls_reset()

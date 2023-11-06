@@ -14,6 +14,9 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var _possibilities = []
 @onready var _optimal_choice = null
 
+func change_visible():
+	visible = not visible
+
 var upper_score_options = [
 	{
 		"label": "Ones",
@@ -82,7 +85,7 @@ func create_score_option(score_option):
 	score_option_row.find_child("Left").text = score_option.label
 	score_option_row.find_child("Dice").texture = score_option.sprite if score_option.sprite != null else null
 	if score_option.score_function != null:
-		score_option_row.connect("pressed", Callable(score_option.score_function).bind())
+		score_option_row.connect("pressed", Callable(score_option.score_function).bind(score_option_row))
 	score_option_row.tooltip_text = score_option.tooltip
 	return score_option_row
 
@@ -112,6 +115,9 @@ func find_optimal_choice():
 		_optimal_choice = highest_value[0]
 
 	_optimal_choice.dice_selection_func.call()
+	
+	if enemy.get_roll_count() == 0 or _optimal_choice.value >= .75:
+		finalize_score(_optimal_choice)
 
 func _find_possibilities():
 	_set_open_score_options()
@@ -128,7 +134,13 @@ func _set_open_score_options():
 		if score_option_text == "":
 			_open_score_options.push_back(_score_option)
 
-func score_num(num_to_score):
+func finalize_score(possibility):
+	enemy.set_submit_score_pressed(true)
+	possibility.score_option_row.find_child("Right").text = str(possibility.current_score)
+	if player.get_submit_score_pressed():
+		get_node("/root/BattleRollScene").rolls_reset()
+
+func score_num(score_option_row, num_to_score):
 	var current_score = 0
 	var non_matching_dice = []
 	for dice in enemy_dice_pool.get_children():	
@@ -140,6 +152,7 @@ func score_num(num_to_score):
 			non_matching_dice.push_back(dice)
 
 	var possibility = {
+		"score_option_row": score_option_row,
 		"dice_selection_func": Callable(select_numeric).bind(num_to_score),
 		"current_score": current_score,
 		"value": float(current_score) / float(enemy_dice_pool.get_child_count() * num_to_score)

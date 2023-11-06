@@ -11,6 +11,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var _default_roll_count = 3
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
+var _submit_score_pressed = false
 
 func _ready():
 	enemy_sprite.play("Groove")
@@ -18,7 +19,7 @@ func _ready():
 	_load_dice_pool()
 
 func _load_dice():
-	var amount_of_dice = 5
+	var amount_of_dice = 3
 	for n in amount_of_dice:
 		var new_dice = dice_scene.instantiate()
 		new_dice.find_child("CheckButton").disabled = true
@@ -41,6 +42,16 @@ func roll_used():
 	_roll_count = _roll_count - 1
 	_has_rolled = true
 
+func set_submit_score_pressed(submission):
+	_submit_score_pressed = submission
+
+func get_submit_score_pressed():
+	return _submit_score_pressed
+
 func rolls_reset():
 	_roll_count = _default_roll_count
 	_has_rolled = false
+	set_submit_score_pressed(false)
+	for dice in dice_pool.get_child(0).get_children():
+		dice.find_child("CheckButton").unselect()
+		dice.find_child("AnimatedDice").reset_previous_frame()
