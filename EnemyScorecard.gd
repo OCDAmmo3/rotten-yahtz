@@ -8,6 +8,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var enemy_dice_values = []
 @onready var enemy_dice_bonus_functions = []
 @onready var enemy_has_rolled = false
+@onready var _dice_faces = 6
 
 @onready var _all_score_options = []
 @onready var _open_score_options = []
@@ -56,8 +57,18 @@ var upper_score_options = [
 	}
 ]
 
+var lower_score_options = [
+	{
+		"label": "Chance",
+		"sprite": null,
+		"score_function": Callable(score_chance).bind(),
+		"tooltip": "Scores all dice and gives half of total (rounded down)"
+	}
+]
+
 func _ready():
 	create_upper_children()
+	create_lower_children()
 
 func initiate_score_selection():
 	enemy_dice_values = []
@@ -79,6 +90,13 @@ func create_upper_children():
 		upper_score_options_node.add_child(score_option_row)
 		_all_score_options.push_back(score_option_row)
 
+func create_lower_children():
+	var lower_score_options_node = find_child("LowerSectionScoreOptions")
+	for lower_score_option in lower_score_options:
+		var score_option_row = create_score_option(lower_score_option)
+		lower_score_options_node.add_child(score_option_row)
+		_all_score_options.push_back(score_option_row)
+
 func create_score_option(score_option):
 	var score_option_row = score_option_row_scene.instantiate()
 	score_option_row.disabled = true
@@ -92,6 +110,9 @@ func create_score_option(score_option):
 func find_optimal_choice():
 	_optimal_choice = null
 	_find_possibilities()
+	if _possibilities.size() == 1 and enemy.get_roll_count() == 0:
+		finalize_score(_possibilities[0])
+		return
 	var max_score = [{"current_score": 0}]
 	var highest_value = [{"value": 0}]
 	for possibility in _possibilities:
@@ -131,8 +152,11 @@ func _set_open_score_options():
 	_open_score_options = []
 	for _score_option in _all_score_options:
 		var score_option_text = _score_option.find_child("Right").text
-		if score_option_text == "":
+		var score_option_label = _score_option.find_child("Left").text
+		if score_option_text == "" and score_option_label != "Chance":
 			_open_score_options.push_back(_score_option)
+	if _open_score_options.size() == 0:
+		var score_option_chance = _all_score_options.filter(func(_score_option): return _score_option.find_child("Left").text == "Chance")
 
 func finalize_score(possibility):
 	enemy.set_submit_score_pressed(true)
@@ -160,8 +184,24 @@ func score_num(score_option_row, num_to_score):
 	for index in non_matching_dice.size():
 		possibility[str(index + 1)] = {
 			"score": current_score + num_to_score * (index + 1),
-			"chance_to_roll": find_chance_of_certain_dice_value(float(non_matching_dice.size()), float(index + 1), 6.0)
+			"chance_to_roll": find_chance_of_certain_dice_value(float(non_matching_dice.size()), float(index + 1), float(_dice_faces))
 		}
+	_possibilities.push_back(possibility)
+
+func score_chance(score_option_row):
+	var current_score = 0
+	for dice in enemy_dice_pool.get_children():
+		var animated_dice = dice.find_child("AnimatedDice", true, false)
+		var dice_value = animated_dice.get_rolled_value()
+		current_score += dice_value
+	current_score = float(current_score) / 2.0
+
+	var possibility = {
+		"score_option_row": score_option_row,
+		"dice_selection_func": null,
+		"current_score": current_score,
+		"value": float(current_score) / (float(enemy_dice_pool.get_child_count() * float(_dice_faces) / 2.0))
+	}
 	_possibilities.push_back(possibility)
 
 func select_numeric(num_to_select):
