@@ -15,6 +15,8 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var _possibilities = []
 @onready var _optimal_choice = null
 
+signal submit_pressed
+
 func change_visible():
 	visible = not visible
 
@@ -67,6 +69,8 @@ var lower_score_options = [
 ]
 
 func _ready():
+	connect("submit_pressed", Callable(get_node("/root/BattleRollScene/"), "set_enemy_submit_pressed").bind(true))
+
 	create_upper_children()
 	create_lower_children()
 
@@ -108,10 +112,12 @@ func create_score_option(score_option):
 	return score_option_row
 
 func find_optimal_choice():
+	print("Finding optimal choice")
 	_optimal_choice = null
 	_find_possibilities()
-	if _possibilities.size() == 1 and enemy.get_roll_count() == 0:
-		finalize_score(_possibilities[0])
+	if _possibilities.size() == 1 and _possibilities[0].score_option_row.find_child("Left").text == "Chance":
+		_optimal_choice = _possibilities[0]
+		finalize_score()
 		return
 	var max_score = [{"current_score": 0}]
 	var highest_value = [{"value": 0}]
@@ -138,7 +144,7 @@ func find_optimal_choice():
 	_optimal_choice.dice_selection_func.call()
 	
 	if enemy.get_roll_count() == 0 or _optimal_choice.value >= .75:
-		finalize_score(_optimal_choice)
+		finalize_score()
 
 func _find_possibilities():
 	_set_open_score_options()
@@ -156,13 +162,10 @@ func _set_open_score_options():
 		if score_option_text == "" and score_option_label != "Chance":
 			_open_score_options.push_back(_score_option)
 	if _open_score_options.size() == 0:
-		var score_option_chance = _all_score_options.filter(func(_score_option): return _score_option.find_child("Left").text == "Chance")
+		_open_score_options.push_back(_all_score_options.filter(func(_score_option): return _score_option.find_child("Left").text == "Chance")[0])
 
-func finalize_score(possibility):
-	enemy.set_submit_score_pressed(true)
-	possibility.score_option_row.find_child("Right").text = str(possibility.current_score)
-	if player.get_submit_score_pressed():
-		get_node("/root/BattleRollScene").rolls_reset()
+func finalize_score():
+	emit_signal("submit_pressed")
 
 func score_num(score_option_row, num_to_score):
 	var current_score = 0
@@ -208,10 +211,21 @@ func select_numeric(num_to_select):
 	for dice in enemy_dice_pool.get_children():
 		var dice_check_button = dice.find_child("CheckButton")
 		dice_check_button.disabled = false
-		dice_check_button.emit_signal("toggled", false)
 		if dice.find_child("AnimatedDice").get_rolled_value() == num_to_select:
 			dice_check_button.emit_signal("toggled", true)
-			dice_check_button.disabled = true
+		else:
+			dice_check_button.emit_signal("toggled", false)
+		dice_check_button.disabled = true
+
+func select_chance():
+	for dice in enemy_dice_pool.get_children():
+		var dice_check_button = dice.find_child("CheckButton")
+		dice_check_button.disabled = false
+		if dice.find_child("AnimatedDice").get_rolled_value() > 3:
+			dice_check_button.emit_signal("toggled", true)
+		else:
+			dice_check_button.emit_signal("toggled", false)
+		dice_check_button.disabled = true
 
 func find_chance_of_certain_dice_value(num_of_dice_to_be_rolled, desired_num_of_dice, num_of_faces):
 	var num_of_valid_combinations = n_choose_k(num_of_dice_to_be_rolled, desired_num_of_dice)
@@ -229,3 +243,6 @@ func calc_factorial(num):
 	for n in num:
 		factorial_total *= n + 1
 	return factorial_total
+
+func player_and_enemy_submitted():
+	_optimal_choice.score_option_row.find_child("Right").text = str(_optimal_choice.current_score)

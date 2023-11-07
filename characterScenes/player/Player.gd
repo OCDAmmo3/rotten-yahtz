@@ -15,7 +15,6 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var _has_rolled = false
 var _dice_window_opened = false
 var _removal_window_opened = false
-var _submit_score_pressed = false
 
 func _ready():
 	player_sprite.play("Player groove")
@@ -70,18 +69,13 @@ func roll_used():
 func get_has_rolled():
 	return _has_rolled
 
-func set_submit_score_pressed(submission):
-	_submit_score_pressed = submission
-
-func get_submit_score_pressed():
-	return _submit_score_pressed
-
 func rolls_reset():
 	_roll_count = _default_roll_count
 	_has_rolled = false
-	set_submit_score_pressed(false)
 	for dice in dice_pool.get_child(0).get_children():
-		dice.find_child("CheckButton").unselect()
+		var check_button = dice.find_child("CheckButton")
+		check_button.unselect()
+		check_button.toggle_mode = false
 		dice.find_child("AnimatedDice").reset_previous_frame()
 
 func deal_damage(_damage_value):
