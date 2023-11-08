@@ -8,6 +8,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var player_dice_values = []
 @onready var player_dice_bonus_functions = []
 @onready var player_has_rolled = false
+@onready var _enemy_submit_pressed = false
 
 @onready var upper_score_option_row = create_score_option(upper_total_score_option)
 @onready var upper_bonus_option_row = create_score_option(upper_bonus_score_option)
@@ -23,6 +24,9 @@ var _selected_score_option = null
 var _selected_score = 0
 var _health_to_heal = 0
 var _score_to_set = "upper"
+
+signal submit_pressed
+signal enemy_can_continue
 
 func change_visible():
 	visible = not visible
@@ -142,6 +146,9 @@ var grand_total_score_option = {
 }
 
 func _ready():
+	connect("submit_pressed", Callable(get_node("/root/BattleRollScene/"), "set_player_submit_pressed").bind(true))
+	connect("enemy_can_continue", Callable(enemy, "player_has_submitted").bind())
+	
 	create_upper_children()
 	create_lower_children()
 
@@ -223,8 +230,9 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 		return has_dice_times[value] >= num_of_kind
 	)
 	if has_num_of_a_kind.size() > 0:
-		_selected_score = player_dice_values.reduce((func(accum, value):
-			return accum + value * (num_of_kind - 1) if has_num_of_a_kind.has(value) else accum + value
+		_selected_score += has_num_of_a_kind[0] * num_of_kind * (num_of_kind - 2)
+		_selected_score += player_dice_values.reduce((func(accum, value):
+			return accum + value
 		), 0)
 
 	score_option_node.find_child("Right").text = str(_selected_score)
@@ -310,19 +318,10 @@ func score_chance(score_option_node):
 
 func on_submit_pressed():
 	if _selected_score_option != null:
-		_selected_score_option.disabled = true
-		_selected_score_option = null
-		
-		var multiplier = player.get_roll_count()
-		player.deal_damage(_selected_score * (multiplier if multiplier > 0 else 1))
-
-		if _score_to_set == "upper":
-			total_upper_score += _selected_score
-		else:
-			total_lower_score += _selected_score
-
-		set_total_lower_score()
-		set_total_upper_score()
+		emit_signal("submit_pressed")
+		if !_enemy_submit_pressed:
+			emit_signal("enemy_can_continue")
+		_enemy_submit_pressed = false
 
 func set_upper_bonus_score():
 	upper_bonus_score = 35 if total_upper_score >= 63 else 0
@@ -347,6 +346,21 @@ func set_grand_total_score():
 	
 	player.find_child("PlayerHealthBar").heal_player(_health_to_heal)
 	_health_to_heal = 0
+
+func player_and_enemy_submitted():
+	_selected_score_option.disabled = true
+	_selected_score_option = null
 	
-	player.rolls_reset()
-	enemy.rolls_reset()
+	var multiplier = player.get_roll_count() - enemy.get_roll_count()
+	player.set_damage(_selected_score * (multiplier if multiplier > 0 else 1))
+
+	if _score_to_set == "upper":
+		total_upper_score += _selected_score
+	else:
+		total_lower_score += _selected_score
+
+	set_total_lower_score()
+	set_total_upper_score()
+
+func set_enemy_submit_pressed(pressed):
+	_enemy_submit_pressed = pressed

@@ -13,6 +13,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var _default_roll_count = 4
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
+@onready var _damage_value = 0
 var _dice_window_opened = false
 var _removal_window_opened = false
 
@@ -71,10 +72,18 @@ func get_has_rolled():
 
 func rolls_reset():
 	_roll_count = _default_roll_count
-	_has_rolled = false 
+	_has_rolled = false
 	for dice in dice_pool.get_child(0).get_children():
-		dice.find_child("CheckButton").toggle_mode = false
+		var check_button = dice.find_child("CheckButton")
+		check_button.unselect()
+		check_button.toggle_mode = false
 		dice.find_child("AnimatedDice").reset_previous_frame()
 
-func deal_damage(_damage_value):
+func set_damage(damage_value):
+	_damage_value = damage_value
+
+func deal_damage():
+	player_sprite.play("Deal damage")
 	get_parent().find_child("EnemyHealthBar").lose_health(_damage_value)
+	await player_sprite.animation_finished
+	player_sprite.play("Player groove")
