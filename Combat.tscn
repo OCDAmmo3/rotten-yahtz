@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=27 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
+[ext_resource type="Texture2D" uid="uid://6i5dxaun3sbk" path="res://characterScenes/assets/playerSprite/player_sprite_4.png" id="3_wrpip"]
 [ext_resource type="Script" path="res://characterScenes/enemies/Enemy.gd" id="4_eumfb"]
 [ext_resource type="Script" path="res://playerControls/RollButton.gd" id="4_nj5ko"]
 [ext_resource type="Texture2D" uid="uid://fx2taxleokfh" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_0.png" id="4_np0v7"]
@@ -18,33 +19,29 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
 load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_80cug"]
-load_path = "res://.godot/imported/player_sprite_1.png-1d8dca62f7c732071931f31f89cb489f.ctex"
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qjs81"]
 load_path = "res://.godot/imported/player_sprite_2.png-62cbd1eb0756a9ddc6e531c7511fa754.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l3wpt"]
-load_path = "res://.godot/imported/player_sprite_4.png-d3265bca8ae962296595932adbd23a0c.ctex"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1j1vr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("3_wrpip")
+}],
+"loop": false,
+"name": &"Deal damage",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("CompressedTexture2D_lk6lb")
 }, {
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_80cug")
-}, {
-"duration": 1.0,
 "texture": SubResource("CompressedTexture2D_qjs81")
-}, {
-"duration": 1.0,
-"texture": SubResource("CompressedTexture2D_l3wpt")
 }],
 "loop": true,
 "name": &"Player groove",
-"speed": 4.0
+"speed": 2.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_887lp"]
@@ -80,6 +77,14 @@ func _set_health(number):
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tcjcl"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_0jta0")
+}],
+"loop": false,
+"name": &"Deal damage",
+"speed": 1.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_np0v7")
@@ -124,7 +129,7 @@ script = ExtResource("2_t5hs3")
 position = Vector2(105, 236)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1j1vr")
-animation = &"Player groove"
+animation = &"Deal damage"
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="Observable/Player"]
 custom_minimum_size = Vector2(100, 10)
@@ -136,7 +141,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
 step = 1.0
-value = 50.0
+value = 100.0
 show_percentage = false
 script = SubResource("GDScript_lkdbd")
 
@@ -156,7 +161,7 @@ script = ExtResource("4_eumfb")
 position = Vector2(84, 286)
 scale = Vector2(0.320313, 0.320313)
 sprite_frames = SubResource("SpriteFrames_tcjcl")
-animation = &"Groove"
+animation = &"Deal damage"
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="Observable/Enemy"]
 custom_minimum_size = Vector2(100, 10)
@@ -167,9 +172,9 @@ offset_bottom = 190.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_sl2c0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pq5ul")
-max_value = 1000.0
+max_value = 150.0
 step = 1.0
-value = 1000.0
+value = 150.0
 show_percentage = false
 script = ExtResource("7_48lcp")
 

@@ -63,6 +63,7 @@ func on_roll_pressed():
 	$EnemyScorecard.find_optimal_choice()
 	_currently_rolling = false
 	if _player_submit_pressed and not _enemy_submit_pressed:
+		await get_tree().create_timer(0.5).timeout
 		enemy.continue_rolling()
 
 func rolls_reset():
@@ -87,20 +88,23 @@ func _enemy_dice_finished_rolling():
 func set_enemy_submit_pressed(pressed):
 	_enemy_submit_pressed = pressed
 	if _enemy_submit_pressed and _player_submit_pressed:
-		all_submitted()
+		await all_submitted()
 
 func set_player_submit_pressed(pressed):
 	_player_submit_pressed = pressed
 	if _enemy_submit_pressed and _player_submit_pressed:
-		all_submitted()
+		await all_submitted()
 
 func all_submitted():
 	rolls_reset()
 	_player_finished_rolling = false
 	_enemy_finished_rolling = false
 	emit_signal("player_and_enemy_submitted")
-	await set_enemy_submit_pressed(false)
-	await set_player_submit_pressed(false)
+	set_enemy_submit_pressed(false)
+	set_player_submit_pressed(false)
+
+	await player.deal_damage()
+	await enemy.deal_damage()
 
 func player_finished_rolling():
 	_player_finished_rolling = true

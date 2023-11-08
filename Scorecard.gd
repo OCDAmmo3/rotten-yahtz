@@ -8,6 +8,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var player_dice_values = []
 @onready var player_dice_bonus_functions = []
 @onready var player_has_rolled = false
+@onready var _enemy_submit_pressed = false
 
 @onready var upper_score_option_row = create_score_option(upper_total_score_option)
 @onready var upper_bonus_option_row = create_score_option(upper_bonus_score_option)
@@ -318,7 +319,9 @@ func score_chance(score_option_node):
 func on_submit_pressed():
 	if _selected_score_option != null:
 		emit_signal("submit_pressed")
-		emit_signal("enemy_can_continue")
+		if !_enemy_submit_pressed:
+			emit_signal("enemy_can_continue")
+		_enemy_submit_pressed = false
 
 func set_upper_bonus_score():
 	upper_bonus_score = 35 if total_upper_score >= 63 else 0
@@ -349,7 +352,7 @@ func player_and_enemy_submitted():
 	_selected_score_option = null
 	
 	var multiplier = player.get_roll_count() - enemy.get_roll_count()
-	player.deal_damage(_selected_score * (multiplier if multiplier > 0 else 1))
+	player.set_damage(_selected_score * (multiplier if multiplier > 0 else 1))
 
 	if _score_to_set == "upper":
 		total_upper_score += _selected_score
@@ -358,3 +361,6 @@ func player_and_enemy_submitted():
 
 	set_total_lower_score()
 	set_total_upper_score()
+
+func set_enemy_submit_pressed(pressed):
+	_enemy_submit_pressed = pressed
