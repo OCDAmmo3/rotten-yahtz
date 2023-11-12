@@ -12,6 +12,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
 @onready var _damage_value = 0
+@onready var _enemy_alive = true
 
 func _ready():
 	enemy_sprite.play("Groove")
@@ -65,3 +66,11 @@ func deal_damage():
 	await enemy_sprite.animation_finished
 	await get_parent().find_child("PlayerHealthBar").take_damage(_damage_value)
 	enemy_sprite.play("Groove")
+
+func get_enemy_alive():
+	return _enemy_alive
+
+func set_enemy_alive(alive_bool):
+	_enemy_alive = alive_bool
+	await get_tree().create_timer(1.5).timeout
+	self.visible = false

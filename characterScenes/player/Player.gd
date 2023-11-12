@@ -14,6 +14,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
 @onready var _damage_value = 0
+@onready var _player_alive = true
 var _dice_window_opened = false
 var _removal_window_opened = false
 
@@ -87,3 +88,11 @@ func deal_damage():
 	await player_sprite.animation_finished
 	await get_parent().find_child("EnemyHealthBar").take_damage(_damage_value)
 	player_sprite.play("Player groove")
+
+func get_player_alive():
+	return _player_alive
+
+func set_player_alive(alive_bool):
+	_player_alive = alive_bool
+	await get_tree().create_timer(0.5).timeout
+	get_tree().change_scene_to_file("res://mainScenes/game_over.tscn")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=52 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=70 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
 [ext_resource type="Texture2D" uid="uid://cwshsrdhphk0h" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Idle_4.png" id="3_4h24f"]
 [ext_resource type="Texture2D" uid="uid://d11kdw06ien30" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Throw_4.png" id="3_yuf60"]
+[ext_resource type="Texture2D" uid="uid://blyxn2mb3udjc" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Death_8.png" id="4_414t5"]
 [ext_resource type="Script" path="res://characterScenes/enemies/Enemy.gd" id="4_eumfb"]
 [ext_resource type="Script" path="res://playerControls/RollButton.gd" id="4_nj5ko"]
 [ext_resource type="Texture2D" uid="uid://bn88fyhkyw4wc" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Throw_4.png" id="5_4ffqe"]
@@ -13,6 +14,7 @@
 [ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
 [ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="7_t0vkd"]
 [ext_resource type="Texture2D" uid="uid://cox3kg25otvb8" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Hurt_4.png" id="8_403rw"]
+[ext_resource type="Texture2D" uid="uid://bim6shdfw6vlq" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Death_8.png" id="8_b3u5j"]
 [ext_resource type="Script" path="res://Scorecard.gd" id="9_dy3cc"]
 [ext_resource type="Script" path="res://ShowScorecardButton.gd" id="9_ph8fm"]
 [ext_resource type="Script" path="res://ShowEnemyScorecardButton.gd" id="11_0hn7a"]
@@ -34,6 +36,38 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_txsau"]
 atlas = ExtResource("3_yuf60")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f2q4"]
+atlas = ExtResource("4_414t5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22ycn"]
+atlas = ExtResource("4_414t5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ct3x"]
+atlas = ExtResource("4_414t5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh57u"]
+atlas = ExtResource("4_414t5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwu4s"]
+atlas = ExtResource("4_414t5")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yor6k"]
+atlas = ExtResource("4_414t5")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqa80"]
+atlas = ExtResource("4_414t5")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gok60"]
+atlas = ExtResource("4_414t5")
+region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mhavj"]
 atlas = ExtResource("3_4h24f")
@@ -88,6 +122,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4f2q4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22ycn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ct3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh57u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwu4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yor6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqa80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gok60")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mhavj")
 }, {
 "duration": 1.0,
@@ -130,6 +193,8 @@ bg_color = Color(0, 0.607843, 0.192157, 1)
 [sub_resource type="GDScript" id="GDScript_lkdbd"]
 script/source = "extends ProgressBar
 
+@onready var animated_sprite = get_parent().find_child(\"PlayerSprite\")
+
 func _ready():
 	_set_health(get_max_health())
 
@@ -139,7 +204,6 @@ func heal_player(amount_to_heal):
 
 func take_damage(damage_amount):
 	lose_health(damage_amount)
-	var animated_sprite = get_parent().find_child(\"PlayerSprite\")
 	animated_sprite.play(\"Take damage\")
 	await animated_sprite.animation_finished
 
@@ -156,6 +220,13 @@ func get_max_health():
 func _set_health(number):
 	self.value = number
 	$Label.text = str(self.value)
+	if self.value == 0:
+		play_death()
+
+func play_death():
+	get_parent().set_player_alive(false)
+	animated_sprite.play(\"Death\")
+	await animated_sprite.animation_finished
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7fb7m"]
@@ -173,6 +244,38 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fg6im"]
 atlas = ExtResource("5_4ffqe")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7hrg"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pd166"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edura"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyenf"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmvcd"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcge4"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew33c"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c40bc"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pph7s"]
 atlas = ExtResource("5_cev7j")
@@ -223,6 +326,35 @@ animations = [{
 }],
 "loop": false,
 "name": &"Deal damage",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7hrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pd166")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edura")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyenf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmvcd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcge4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew33c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c40bc")
+}],
+"loop": false,
+"name": &"Death",
 "speed": 8.0
 }, {
 "frames": [{
@@ -292,7 +424,7 @@ script = ExtResource("2_t5hs3")
 position = Vector2(96, 212)
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_1j1vr")
-animation = &"Deal damage"
+animation = &"Death"
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="Observable/Player"]
 custom_minimum_size = Vector2(100, 10)
@@ -324,7 +456,7 @@ script = ExtResource("4_eumfb")
 position = Vector2(97.0001, 212)
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_tcjcl")
-animation = &"Deal damage"
+animation = &"Death"
 flip_h = true
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="Observable/Enemy"]

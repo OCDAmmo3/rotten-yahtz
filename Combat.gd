@@ -22,6 +22,9 @@ func _ready():
 	connect("player_and_enemy_submitted", Callable(find_child("EnemyScorecard"), "player_and_enemy_submitted").bind())
 	connect("player_dice_finished_rolling", player_finished_rolling)
 	connect("enemy_dice_finished_rolling", enemy_finished_rolling)
+	
+	if not player.get_player_alive():
+		print("this where everything break")
 
 	for dice in player_dice_pool:
 		dice.find_child("AnimatedDice").connect("roll_finished", Callable(func():
@@ -104,7 +107,8 @@ func all_submitted():
 	set_player_submit_pressed(false)
 
 	await player.deal_damage()
-	await enemy.deal_damage()
+	if enemy.get_enemy_alive():
+		await enemy.deal_damage()
 
 func player_finished_rolling():
 	_player_finished_rolling = true
