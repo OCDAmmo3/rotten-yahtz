@@ -203,13 +203,13 @@ func heal_player(amount_to_heal):
 	_set_health(current_health + amount_to_heal)
 
 func take_damage(damage_amount):
-	lose_health(damage_amount)
+	await lose_health(damage_amount)
 	animated_sprite.play(\"Take damage\")
 	await animated_sprite.animation_finished
 
 func lose_health(amount_to_lose):
 	var current_health = get_current_health()
-	_set_health(current_health - amount_to_lose)
+	await _set_health(current_health - amount_to_lose)
 
 func get_current_health():
 	return int($Label.text)
@@ -221,12 +221,12 @@ func _set_health(number):
 	self.value = number
 	$Label.text = str(self.value)
 	if self.value == 0:
-		play_death()
+		await play_death()
 
 func play_death():
-	get_parent().set_player_alive(false)
 	animated_sprite.play(\"Death\")
 	await animated_sprite.animation_finished
+	get_parent().set_player_alive(false)
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7fb7m"]
@@ -435,8 +435,9 @@ offset_bottom = 130.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
+max_value = 10.0
 step = 1.0
-value = 100.0
+value = 1.0
 show_percentage = false
 script = SubResource("GDScript_lkdbd")
 

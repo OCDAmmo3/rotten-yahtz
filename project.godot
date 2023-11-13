@@ -21,6 +21,7 @@ DiceSelectables="*res://diceScenes/dicePossibilities/dice_selectable_options.gd"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="viewport"
 
 [editor_plugins]

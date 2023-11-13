@@ -31,6 +31,6 @@ func _set_health(number):
 		await play_death()
 
 func play_death():
-	get_parent().set_enemy_alive(false)
 	animated_sprite.play("Death")
 	await animated_sprite.animation_finished
+	get_parent().set_enemy_alive(false)
