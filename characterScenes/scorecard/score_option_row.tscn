@@ -8,6 +8,7 @@ offset_right = 356.0
 offset_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 0)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0

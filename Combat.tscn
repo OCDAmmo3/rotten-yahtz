@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=75 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
@@ -206,6 +206,7 @@ func take_damage(damage_amount):
 	await lose_health(damage_amount)
 	animated_sprite.play(\"Take damage\")
 	await animated_sprite.animation_finished
+	animated_sprite.play(\"Player groove\")
 
 func lose_health(amount_to_lose):
 	var current_health = get_current_health()
@@ -408,8 +409,58 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ddq5"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_swf2h"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cydea"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xclj"]
 bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkbe6"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47taw"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [node name="BattleRollScene" type="Node"]
 script = ExtResource("2")
@@ -435,9 +486,8 @@ offset_bottom = 130.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_887lp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_knc8e")
-max_value = 10.0
 step = 1.0
-value = 1.0
+value = 100.0
 show_percentage = false
 script = SubResource("GDScript_lkdbd")
 
@@ -505,6 +555,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="RollButton" type="Button" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("4_nj5ko")
 
 [node name="RollButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
@@ -519,6 +570,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="AddDiceButton" type="Button" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("5_5yqr3")
 
 [node name="AddDiceButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
@@ -532,6 +584,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("9_ph8fm")
 
 [node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
@@ -545,6 +598,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/EnemyShowScorecardButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("11_0hn7a")
 
 [node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/EnemyShowScorecardButtonContainer"]
@@ -557,6 +611,7 @@ visible = false
 offset_left = 793.0
 offset_right = 1149.0
 offset_bottom = 146.0
+mouse_filter = 2
 theme_override_constants/separation = -2
 script = ExtResource("9_dy3cc")
 
@@ -573,6 +628,7 @@ text = "Rotten Yahtz"
 
 [node name="UpperSectionHeader" type="PanelContainer" parent="Scorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ddq5")
 
 [node name="UpperSection" type="Label" parent="Scorecard/UpperSectionHeader"]
 layout_mode = 2
@@ -584,6 +640,7 @@ theme_override_constants/separation = -2
 
 [node name="LowerSectionHeader" type="PanelContainer" parent="Scorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_swf2h")
 
 [node name="LowerSection" type="Label" parent="Scorecard/LowerSectionHeader"]
 layout_mode = 2
@@ -596,6 +653,7 @@ theme_override_constants/separation = -2
 [node name="PanelContainer" type="PanelContainer" parent="Scorecard"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cydea")
 
 [node name="SubmitScoreButton" type="Button" parent="Scorecard/PanelContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -630,6 +688,7 @@ text = "Rotten Yahtz"
 
 [node name="UpperSectionHeader" type="PanelContainer" parent="EnemyScorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mkbe6")
 
 [node name="UpperSection" type="Label" parent="EnemyScorecard/UpperSectionHeader"]
 layout_mode = 2
@@ -641,6 +700,7 @@ theme_override_constants/separation = -2
 
 [node name="LowerSectionHeader" type="PanelContainer" parent="EnemyScorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_47taw")
 
 [node name="LowerSection" type="Label" parent="EnemyScorecard/LowerSectionHeader"]
 layout_mode = 2

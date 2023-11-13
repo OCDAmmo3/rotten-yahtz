@@ -145,7 +145,7 @@ func find_optimal_choice():
 	await get_tree().create_timer(0.5).timeout
 	_optimal_choice.dice_selection_func.call()
 	
-	if enemy.get_roll_count() == 0 or _optimal_choice.value >= .75:
+	if enemy.get_roll_count() == 0 or _optimal_choice.value >= .8:
 		finalize_score()
 
 func _find_possibilities():

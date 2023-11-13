@@ -47,7 +47,9 @@ func on_remove_dice_pressed():
 		_removal_window_opened = true
 
 func close_dice_selection_window():
-	remove_child(get_node("/root/BattleRollScene/Observable/Player/DiceRemovalSelection/"))
+	var dice_removal = get_node_or_null("/root/BattleRollScene/Observable/Player/DiceRemovalSelection/")
+	if dice_removal != null:
+		remove_child(dice_removal)
 	_removal_window_opened = false
 	remove_child(get_node("/root/BattleRollScene/Observable/Player/DiceSelectionWindow/"))
 	_dice_window_opened = false

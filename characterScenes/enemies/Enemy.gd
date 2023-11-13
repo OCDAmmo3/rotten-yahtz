@@ -72,5 +72,4 @@ func get_enemy_alive():
 
 func set_enemy_alive(alive_bool):
 	_enemy_alive = alive_bool
-	await get_tree().create_timer(1.5).timeout
 	self.visible = false

@@ -13,6 +13,7 @@ func take_damage(damage_amount):
 	await lose_health(damage_amount)
 	animated_sprite.play("Take damage")
 	await animated_sprite.animation_finished
+	animated_sprite.play("Groove")
 
 func lose_health(amount_to_lose):
 	var current_health = get_current_health()
