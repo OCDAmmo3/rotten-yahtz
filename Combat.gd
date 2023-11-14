@@ -62,7 +62,6 @@ func on_roll_pressed():
 		#want to determine enemy score at this point, not display
 
 	await all_done_rolling
-	print("all done rolling", _player_finished_rolling, _enemy_finished_rolling)
 	$EnemyScorecard.find_optimal_choice()
 	_currently_rolling = false
 	if _player_submit_pressed and not _enemy_submit_pressed:
@@ -71,6 +70,7 @@ func on_roll_pressed():
 
 func rolls_reset():
 	_currently_rolling = false
+	$Scorecard.set_enemy_submit_pressed(false)
 	player.rolls_reset()
 	enemy.rolls_reset()
 
@@ -90,6 +90,7 @@ func _enemy_dice_finished_rolling():
 
 func set_enemy_submit_pressed(pressed):
 	_enemy_submit_pressed = pressed
+	$Scorecard.set_enemy_submit_pressed(pressed)
 	if _enemy_submit_pressed and _player_submit_pressed:
 		await all_submitted()
 

@@ -322,7 +322,7 @@ func on_submit_pressed():
 		emit_signal("submit_pressed")
 		if !_enemy_submit_pressed:
 			emit_signal("enemy_can_continue")
-		_enemy_submit_pressed = false
+		set_enemy_submit_pressed(false)
 
 func set_upper_bonus_score():
 	upper_bonus_score = 35 if total_upper_score >= 63 else 0
