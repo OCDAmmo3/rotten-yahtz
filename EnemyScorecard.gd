@@ -70,7 +70,6 @@ var lower_score_options = [
 
 func _ready():
 	connect("submit_pressed", Callable(get_node("/root/BattleRollScene/"), "set_enemy_submit_pressed").bind(true))
-	connect("submit_pressed", Callable(get_node("/root/BattleRollScene/Scorecard/"), "set_enemy_submit_pressed").bind(true))
 
 	create_upper_children()
 	create_lower_children()
@@ -113,7 +112,6 @@ func create_score_option(score_option):
 	return score_option_row
 
 func find_optimal_choice():
-	print("Finding optimal choice")
 	_optimal_choice = null
 	_find_possibilities()
 	if _possibilities.size() == 1 and _possibilities[0].score_option_row.find_child("Left").text == "Chance":
@@ -145,7 +143,7 @@ func find_optimal_choice():
 	await get_tree().create_timer(0.5).timeout
 	_optimal_choice.dice_selection_func.call()
 	
-	if enemy.get_roll_count() == 0 or _optimal_choice.value >= .75:
+	if enemy.get_roll_count() == 0 or _optimal_choice.value >= .8:
 		finalize_score()
 
 func _find_possibilities():

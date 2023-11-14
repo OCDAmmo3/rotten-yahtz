@@ -22,6 +22,9 @@ func _ready():
 	connect("player_and_enemy_submitted", Callable(find_child("EnemyScorecard"), "player_and_enemy_submitted").bind())
 	connect("player_dice_finished_rolling", player_finished_rolling)
 	connect("enemy_dice_finished_rolling", enemy_finished_rolling)
+	
+	if not player.get_player_alive():
+		print("this where everything break")
 
 	for dice in player_dice_pool:
 		dice.find_child("AnimatedDice").connect("roll_finished", Callable(func():
@@ -59,7 +62,6 @@ func on_roll_pressed():
 		#want to determine enemy score at this point, not display
 
 	await all_done_rolling
-	print("all done rolling", _player_finished_rolling, _enemy_finished_rolling)
 	$EnemyScorecard.find_optimal_choice()
 	_currently_rolling = false
 	if _player_submit_pressed and not _enemy_submit_pressed:
@@ -68,6 +70,7 @@ func on_roll_pressed():
 
 func rolls_reset():
 	_currently_rolling = false
+	$Scorecard.set_enemy_submit_pressed(false)
 	player.rolls_reset()
 	enemy.rolls_reset()
 
@@ -87,6 +90,7 @@ func _enemy_dice_finished_rolling():
 
 func set_enemy_submit_pressed(pressed):
 	_enemy_submit_pressed = pressed
+	$Scorecard.set_enemy_submit_pressed(pressed)
 	if _enemy_submit_pressed and _player_submit_pressed:
 		await all_submitted()
 
@@ -104,7 +108,8 @@ func all_submitted():
 	set_player_submit_pressed(false)
 
 	await player.deal_damage()
-	await enemy.deal_damage()
+	if enemy.get_enemy_alive():
+		await enemy.deal_damage()
 
 func player_finished_rolling():
 	_player_finished_rolling = true

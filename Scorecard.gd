@@ -10,11 +10,6 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 @onready var player_has_rolled = false
 @onready var _enemy_submit_pressed = false
 
-@onready var upper_score_option_row = create_score_option(upper_total_score_option)
-@onready var upper_bonus_option_row = create_score_option(upper_bonus_score_option)
-@onready var upper_final_option_row = create_score_option(upper_final_total_score_option)
-@onready var lower_score_option_row = create_score_option(lower_total_score_option)
-@onready var grand_total_option_row = create_score_option(grand_total_score_option)
 @onready var total_upper_score = 0
 @onready var upper_bonus_score = 0
 @onready var total_lower_score = 0
@@ -30,6 +25,43 @@ signal enemy_can_continue
 
 func change_visible():
 	visible = not visible
+
+
+@onready var upper_total_score_option = {
+	"label": "TOTAL SCORE",
+	"sprite": null,
+	"score_function": null,
+	"tooltip": "Total score of all 6 numeric score values"
+}
+@onready var upper_bonus_score_option = {
+	"label": "BONUS",
+	"sprite": null,
+	"score_function": null,
+	"tooltip": "If total of all numeric values is 63 or more, gain 35 bonus points - does not contribute to damage"
+}
+@onready var upper_final_total_score_option = {
+	"label": "UPPER TOTAL",
+	"sprite": null,
+	"score_function": null,
+	"tooltip": "Final score for the upper section"
+}
+@onready var lower_total_score_option = {
+	"label": "LOWER TOTAL",
+	"sprite": null,
+	"score_function": null,
+	"tooltip": "Total score of all lower section score values"
+}
+@onready var grand_total_score_option = {
+	"label": "GRAND TOTAL",
+	"sprite": null,
+	"score_function": null,
+	"tooltip": "Grand total of top and bottom sections"
+}
+@onready var upper_score_option_row = create_score_option(upper_total_score_option)
+@onready var upper_bonus_option_row = create_score_option(upper_bonus_score_option)
+@onready var upper_final_option_row = create_score_option(upper_final_total_score_option)
+@onready var lower_score_option_row = create_score_option(lower_total_score_option)
+@onready var grand_total_option_row = create_score_option(grand_total_score_option)
 
 var upper_score_options = [
 	{
@@ -114,37 +146,6 @@ var lower_score_options = [
 	}
 ]
 
-var upper_total_score_option = {
-	"label": "TOTAL SCORE",
-	"sprite": null,
-	"score_function": null,
-	"tooltip": "Total score of all 6 numeric score values"
-}
-var upper_bonus_score_option = {
-	"label": "BONUS",
-	"sprite": null,
-	"score_function": null,
-	"tooltip": "If total of all numeric values is 63 or more, gain 35 bonus points - does not contribute to damage"
-}
-var upper_final_total_score_option = {
-	"label": "UPPER TOTAL",
-	"sprite": null,
-	"score_function": null,
-	"tooltip": "Final score for the upper section"
-}
-var lower_total_score_option = {
-	"label": "LOWER TOTAL",
-	"sprite": null,
-	"score_function": null,
-	"tooltip": "Total score of all lower section score values"
-}
-var grand_total_score_option = {
-	"label": "GRAND TOTAL",
-	"sprite": null,
-	"score_function": null,
-	"tooltip": "Grand total of top and bottom sections"
-}
-
 func _ready():
 	connect("submit_pressed", Callable(get_node("/root/BattleRollScene/"), "set_player_submit_pressed").bind(true))
 	connect("enemy_can_continue", Callable(enemy, "player_has_submitted").bind())
@@ -204,7 +205,7 @@ func create_lower_children():
 func create_score_option(score_option):
 	var score_option_row = score_option_row_scene.instantiate()
 	score_option_row.find_child("Left").text = score_option.label
-	score_option_row.find_child("Dice").texture = score_option.sprite if score_option.sprite != null else null
+	score_option_row.find_child("Dice").texture = score_option.sprite
 	if score_option.score_function != null:
 		score_option_row.connect("pressed", Callable(score_option.score_function).bind(score_option_row))
 	score_option_row.tooltip_text = score_option.tooltip
@@ -321,7 +322,7 @@ func on_submit_pressed():
 		emit_signal("submit_pressed")
 		if !_enemy_submit_pressed:
 			emit_signal("enemy_can_continue")
-		_enemy_submit_pressed = false
+		set_enemy_submit_pressed(false)
 
 func set_upper_bonus_score():
 	upper_bonus_score = 35 if total_upper_score >= 63 else 0

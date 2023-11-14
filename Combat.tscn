@@ -1,47 +1,187 @@
-[gd_scene load_steps=27 format=3 uid="uid://cyqibwcbiv7kp"]
+[gd_scene load_steps=75 format=3 uid="uid://cyqibwcbiv7kp"]
 
 [ext_resource type="Script" path="res://Combat.gd" id="2"]
 [ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
-[ext_resource type="Texture2D" uid="uid://6i5dxaun3sbk" path="res://characterScenes/assets/playerSprite/player_sprite_4.png" id="3_wrpip"]
+[ext_resource type="Texture2D" uid="uid://cwshsrdhphk0h" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Idle_4.png" id="3_4h24f"]
+[ext_resource type="Texture2D" uid="uid://d11kdw06ien30" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Throw_4.png" id="3_yuf60"]
+[ext_resource type="Texture2D" uid="uid://blyxn2mb3udjc" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Death_8.png" id="4_414t5"]
 [ext_resource type="Script" path="res://characterScenes/enemies/Enemy.gd" id="4_eumfb"]
 [ext_resource type="Script" path="res://playerControls/RollButton.gd" id="4_nj5ko"]
-[ext_resource type="Texture2D" uid="uid://fx2taxleokfh" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_0.png" id="4_np0v7"]
-[ext_resource type="Texture2D" uid="uid://cce8h5ofdya7d" path="res://characterScenes/assets/enemiesSprites/gutterRat/gutter_rat_1.png" id="5_0jta0"]
+[ext_resource type="Texture2D" uid="uid://bn88fyhkyw4wc" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Throw_4.png" id="5_4ffqe"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
+[ext_resource type="Texture2D" uid="uid://b0n72cwo47l3p" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Idle_4.png" id="5_cev7j"]
+[ext_resource type="Texture2D" uid="uid://brtf35jxdage" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Hurt_4.png" id="5_ee8l7"]
 [ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
 [ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="7_t0vkd"]
+[ext_resource type="Texture2D" uid="uid://cox3kg25otvb8" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Hurt_4.png" id="8_403rw"]
+[ext_resource type="Texture2D" uid="uid://bim6shdfw6vlq" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Death_8.png" id="8_b3u5j"]
 [ext_resource type="Script" path="res://Scorecard.gd" id="9_dy3cc"]
 [ext_resource type="Script" path="res://ShowScorecardButton.gd" id="9_ph8fm"]
 [ext_resource type="Script" path="res://ShowEnemyScorecardButton.gd" id="11_0hn7a"]
 [ext_resource type="Script" path="res://SubmitScoreButton.gd" id="11_5wn3x"]
 [ext_resource type="Script" path="res://EnemyScorecard.gd" id="13_bg184"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lk6lb"]
-load_path = "res://.godot/imported/player_sprite_0.png-588996b321cd3aaa7370500aef2bb84d.ctex"
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr2ca"]
+atlas = ExtResource("3_yuf60")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qjs81"]
-load_path = "res://.godot/imported/player_sprite_2.png-62cbd1eb0756a9ddc6e531c7511fa754.ctex"
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfhbs"]
+atlas = ExtResource("3_yuf60")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otd0v"]
+atlas = ExtResource("3_yuf60")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txsau"]
+atlas = ExtResource("3_yuf60")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f2q4"]
+atlas = ExtResource("4_414t5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22ycn"]
+atlas = ExtResource("4_414t5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ct3x"]
+atlas = ExtResource("4_414t5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh57u"]
+atlas = ExtResource("4_414t5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwu4s"]
+atlas = ExtResource("4_414t5")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yor6k"]
+atlas = ExtResource("4_414t5")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqa80"]
+atlas = ExtResource("4_414t5")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gok60"]
+atlas = ExtResource("4_414t5")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhavj"]
+atlas = ExtResource("3_4h24f")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjduo"]
+atlas = ExtResource("3_4h24f")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqe6o"]
+atlas = ExtResource("3_4h24f")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl7f3"]
+atlas = ExtResource("3_4h24f")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00hus"]
+atlas = ExtResource("5_ee8l7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y3lr"]
+atlas = ExtResource("5_ee8l7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i543v"]
+atlas = ExtResource("5_ee8l7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyv5r"]
+atlas = ExtResource("5_ee8l7")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1j1vr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_wrpip")
+"texture": SubResource("AtlasTexture_xr2ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfhbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otd0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txsau")
 }],
 "loop": false,
 "name": &"Deal damage",
-"speed": 1.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_lk6lb")
+"texture": SubResource("AtlasTexture_4f2q4")
 }, {
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_qjs81")
+"texture": SubResource("AtlasTexture_22ycn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ct3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh57u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwu4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yor6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqa80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gok60")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhavj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjduo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqe6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl7f3")
 }],
 "loop": true,
 "name": &"Player groove",
-"speed": 2.0
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00hus")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y3lr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i543v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyv5r")
+}],
+"loop": false,
+"name": &"Take damage",
+"speed": 8.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_887lp"]
@@ -53,6 +193,8 @@ bg_color = Color(0, 0.607843, 0.192157, 1)
 [sub_resource type="GDScript" id="GDScript_lkdbd"]
 script/source = "extends ProgressBar
 
+@onready var animated_sprite = get_parent().find_child(\"PlayerSprite\")
+
 func _ready():
 	_set_health(get_max_health())
 
@@ -60,9 +202,15 @@ func heal_player(amount_to_heal):
 	var current_health = get_current_health()
 	_set_health(current_health + amount_to_heal)
 
+func take_damage(damage_amount):
+	await lose_health(damage_amount)
+	animated_sprite.play(\"Take damage\")
+	await animated_sprite.animation_finished
+	animated_sprite.play(\"Player groove\")
+
 func lose_health(amount_to_lose):
 	var current_health = get_current_health()
-	_set_health(current_health - amount_to_lose)
+	await _set_health(current_health - amount_to_lose)
 
 func get_current_health():
 	return int($Label.text)
@@ -73,28 +221,176 @@ func get_max_health():
 func _set_health(number):
 	self.value = number
 	$Label.text = str(self.value)
+	if self.value == 0:
+		await play_death()
+
+func play_death():
+	animated_sprite.play(\"Death\")
+	await animated_sprite.animation_finished
+	get_parent().set_player_alive(false)
 "
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fb7m"]
+atlas = ExtResource("5_4ffqe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpw75"]
+atlas = ExtResource("5_4ffqe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o408b"]
+atlas = ExtResource("5_4ffqe")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fg6im"]
+atlas = ExtResource("5_4ffqe")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7hrg"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pd166"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edura"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyenf"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmvcd"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcge4"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew33c"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c40bc"]
+atlas = ExtResource("8_b3u5j")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pph7s"]
+atlas = ExtResource("5_cev7j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7enb2"]
+atlas = ExtResource("5_cev7j")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2fb8"]
+atlas = ExtResource("5_cev7j")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_faryc"]
+atlas = ExtResource("5_cev7j")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu6y6"]
+atlas = ExtResource("8_403rw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec103"]
+atlas = ExtResource("8_403rw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54cbm"]
+atlas = ExtResource("8_403rw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhj7x"]
+atlas = ExtResource("8_403rw")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tcjcl"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_0jta0")
+"texture": SubResource("AtlasTexture_7fb7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpw75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o408b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fg6im")
 }],
 "loop": false,
 "name": &"Deal damage",
-"speed": 1.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_np0v7")
+"texture": SubResource("AtlasTexture_s7hrg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_0jta0")
+"texture": SubResource("AtlasTexture_pd166")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edura")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyenf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmvcd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcge4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew33c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c40bc")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pph7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7enb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2fb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_faryc")
 }],
 "loop": true,
 "name": &"Groove",
-"speed": 2.0
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu6y6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec103")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54cbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhj7x")
+}],
+"loop": false,
+"name": &"Take damage",
+"speed": 8.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl2c0"]
@@ -113,8 +409,58 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ddq5"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_swf2h"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cydea"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xclj"]
 bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkbe6"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47taw"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.905882, 0.862745, 0.796078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [node name="BattleRollScene" type="Node"]
 script = ExtResource("2")
@@ -122,14 +468,14 @@ script = ExtResource("2")
 [node name="Observable" type="Node2D" parent="."]
 
 [node name="Player" type="Node2D" parent="Observable"]
-position = Vector2(168, 206)
+position = Vector2(178, 266)
 script = ExtResource("2_t5hs3")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Observable/Player"]
-position = Vector2(105, 236)
-scale = Vector2(2, 2)
+position = Vector2(96, 212)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_1j1vr")
-animation = &"Deal damage"
+animation = &"Death"
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="Observable/Player"]
 custom_minimum_size = Vector2(100, 10)
@@ -154,21 +500,22 @@ theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
 horizontal_alignment = 1
 
 [node name="Enemy" type="Node2D" parent="Observable"]
-position = Vector2(818, 206)
+position = Vector2(733, 266)
 script = ExtResource("4_eumfb")
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="Observable/Enemy"]
-position = Vector2(84, 286)
-scale = Vector2(0.320313, 0.320313)
+position = Vector2(97.0001, 212)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_tcjcl")
-animation = &"Deal damage"
+animation = &"Death"
+flip_h = true
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="Observable/Enemy"]
 custom_minimum_size = Vector2(100, 10)
-offset_left = 38.0
-offset_top = 163.0
-offset_right = 138.0
-offset_bottom = 190.0
+offset_left = 46.0
+offset_top = 103.0
+offset_right = 146.0
+offset_bottom = 130.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_sl2c0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pq5ul")
@@ -208,6 +555,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="RollButton" type="Button" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("4_nj5ko")
 
 [node name="RollButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
@@ -222,6 +570,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="AddDiceButton" type="Button" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("5_5yqr3")
 
 [node name="AddDiceButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
@@ -235,6 +584,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("9_ph8fm")
 
 [node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
@@ -248,6 +598,7 @@ theme = ExtResource("7_t0vkd")
 
 [node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/EnemyShowScorecardButtonContainer"]
 layout_mode = 2
+theme = ExtResource("7_t0vkd")
 script = ExtResource("11_0hn7a")
 
 [node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/EnemyShowScorecardButtonContainer"]
@@ -260,6 +611,7 @@ visible = false
 offset_left = 793.0
 offset_right = 1149.0
 offset_bottom = 146.0
+mouse_filter = 2
 theme_override_constants/separation = -2
 script = ExtResource("9_dy3cc")
 
@@ -276,6 +628,7 @@ text = "Rotten Yahtz"
 
 [node name="UpperSectionHeader" type="PanelContainer" parent="Scorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ddq5")
 
 [node name="UpperSection" type="Label" parent="Scorecard/UpperSectionHeader"]
 layout_mode = 2
@@ -287,6 +640,7 @@ theme_override_constants/separation = -2
 
 [node name="LowerSectionHeader" type="PanelContainer" parent="Scorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_swf2h")
 
 [node name="LowerSection" type="Label" parent="Scorecard/LowerSectionHeader"]
 layout_mode = 2
@@ -299,6 +653,7 @@ theme_override_constants/separation = -2
 [node name="PanelContainer" type="PanelContainer" parent="Scorecard"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cydea")
 
 [node name="SubmitScoreButton" type="Button" parent="Scorecard/PanelContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -333,6 +688,7 @@ text = "Rotten Yahtz"
 
 [node name="UpperSectionHeader" type="PanelContainer" parent="EnemyScorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mkbe6")
 
 [node name="UpperSection" type="Label" parent="EnemyScorecard/UpperSectionHeader"]
 layout_mode = 2
@@ -344,6 +700,7 @@ theme_override_constants/separation = -2
 
 [node name="LowerSectionHeader" type="PanelContainer" parent="EnemyScorecard"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_47taw")
 
 [node name="LowerSection" type="Label" parent="EnemyScorecard/LowerSectionHeader"]
 layout_mode = 2

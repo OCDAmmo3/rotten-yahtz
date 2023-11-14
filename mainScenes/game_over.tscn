@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://lnpmux2j4vll"]
+
+[ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="1_bpvt0"]
+
+[node name="game_over" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 234.0
+offset_top = 219.0
+offset_right = 919.0
+offset_bottom = 385.0
+theme = ExtResource("1_bpvt0")
+theme_override_font_sizes/font_size = 128
+text = "Game Over"
