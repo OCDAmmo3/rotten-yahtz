@@ -120,3 +120,6 @@ func enemy_finished_rolling():
 	_enemy_finished_rolling = true
 	if _player_finished_rolling:
 		emit_signal("all_done_rolling")
+
+func end_level():
+	print("this is the end of the level")

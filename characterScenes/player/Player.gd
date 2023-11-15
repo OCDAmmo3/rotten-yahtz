@@ -88,8 +88,8 @@ func set_damage(damage_value):
 func deal_damage():
 	player_sprite.play("Deal damage")
 	await player_sprite.animation_finished
-	await get_parent().find_child("EnemyHealthBar").take_damage(_damage_value)
 	player_sprite.play("Player groove")
+	await get_parent().find_child("EnemyHealthBar").take_damage(_damage_value)
 
 func get_player_alive():
 	return _player_alive

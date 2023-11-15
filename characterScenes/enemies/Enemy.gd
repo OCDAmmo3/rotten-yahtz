@@ -73,3 +73,5 @@ func get_enemy_alive():
 func set_enemy_alive(alive_bool):
 	_enemy_alive = alive_bool
 	self.visible = false
+	if not _enemy_alive:
+		get_parent().get_parent().end_level()
