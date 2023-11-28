@@ -12,6 +12,7 @@ var score_option_row_scene = preload("res://characterScenes/scorecard/score_opti
 
 @onready var total_upper_score = 0
 @onready var upper_bonus_score = 0
+@onready var total_upper_with_bonus_score = 0
 @onready var total_lower_score = 0
 @onready var grand_total_score = 0
 
@@ -152,6 +153,15 @@ func _ready():
 	
 	create_upper_children()
 	create_lower_children()
+
+func get_upper_total():
+	return total_upper_with_bonus_score
+
+func get_lower_total():
+	return total_lower_score
+
+func get_grand_total():
+	return grand_total_score
 
 func initiate_score_selection(selected_score_node):
 	_selected_score = 0
@@ -334,7 +344,8 @@ func set_total_upper_score():
 	set_upper_bonus_score()
 
 func set_final_upper_score():
-	upper_final_option_row.find_child("Right").text = str(total_upper_score + upper_bonus_score)
+	total_upper_with_bonus_score = total_upper_score + upper_bonus_score
+	upper_final_option_row.find_child("Right").text = str(total_upper_with_bonus_score)
 	set_grand_total_score()
 
 func set_total_lower_score():

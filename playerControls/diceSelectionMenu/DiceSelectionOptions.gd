@@ -38,4 +38,4 @@ func submit_chosen_dice():
 		var new_dice = dice_selector_node.instantiate()
 		new_dice.find_child("AnimatedDice").set_values(selected)
 		player_node.add_dice(new_dice)
-		get_parent().get_parent().close_dice_selection_window()
+		get_node("/root/BattleRollScene/Observable/Player/").close_level_end_card()

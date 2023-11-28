@@ -1,0 +1,169 @@
+[gd_scene load_steps=11 format=3 uid="uid://c8to424mcs6u7"]
+
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd" id="1_b6yl2"]
+[ext_resource type="Script" path="res://mainScenes/level_end_card.gd" id="1_tpvsm"]
+[ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="2_v5cyj"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/SelectButton.gd" id="3_qb578"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/RemoveDiceButton.gd" id="4_njdol"]
+[ext_resource type="Script" path="res://SkipButtonButton.gd" id="5_ff1pp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpynu"]
+bg_color = Color(0.294118, 0.360784, 0.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a1ng5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xcpgv"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+
+[sub_resource type="GDScript" id="GDScript_67mev"]
+script/source = "extends PanelContainer
+
+func on_skip_pressed():
+	get_parent().get_parent().close_dice_selection_window()
+"
+
+[node name="LevelEndCard" type="Panel"]
+custom_minimum_size = Vector2(400, 300)
+offset_left = 347.0
+offset_top = 174.0
+offset_right = 747.0
+offset_bottom = 474.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_hpynu")
+script = ExtResource("1_tpvsm")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_right = 361.0
+offset_bottom = 65.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_a1ng5")
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Level Complete"
+
+[node name="EndLevelScore" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 65.0
+offset_right = 400.0
+offset_bottom = 365.0
+
+[node name="UpperTotalScore" type="HBoxContainer" parent="EndLevelScore"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="ScoreLabel" type="Label" parent="EndLevelScore/UpperTotalScore"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xcpgv")
+text = "Total Upper Score"
+
+[node name="Score" type="Label" parent="EndLevelScore/UpperTotalScore"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+
+[node name="LowerTotalScore" type="HBoxContainer" parent="EndLevelScore"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="ScoreLabel" type="Label" parent="EndLevelScore/LowerTotalScore"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xcpgv")
+text = "Total Lower Score"
+
+[node name="Score" type="Label" parent="EndLevelScore/LowerTotalScore"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+
+[node name="GrandTotalScore" type="HBoxContainer" parent="EndLevelScore"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="ScoreLabel" type="Label" parent="EndLevelScore/GrandTotalScore"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xcpgv")
+text = "Grand Total Score"
+
+[node name="Score" type="Label" parent="EndLevelScore/GrandTotalScore"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+
+[node name="MoneyHoarded" type="HBoxContainer" parent="EndLevelScore"]
+layout_mode = 2
+theme_override_constants/separation = 156
+
+[node name="ScoreLabel" type="Label" parent="EndLevelScore/MoneyHoarded"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xcpgv")
+text = "Money Hoarded"
+
+[node name="Score" type="Label" parent="EndLevelScore/MoneyHoarded"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+
+[node name="DiceSelectionWindow" type="VBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_left = 55.0
+offset_top = 65.0
+offset_right = 255.0
+offset_bottom = 265.0
+
+[node name="DiceSelectionOptions" type="HBoxContainer" parent="DiceSelectionWindow"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("1_b6yl2")
+
+[node name="DiceSelectionSubmit" type="PanelContainer" parent="DiceSelectionWindow"]
+layout_mode = 2
+theme = ExtResource("2_v5cyj")
+
+[node name="SelectButton" type="Button" parent="DiceSelectionWindow/DiceSelectionSubmit"]
+layout_mode = 2
+script = ExtResource("3_qb578")
+
+[node name="Select" type="Label" parent="DiceSelectionWindow/DiceSelectionSubmit"]
+layout_mode = 2
+text = "Select"
+
+[node name="RemoveDiceButtonContainer" type="PanelContainer" parent="DiceSelectionWindow"]
+layout_mode = 2
+theme = ExtResource("2_v5cyj")
+
+[node name="RemoveDiceButton" type="Button" parent="DiceSelectionWindow/RemoveDiceButtonContainer"]
+layout_mode = 2
+script = ExtResource("4_njdol")
+
+[node name="RemoveDiceButtonLabel" type="Label" parent="DiceSelectionWindow/RemoveDiceButtonContainer"]
+layout_mode = 2
+text = "Remove dice"
+
+[node name="SkipButton" type="PanelContainer" parent="DiceSelectionWindow"]
+layout_mode = 2
+theme = ExtResource("2_v5cyj")
+script = SubResource("GDScript_67mev")
+
+[node name="Button" type="Button" parent="DiceSelectionWindow/SkipButton"]
+layout_mode = 2
+script = ExtResource("5_ff1pp")
+
+[node name="Label" type="Label" parent="DiceSelectionWindow/SkipButton"]
+layout_mode = 2
+text = "Skip"

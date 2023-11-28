@@ -1,5 +1,7 @@
 extends Node
 
+var level_end_card_node = preload("res://mainScenes/level_end_card.tscn")
+
 @onready var player_dice_pool = $Observable/Player/DicePoolContainer/DicePool.get_children()
 @onready var enemy_dice_pools = $Observable/Enemy/DicePoolContainer/DicePool.get_children()
 @onready var player = $Observable/Player
@@ -122,4 +124,6 @@ func enemy_finished_rolling():
 		emit_signal("all_done_rolling")
 
 func end_level():
-	print("this is the end of the level")
+	var level_end_card = level_end_card_node.instantiate()
+	add_child(level_end_card)
+	level_end_card.set_score_values($Scorecard.get_upper_total(), $Scorecard.get_lower_total(), $Scorecard.get_grand_total())
