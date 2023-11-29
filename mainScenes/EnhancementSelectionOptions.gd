@@ -33,7 +33,7 @@ func new_selected(node_to_select, chosen_dice_node):
 		else:
 			option.find_child("Sprite").modulate = Color("#bbbbbb")
 
-func submit_chosen_dice():
+func submit_chosen_enhancement():
 	if selected != null:
 		var new_dice = dice_selector_node.instantiate()
 		new_dice.find_child("AnimatedDice").set_values(selected)
