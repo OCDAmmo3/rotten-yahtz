@@ -18,3 +18,10 @@ func _count_score_up(score, score_node, score_to_set = 0):
 		score_to_set += 1
 		score_node.text = str(score_to_set)
 		await get_tree().create_timer(0.01).timeout
+
+func on_selection_made():
+	if $DiceSelectionWindow.visible:
+		$DiceSelectionWindow.visible = false
+		$EnhancementSelectionWindow.visible = true
+	else:
+		get_node("/root/BattleRollScene/Observable/Player/").close_level_end_card()

@@ -1,11 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8to424mcs6u7"]
+[gd_scene load_steps=13 format=3 uid="uid://c8to424mcs6u7"]
 
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd" id="1_b6yl2"]
 [ext_resource type="Script" path="res://mainScenes/level_end_card.gd" id="1_tpvsm"]
 [ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="2_v5cyj"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/SelectButton.gd" id="3_qb578"]
+[ext_resource type="Script" path="res://mainScenes/DiceSelectionSubmit.gd" id="4_anxf7"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/RemoveDiceButton.gd" id="4_njdol"]
 [ext_resource type="Script" path="res://SkipButtonButton.gd" id="5_ff1pp"]
+[ext_resource type="Script" path="res://mainScenes/EnhancementSelectionOptions.gd" id="8_5vjwi"]
+[ext_resource type="Script" path="res://mainScenes/EnhancementSelectionSubmit.gd" id="8_ii3np"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpynu"]
 bg_color = Color(0.294118, 0.360784, 0.2, 1)
@@ -15,13 +18,6 @@ bg_color = Color(0.294118, 0.360784, 0.2, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xcpgv"]
 content_margin_left = 10.0
 content_margin_right = 10.0
-
-[sub_resource type="GDScript" id="GDScript_67mev"]
-script/source = "extends PanelContainer
-
-func on_skip_pressed():
-	get_parent().get_parent().close_dice_selection_window()
-"
 
 [node name="LevelEndCard" type="Panel"]
 custom_minimum_size = Vector2(400, 300)
@@ -134,6 +130,7 @@ script = ExtResource("1_b6yl2")
 [node name="DiceSelectionSubmit" type="PanelContainer" parent="DiceSelectionWindow"]
 layout_mode = 2
 theme = ExtResource("2_v5cyj")
+script = ExtResource("4_anxf7")
 
 [node name="SelectButton" type="Button" parent="DiceSelectionWindow/DiceSelectionSubmit"]
 layout_mode = 2
@@ -158,12 +155,50 @@ text = "Remove dice"
 [node name="SkipButton" type="PanelContainer" parent="DiceSelectionWindow"]
 layout_mode = 2
 theme = ExtResource("2_v5cyj")
-script = SubResource("GDScript_67mev")
 
 [node name="Button" type="Button" parent="DiceSelectionWindow/SkipButton"]
 layout_mode = 2
 script = ExtResource("5_ff1pp")
 
 [node name="Label" type="Label" parent="DiceSelectionWindow/SkipButton"]
+layout_mode = 2
+text = "Skip"
+
+[node name="EnhancementSelectionWindow" type="VBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+offset_left = 55.0
+offset_top = 65.0
+offset_right = 255.0
+offset_bottom = 265.0
+
+[node name="EnhancementSelectionOptions" type="HBoxContainer" parent="EnhancementSelectionWindow"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("8_5vjwi")
+
+[node name="EnhancementSelectionSubmit" type="PanelContainer" parent="EnhancementSelectionWindow"]
+layout_mode = 2
+theme = ExtResource("2_v5cyj")
+script = ExtResource("8_ii3np")
+
+[node name="SelectButton" type="Button" parent="EnhancementSelectionWindow/EnhancementSelectionSubmit"]
+layout_mode = 2
+script = ExtResource("3_qb578")
+
+[node name="Select" type="Label" parent="EnhancementSelectionWindow/EnhancementSelectionSubmit"]
+layout_mode = 2
+text = "Select"
+
+[node name="SkipButton" type="PanelContainer" parent="EnhancementSelectionWindow"]
+layout_mode = 2
+theme = ExtResource("2_v5cyj")
+
+[node name="Button" type="Button" parent="EnhancementSelectionWindow/SkipButton"]
+layout_mode = 2
+script = ExtResource("5_ff1pp")
+
+[node name="Label" type="Label" parent="EnhancementSelectionWindow/SkipButton"]
 layout_mode = 2
 text = "Skip"
