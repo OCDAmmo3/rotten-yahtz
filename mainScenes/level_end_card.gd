@@ -1,6 +1,7 @@
 extends Panel
 
 @onready var player_node = get_node("/root/BattleRollScene/Observable/Player/")
+@onready var player_enhancements = player_node.get_enhancements()
 
 func set_score_values(_upper_total, _lower_total, _grand_total):
 	await _count_score_up(_upper_total, $EndLevelScore/UpperTotalScore/Score)
@@ -10,7 +11,11 @@ func set_score_values(_upper_total, _lower_total, _grand_total):
 	player_node.add_money(_grand_total)
 	await get_tree().create_timer(1.0).timeout
 	$EndLevelScore.visible = false
+	var thisIsVar = player_enhancements.end_card.filter(func(enhancement): return enhancement.name == "Better Odds")
+	if thisIsVar.size() > 0:
+		$DiceSelectionWindow/DiceSelectionOptions.set_better_odds()
 	$DiceSelectionWindow.visible = true
+	$DiceSelectionWindow/DiceSelectionOptions.create_dice_selectables()
 
 func _count_score_up(score, score_node, score_to_set = 0):
 	for n in score:
@@ -21,6 +26,9 @@ func _count_score_up(score, score_node, score_to_set = 0):
 func on_selection_made():
 	if $DiceSelectionWindow.visible:
 		$DiceSelectionWindow.visible = false
+		if player_enhancements.end_card.filter(func(enhancement): return enhancement.name == "Better Odds").size() > 0:
+			$EnhancementSelectionWindow/EnhancementSelectionOptions.set_better_odds()
 		$EnhancementSelectionWindow.visible = true
+		$EnhancementSelectionWindow/EnhancementSelectionOptions.create_enhancement_selectables()
 	else:
 		get_node("/root/BattleRollScene/Observable/Player/").close_level_end_card()

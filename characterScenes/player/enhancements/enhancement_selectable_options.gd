@@ -18,18 +18,17 @@ extends Node2D
 		"name": "Better Odds",
 		"sprite": preload("res://characterScenes/assets/enhancements/BetterOdds.png"),
 		"tooltip": "Receive 1 extra option for dice and enhancement selection options after battles.",
-		"main_function": Callable(func():
-			).bind(),
-		"when_to_call": "player_load",
+		"main_function": null,
+		"when_to_call": "end_card",
 		"rarity": "C"
 	},
 	{
 		"name": "Deuces Wild",
 		"sprite": preload("res://characterScenes/assets/enhancements/HighRoller.png"),
 		"tooltip": "Once per battle, each 2 rolled in a set can count as any number value.",
-		"main_function": Callable(func():
-			).bind(),
-		"when_to_call": "scoring",
+		"main_function": null,
+		"active": true,
+		"when_to_call": "determine_dice",
 		"rarity": "C"
 	},
 	{

@@ -7,33 +7,29 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var dice_pool = dice_pool_scene.instantiate()
 @onready var player_sprite = $PlayerSprite
 @onready var player_health_bar = get_node("/root/BattleRollScene/Observable/Player/PlayerHealthBar/")
-@onready var MAX_HEALTH = player_health_bar.get_max_health()
-@onready var difficulty = 0
-@onready var _default_roll_count = 10
+@onready var _default_roll_count = 4
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
 @onready var _damage_value = 0
 @onready var _player_alive = true
 var enhancements = {
-	"numeric": [{
-		"name": "High Roller",
-		"sprite": preload("res://characterScenes/assets/enhancements/HighRoller.png"),
-		"tooltip": "If more than 5 dice are usable for a numeric score option, earn double score for each bonus dice.",
-		"main_function": Callable(func(score, dice_values, num_to_score):
-			var more_than_five = dice_values.size() - 5
-			if more_than_five > 0:
-				score += more_than_five * num_to_score
-			return score
-			).bind(),
-		"when_to_call": "numeric",
-		"rarity": "C"
-	}],
+	"numeric": [],
 	"player_load": [],
 	"scoring": [],
 	"chance": [],
 	"enemy_load": [],
 	"player_damage": [],
-	"roll_end": []
+	"roll_end": [],
+	"end_card": [],
+	"determine_dice": [{
+		"name": "Deuces Wild",
+		"sprite": preload("res://characterScenes/assets/enhancements/HighRoller.png"),
+		"tooltip": "Once per battle, each 2 rolled in a set can count as any number value.",
+		"main_function": null,
+		"active": true,
+		"when_to_call": "determine_dice",
+		"rarity": "C"
+	}]
 }
 var _dice_window_opened = false
 var _removal_window_opened = false
@@ -45,7 +41,7 @@ func _ready():
 	_load_dice_pool()
 
 func _load_dice():
-	var amount_of_dice = 8
+	var amount_of_dice = 6
 	for n in amount_of_dice:
 		var new_dice = dice_scene.instantiate()
 		new_dice.find_child("AnimatedDice").set_values(DiceOptions.dice_options.D6)
