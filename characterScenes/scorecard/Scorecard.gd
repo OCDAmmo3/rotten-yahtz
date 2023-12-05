@@ -225,9 +225,14 @@ func score_num(score_option_node, num):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	_selected_score = player_dice_values.reduce((func(accum, value):
-		return accum + value if value == num else accum
+	var valid_dice = player_dice_values.filter(func(value):
+		return value == num
+		)
+	_selected_score = valid_dice.reduce((func(accum, value):
+		return accum + value
 	), 0)
+	for enhancement in player.get_enhancements().numeric:
+		_selected_score = enhancement.main_function.call(_selected_score, valid_dice, num)
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "upper"
 
@@ -363,8 +368,9 @@ func player_and_enemy_submitted():
 	_selected_score_option.disabled = true
 	_selected_score_option = null
 	
-	var multiplier = player.get_roll_count() - enemy.get_roll_count()
-	player.set_damage(_selected_score * (multiplier if multiplier > 0 else 1))
+	#var multiplier = player.get_roll_count() - enemy.get_roll_count()
+	#player.set_damage(_selected_score * (multiplier if multiplier > 0 else 1))
+	player.set_damage(_selected_score)
 
 	if _score_to_set == "upper":
 		total_upper_score += _selected_score

@@ -1,12 +1,12 @@
 extends HBoxContainer
 
 @onready var player_node = get_node("/root/BattleRollScene/Observable/Player/")
-@onready var dice_selector_node = preload("res://diceScenes/DiceSelector.tscn")
+@onready var dice_selector_node = preload("res://mainScenes/Selector.tscn")
 @onready var amount_of_dice_options = 3
 @onready var dice_options = DiceSelectables.dice_options
 var selected
 
-var dice_selectable = preload("res://diceScenes/dicePossibilities/DiceSelectable.tscn")
+var dice_selectable = preload("res://mainScenes/Selectable.tscn")
 
 func _ready():
 	_create_dice_selectables()
@@ -21,7 +21,7 @@ func _create_dice_selectables():
 
 	for dice_option in unique_dice_options:
 		var dice_option_node = dice_selectable.instantiate()
-		dice_option_node.create_node_values(dice_option)
+		dice_option_node.create_node_values(dice_option, true)
 		add_child(dice_option_node)
 
 func new_selected(node_to_select, chosen_dice_node):

@@ -6,7 +6,6 @@ func set_score_values(_upper_total, _lower_total, _grand_total):
 	await _count_score_up(_upper_total, $EndLevelScore/UpperTotalScore/Score)
 	await _count_score_up(_lower_total, $EndLevelScore/LowerTotalScore/Score)
 	await _count_score_up(_grand_total, $EndLevelScore/GrandTotalScore/Score)
-	print(player_node)
 	await _count_score_up(_grand_total, $EndLevelScore/MoneyHoarded/Score, player_node.get_money_hoarded())
 	player_node.add_money(_grand_total)
 	await get_tree().create_timer(1.0).timeout
