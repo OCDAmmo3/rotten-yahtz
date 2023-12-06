@@ -241,18 +241,8 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
+	var has_dice_times = get_dice_times()
 	var has_num_of_a_kind = player_dice_values.filter(func(value):
-		if deuces_wild != null and deuces_wild.active and value == 2:
-			has_dice_times[1] += 1
-			has_dice_times[2] += 1
-			has_dice_times[3] += 1
-			has_dice_times[4] += 1
-			has_dice_times[5] += 1
-			has_dice_times[6] += 1
-		else:
-			has_dice_times[value] += 1
-		print(has_dice_times.values().filter(func(value): return value >= num_of_kind))
 		return has_dice_times.values().filter(func(value): return value >= num_of_kind).size() > 0
 	)
 	if has_num_of_a_kind.size() > 0:
@@ -264,12 +254,8 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
 
-func score_full_house(score_option_node):
-	initiate_score_selection(score_option_node)
-	if not player_has_rolled:
-		return
+func get_dice_times():
 	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
-	player_dice_values.sort_custom(func(a, b): return a > b)
 	for value in player_dice_values:
 		if deuces_wild != null and deuces_wild.active and value == 2:
 			has_dice_times[1] += 1
@@ -280,6 +266,13 @@ func score_full_house(score_option_node):
 			has_dice_times[6] += 1
 		else:
 			has_dice_times[value] += 1
+
+func score_full_house(score_option_node):
+	initiate_score_selection(score_option_node)
+	if not player_has_rolled:
+		return
+	player_dice_values.sort_custom(func(a, b): return a > b)
+	var has_dice_times = get_dice_times()
 	var has_three_of_a_kind = player_dice_values.filter(func(value): return has_dice_times[value] >= 3)
 	if has_three_of_a_kind.size() > 0:
 		var has_different_two_of_a_kind = player_dice_values.filter(func(value):
@@ -296,37 +289,36 @@ func score_straight(score_option_node, str_size):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	player_dice_values.sort()
-	var sequential_size = 1
-	var highest_in_straight
-	var unique_values = []
-	var amount_of_twos = 0
-	for value in player_dice_values:
-		if not unique_values.has(value) and value != 2:
-			unique_values.push_back(value)
-		if deuces_wild != null and deuces_wild.active and value == 2:
-			amount_of_twos += 1
 
-	var original_twos = amount_of_twos
-	for index in unique_values.size():
-		var value = unique_values[index]
-		if index + 1 < unique_values.size() and value + 1 == unique_values[index + 1]:
-			sequential_size += 1
-			highest_in_straight = unique_values[index + 1]
-		elif amount_of_twos > 0:
-			index -= 1
-			amount_of_twos -= 1
-			sequential_size += 1
-		elif sequential_size >= str_size:
-			break
-		else:
-			sequential_size = 1
-			amount_of_twos = original_twos
-			
+	#FUNDAY FRIDAY KATA - help me solution a sequence of digits *with* potential wilds
+	#var unique_values = []
+	#var number_of_twos = 0
+	#for value in player_dice_values:
+	#	if not unique_values.has(value):
+	#		unique_values.push_back(value)
+	#	if value == 2:
+	#		number_of_twos += 1
+#
+	#var highest_in_straight = 0
+	#var _current_sequence_length = 1
+	#var _result = _current_sequence_length
+	#for index in 6:
+	#	var sequence_is_continued = index < unique_values.size() and unique_values[index] - 1 == unique_values[index - 1]
+	#	if sequence_is_continued:
+	#		_current_sequence_length += 1
+	#		if _result > _current_sequence_length:
+	#			highest_in_straight = unique_values[index]
+	#		else:
+	#			_result = _current_sequence_length
+	#	else:
+	#		if number_of_twos > 0:
+	#			number_of_twos -= 1
+	#		else:
+	#			_current_sequence_length = 1
 
-	if sequential_size >= str_size:
-		_selected_score += (str_size - 1) * 10
-		_selected_score += highest_in_straight if str_size == 4 else highest_in_straight * 2
+	#if _current_sequence_length >= str_size:
+	_selected_score += (str_size - 1) * 10
+	#_selected_score += highest_in_straight if str_size == 4 else highest_in_straight * 2
 
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
@@ -335,17 +327,8 @@ func score_yahtzee(score_option_node):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
+	var has_dice_times = get_dice_times()
 	var has_yahtzee = player_dice_values.filter(func(value):
-		if deuces_wild != null and deuces_wild.active and value == 2:
-			has_dice_times[1] += 1
-			has_dice_times[2] += 1
-			has_dice_times[3] += 1
-			has_dice_times[4] += 1
-			has_dice_times[5] += 1
-			has_dice_times[6] += 1
-		else:
-			has_dice_times[value] += 1
 		return has_dice_times[value] >= 5
 	)
 	if has_yahtzee.size() > 0:
