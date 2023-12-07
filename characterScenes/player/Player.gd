@@ -21,15 +21,8 @@ var enhancements = {
 	"player_damage": [],
 	"roll_end": [],
 	"end_card": [],
-	"determine_dice": [{
-		"name": "Deuces Wild",
-		"sprite": preload("res://characterScenes/assets/enhancements/HighRoller.png"),
-		"tooltip": "Once per battle, each 2 rolled in a set can count as any number value.",
-		"main_function": null,
-		"active": true,
-		"when_to_call": "determine_dice",
-		"rarity": "C"
-	}]
+	"determine_dice": [],
+	"miscellaneous": []
 }
 var _dice_window_opened = false
 var _removal_window_opened = false

@@ -166,7 +166,9 @@ func get_grand_total():
 
 func initiate_score_selection(selected_score_node):
 	_selected_score = 0
-	deuces_wild = player.get_enhancements().determine_dice.filter(func(enhancement): return enhancement.name == "Deuces Wild")[0]
+	var player_enhancements = player.get_enhancements()
+	deuces_wild = player_enhancements.determine_dice.filter(func(enhancement): return enhancement.name == "Deuces Wild")
+	deuces_wild = deuces_wild[0] if deuces_wild.size() > 0 else null
 	if _selected_score_option != null:
 		_selected_score_option.find_child("Right").text = ""
 	player_dice_values = []
@@ -175,6 +177,8 @@ func initiate_score_selection(selected_score_node):
 		var animated_dice = dice.find_child("AnimatedDice", true, false)
 		var dice_value = animated_dice.get_rolled_value()
 		player_dice_values.push_back(dice_value)
+		if player_enhancements.miscellaneous.filter(func(enhancement): return enhancement.name == "Snake Eyes").size() > 0 and dice_value == 1:
+			player_dice_values.push_back(dice_value)
 		var dice_bonus_function = animated_dice.get_bonus_function()
 		if dice_bonus_function != null:
 			dice_bonus_function.call(player_dice_values, dice_value)

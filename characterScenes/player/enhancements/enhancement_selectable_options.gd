@@ -35,9 +35,8 @@ extends Node2D
 		"name": "Snake Eyes",
 		"sprite": preload("res://characterScenes/assets/enhancements/HighRoller.png"),
 		"tooltip": "Each 1 rolled counts twice.",
-		"main_function": Callable(func():
-			).bind(),
-		"when_to_call": "scoring",
+		"main_function": null,
+		"when_to_call": "miscellaneous",
 		"rarity": "R"
 	},
 	{
