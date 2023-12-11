@@ -1,32 +1,28 @@
 extends HBoxContainer
 
 @onready var player_node = get_node("/root/BattleRollScene/Observable/Player/")
-@onready var dice_selector_node = preload("res://diceScenes/DiceSelector.tscn")
-@onready var amount_of_dice_options = 3
-@onready var dice_options = DiceSelectables.dice_options
+@onready var _amount_of_enhancement_options = 2
+@onready var enhancement_options = EnhancementSelectables.enhancement_options
 var selected
 
-var dice_selectable = preload("res://diceScenes/dicePossibilities/DiceSelectable.tscn")
+var enhancement_selectable = preload("res://mainScenes/Selectable.tscn")
 
-func _ready():
-	_create_dice_selectables()
-
-func _create_dice_selectables():
+func create_enhancement_selectables():
 	selected = null
-	var unique_dice_options = []
-	while unique_dice_options.size() < amount_of_dice_options:
-		var dice_option = dice_options[randi_range(0, dice_options.size() - 1)]
-		if unique_dice_options.find(dice_option) < 0:
-			unique_dice_options.push_back(dice_option)
+	var unique_enhancement_options = []
+	while unique_enhancement_options.size() < _amount_of_enhancement_options:
+		var enhancement_option = enhancement_options[randi_range(0, enhancement_options.size() - 1)]
+		if unique_enhancement_options.find(enhancement_option) < 0:
+			unique_enhancement_options.push_back(enhancement_option)
 
-	for dice_option in unique_dice_options:
-		var dice_option_node = dice_selectable.instantiate()
-		dice_option_node.create_node_values(dice_option)
-		add_child(dice_option_node)
+	for enhancement_option in unique_enhancement_options:
+		var enhancement_option_node = enhancement_selectable.instantiate()
+		enhancement_option_node.create_node_values(enhancement_option)
+		add_child(enhancement_option_node)
 
-func new_selected(node_to_select, chosen_dice_node):
+func new_selected(node_to_select, chosen_enhancement_node):
 	var selectable_options = get_children()
-	selected = chosen_dice_node
+	selected = chosen_enhancement_node
 	for option in selectable_options:
 		if node_to_select == null || option != node_to_select:
 			option.unselect()
@@ -35,7 +31,8 @@ func new_selected(node_to_select, chosen_dice_node):
 
 func submit_chosen_enhancement():
 	if selected != null:
-		var new_dice = dice_selector_node.instantiate()
-		new_dice.find_child("AnimatedDice").set_values(selected)
-		player_node.add_dice(new_dice)
+		player_node.add_enhancement(selected)
 		get_parent().get_parent().on_selection_made()
+
+func set_better_odds():
+	_amount_of_enhancement_options = 3

@@ -20,13 +20,13 @@ var _selected_score_option = null
 var _selected_score = 0
 var _health_to_heal = 0
 var _score_to_set = "upper"
+var deuces_wild = null
 
 signal submit_pressed
 signal enemy_can_continue
 
 func change_visible():
 	visible = not visible
-
 
 @onready var upper_total_score_option = {
 	"label": "TOTAL SCORE",
@@ -165,6 +165,12 @@ func get_grand_total():
 
 func initiate_score_selection(selected_score_node):
 	_selected_score = 0
+	var player_enhancements = player.get_enhancements()
+	deuces_wild = player_enhancements.determine_dice.filter(func(enhancement): return enhancement.name == "Deuces Wild")
+	if deuces_wild.size() > 0:
+		deuces_wild = true
+	else:
+		deuces_wild = null
 	if _selected_score_option != null:
 		_selected_score_option.find_child("Right").text = ""
 	player_dice_values = []
@@ -173,6 +179,8 @@ func initiate_score_selection(selected_score_node):
 		var animated_dice = dice.find_child("AnimatedDice", true, false)
 		var dice_value = animated_dice.get_rolled_value()
 		player_dice_values.push_back(dice_value)
+		if player_enhancements.miscellaneous.filter(func(enhancement): return enhancement.name == "Snake Eyes").size() > 0 and dice_value == 1:
+			player_dice_values.push_back(dice_value)
 		var dice_bonus_function = animated_dice.get_bonus_function()
 		if dice_bonus_function != null:
 			dice_bonus_function.call(player_dice_values, dice_value)
@@ -225,9 +233,13 @@ func score_num(score_option_node, num):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	_selected_score = player_dice_values.reduce((func(accum, value):
-		return accum + value if value == num else accum
-	), 0)
+	var valid_dice = player_dice_values.filter(func(value):
+		var is_valid_wild = deuces_wild != null and deuces_wild and value == 2
+		return value == num or is_valid_wild
+		)
+	_selected_score = num * valid_dice.size()
+	for enhancement in player.get_enhancements().numeric:
+		_selected_score = enhancement.main_function.call(_selected_score, valid_dice, num)
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "upper"
 
@@ -235,11 +247,12 @@ func score_some_of_a_kind(score_option_node, num_of_kind):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
-	var has_num_of_a_kind = player_dice_values.filter(func(value):
-		has_dice_times[value] += 1
-		return has_dice_times[value] >= num_of_kind
-	)
+	var has_dice_times = get_dice_times()
+	var has_num_of_a_kind = []
+	for key in has_dice_times:
+		var value = has_dice_times[key]
+		if value >= num_of_kind:
+			has_num_of_a_kind.push_back(key)
 	if has_num_of_a_kind.size() > 0:
 		_selected_score += has_num_of_a_kind[0] * num_of_kind * (num_of_kind - 2)
 		_selected_score += player_dice_values.reduce((func(accum, value):
@@ -253,14 +266,27 @@ func score_full_house(score_option_node):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
 	player_dice_values.sort_custom(func(a, b): return a > b)
-	for value in player_dice_values:
-		has_dice_times[value] += 1
-	var has_three_of_a_kind = player_dice_values.filter(func(value): return has_dice_times[value] >= 3)
+	var has_dice_times = get_dice_times(false)
+	var has_three_of_a_kind = player_dice_values.filter(func(value):
+		if has_dice_times[value] >= 3:
+			return true
+		elif value != 2 and has_dice_times[value] + has_dice_times[2] >= 3:
+			has_dice_times[2] -= 3 - has_dice_times[value]
+			return true
+		else:
+			return false
+		)
 	if has_three_of_a_kind.size() > 0:
 		var has_different_two_of_a_kind = player_dice_values.filter(func(value):
-			return has_dice_times[value] >= 2 && value != has_three_of_a_kind[0])
+			if has_dice_times[value] >= 2 and value != has_three_of_a_kind[0]:
+				return true
+			elif value != 2 and has_dice_times[value] + has_dice_times[2] >= 2 and value != has_three_of_a_kind[0]:
+				has_dice_times[2] -= 2 - has_dice_times[value]
+				return true
+			else:
+				return false
+			)
 		if has_different_two_of_a_kind.size() > 0:
 			_selected_score += 25
 			_selected_score += has_three_of_a_kind[0] * 3
@@ -269,31 +295,64 @@ func score_full_house(score_option_node):
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
 
+func get_sequence(sorted_unique_values, is_ascending, str_size, amount_of_twos):
+	var current_sequence = 1
+	var current_number = sorted_unique_values[0]
+	var highest_value = current_number
+	var values_after_first = sorted_unique_values.slice(1)
+	var index = 0
+	while index < values_after_first.size() or amount_of_twos > 0:
+		var value = highest_value
+		if index < values_after_first.size():
+			value = values_after_first[index]
+		var value_math = (func(value): return value - 1) if is_ascending else (func(value): return value + 1)
+		if value_math.call(value) == current_number:
+			current_sequence += 1
+			if value > highest_value:
+				highest_value += 1
+		elif deuces_wild and amount_of_twos > 0:
+			current_sequence += 1
+			if current_number > highest_value:
+				highest_value = current_number
+			amount_of_twos -= 1
+			index -= 1
+		else:
+			if not current_sequence >= str_size:
+				current_sequence = 1
+		var incrementation_direction_math = (func(value): return value + 1) if is_ascending else (func(value): return value - 1)
+		current_number = incrementation_direction_math.call(current_number)
+		index += 1
+
+	if current_sequence >= str_size:
+		return { "has_sequence": true, "highest_value": highest_value }
+	return { "has_sequence": false, "highest_value": 0 }
+
 func score_straight(score_option_node, str_size):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	player_dice_values.sort()
-	var sequential_size = 1
-	var highest_in_straight
 	var unique_values = []
+	var amount_of_twos = 0
 	for value in player_dice_values:
-		if not unique_values.has(value):
+		if not unique_values.has(value) and (not deuces_wild or value != 2 && deuces_wild):
 			unique_values.push_back(value)
+		elif deuces_wild and value == 2:
+			amount_of_twos += 1
 
-	for index in unique_values.size():
-		var value = unique_values[index]
-		if index + 1 < unique_values.size() && value + 1 == unique_values[index + 1]:
-			sequential_size += 1
-			highest_in_straight = unique_values[index + 1]
-		elif sequential_size >= str_size:
-			break
-		else:
-			sequential_size = 1
+	unique_values.sort();
+	var ascending_sequence = get_sequence(unique_values, true, str_size, amount_of_twos);
+	unique_values.sort_custom(func(a,b): return b - a);
+	var descending_sequence = get_sequence(unique_values, false, str_size, amount_of_twos);
 
-	if sequential_size >= str_size:
+	var has_straight = { "has_sequence": false, "highest_value": 0 }
+	if ascending_sequence.highest_value > descending_sequence.highest_value:
+		has_straight = ascending_sequence
+	else:
+		has_straight = descending_sequence
+
+	if has_straight.has_sequence:
 		_selected_score += (str_size - 1) * 10
-		_selected_score += highest_in_straight if str_size == 4 else highest_in_straight * 2
+		_selected_score += has_straight.highest_value if str_size == 4 else has_straight.highest_value * 2
 
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
@@ -302,9 +361,8 @@ func score_yahtzee(score_option_node):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
-	var has_dice_times = {1:0,2:0,3:0,4:0,5:0,6:0}
+	var has_dice_times = get_dice_times()
 	var has_yahtzee = player_dice_values.filter(func(value):
-		has_dice_times[value] += 1
 		return has_dice_times[value] >= 5
 	)
 	if has_yahtzee.size() > 0:
@@ -326,6 +384,20 @@ func score_chance(score_option_node):
 
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
+
+func get_dice_times(with_wild = true):
+	var has_dice_times = {6:0,5:0,4:0,3:0,2:0,1:0}
+	for value in player_dice_values:
+		if deuces_wild != null and deuces_wild and value == 2 and with_wild:
+			has_dice_times[1] += 1
+			has_dice_times[2] += 1
+			has_dice_times[3] += 1
+			has_dice_times[4] += 1
+			has_dice_times[5] += 1
+			has_dice_times[6] += 1
+		else:
+			has_dice_times[value] += 1
+	return has_dice_times
 
 func on_submit_pressed():
 	if _selected_score_option != null:
@@ -362,9 +434,8 @@ func set_grand_total_score():
 func player_and_enemy_submitted():
 	_selected_score_option.disabled = true
 	_selected_score_option = null
-	
-	var multiplier = player.get_roll_count() - enemy.get_roll_count()
-	player.set_damage(_selected_score * (multiplier if multiplier > 0 else 1))
+
+	player.set_damage(_selected_score)
 
 	if _score_to_set == "upper":
 		total_upper_score += _selected_score

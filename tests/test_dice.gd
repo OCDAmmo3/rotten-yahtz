@@ -1,6 +1,6 @@
 extends GutTest
 
-var dice_scene = preload("res://diceScenes/standard6sided/DiceSelector.tscn")
+var dice_scene = preload("res://mainScenes/Selector.tscn")
 var dice
 
 func before_each():

@@ -1,19 +1,29 @@
 extends Node2D
 
-var dice_scene = preload("res://diceScenes/DiceSelector.tscn")
+var dice_scene = preload("res://mainScenes/Selector.tscn")
 var dice_removal_selection = preload("res://diceScenes/diceSelectionScenes/DiceRemovalSelection.tscn")
 var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 
 @onready var dice_pool = dice_pool_scene.instantiate()
 @onready var player_sprite = $PlayerSprite
 @onready var player_health_bar = get_node("/root/BattleRollScene/Observable/Player/PlayerHealthBar/")
-@onready var MAX_HEALTH = player_health_bar.get_max_health()
-@onready var difficulty = 0
-@onready var _default_roll_count = 4
+@onready var _default_roll_count = 40
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
 @onready var _damage_value = 0
 @onready var _player_alive = true
+var enhancements = {
+	"numeric": [],
+	"player_load": [],
+	"scoring": [],
+	"chance": [],
+	"enemy_load": [],
+	"player_damage": [],
+	"roll_end": [],
+	"end_card": [],
+	"determine_dice": [],
+	"miscellaneous": []
+}
 var _dice_window_opened = false
 var _removal_window_opened = false
 var _money_hoarded = 0
@@ -98,3 +108,9 @@ func get_money_hoarded():
 
 func add_money(money_to_add):
 	_money_hoarded += money_to_add
+
+func add_enhancement(selected):
+	enhancements[selected.when_to_call].push_back(selected)
+
+func get_enhancements():
+	return enhancements
