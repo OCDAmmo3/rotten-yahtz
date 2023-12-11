@@ -302,7 +302,7 @@ func get_sequence(sorted_unique_values, is_ascending, str_size, amount_of_twos):
 	var values_after_first = sorted_unique_values.slice(1)
 	var index = 0
 	while index < values_after_first.size() or amount_of_twos > 0:
-		var value
+		var value = highest_value
 		if index < values_after_first.size():
 			value = values_after_first[index]
 		var value_math = (func(value): return value - 1) if is_ascending else (func(value): return value + 1)
@@ -317,7 +317,8 @@ func get_sequence(sorted_unique_values, is_ascending, str_size, amount_of_twos):
 			amount_of_twos -= 1
 			index -= 1
 		else:
-			current_sequence = 1
+			if not current_sequence >= str_size:
+				current_sequence = 1
 		var incrementation_direction_math = (func(value): return value + 1) if is_ascending else (func(value): return value - 1)
 		current_number = incrementation_direction_math.call(current_number)
 		index += 1

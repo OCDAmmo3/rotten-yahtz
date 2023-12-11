@@ -7,7 +7,7 @@ var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 @onready var dice_pool = dice_pool_scene.instantiate()
 @onready var player_sprite = $PlayerSprite
 @onready var player_health_bar = get_node("/root/BattleRollScene/Observable/Player/PlayerHealthBar/")
-@onready var _default_roll_count = 4
+@onready var _default_roll_count = 40
 @onready var _roll_count = _default_roll_count
 @onready var _has_rolled = false
 @onready var _damage_value = 0
@@ -21,14 +21,7 @@ var enhancements = {
 	"player_damage": [],
 	"roll_end": [],
 	"end_card": [],
-	"determine_dice": [{
-		"name": "Deuces Wild",
-		"sprite": preload("res://characterScenes/assets/enhancements/HighRoller.png"),
-		"tooltip": "Once per battle, each 2 rolled in a set can count as any number value.",
-		"main_function": null,
-		"when_to_call": "determine_dice",
-		"rarity": "C"
-	}],
+	"determine_dice": [],
 	"miscellaneous": []
 }
 var _dice_window_opened = false
