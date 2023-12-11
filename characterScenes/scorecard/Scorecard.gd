@@ -28,7 +28,6 @@ signal enemy_can_continue
 func change_visible():
 	visible = not visible
 
-
 @onready var upper_total_score_option = {
 	"label": "TOTAL SCORE",
 	"sprite": null,
@@ -168,7 +167,10 @@ func initiate_score_selection(selected_score_node):
 	_selected_score = 0
 	var player_enhancements = player.get_enhancements()
 	deuces_wild = player_enhancements.determine_dice.filter(func(enhancement): return enhancement.name == "Deuces Wild")
-	deuces_wild = deuces_wild[0] if deuces_wild.size() > 0 else null
+	if deuces_wild.size() > 0:
+		deuces_wild = true
+	else:
+		deuces_wild = null
 	if _selected_score_option != null:
 		_selected_score_option.find_child("Right").text = ""
 	player_dice_values = []
@@ -232,7 +234,7 @@ func score_num(score_option_node, num):
 	if not player_has_rolled:
 		return
 	var valid_dice = player_dice_values.filter(func(value):
-		var is_valid_wild = deuces_wild != null and deuces_wild.active and value == 2
+		var is_valid_wild = deuces_wild != null and deuces_wild and value == 2
 		return value == num or is_valid_wild
 		)
 	_selected_score = num * valid_dice.size()
@@ -293,40 +295,63 @@ func score_full_house(score_option_node):
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
 
+func get_sequence(sorted_unique_values, is_ascending, str_size, amount_of_twos):
+	var current_sequence = 1
+	var current_number = sorted_unique_values[0]
+	var highest_value = current_number
+	var values_after_first = sorted_unique_values.slice(1)
+	var index = 0
+	while index < values_after_first.size() or amount_of_twos > 0:
+		var value
+		if index < values_after_first.size():
+			value = values_after_first[index]
+		var value_math = (func(value): return value - 1) if is_ascending else (func(value): return value + 1)
+		if value_math.call(value) == current_number:
+			current_sequence += 1
+			if value > highest_value:
+				highest_value += 1
+		elif deuces_wild and amount_of_twos > 0:
+			current_sequence += 1
+			if current_number > highest_value:
+				highest_value = current_number
+			amount_of_twos -= 1
+			index -= 1
+		else:
+			current_sequence = 1
+		var incrementation_direction_math = (func(value): return value + 1) if is_ascending else (func(value): return value - 1)
+		current_number = incrementation_direction_math.call(current_number)
+		index += 1
+
+	if current_sequence >= str_size:
+		return { "has_sequence": true, "highest_value": highest_value }
+	return { "has_sequence": false, "highest_value": 0 }
+
 func score_straight(score_option_node, str_size):
 	initiate_score_selection(score_option_node)
 	if not player_has_rolled:
 		return
+	var unique_values = []
+	var amount_of_twos = 0
+	for value in player_dice_values:
+		if not unique_values.has(value) and (not deuces_wild or value != 2 && deuces_wild):
+			unique_values.push_back(value)
+		elif deuces_wild and value == 2:
+			amount_of_twos += 1
 
-	#FUNDAY FRIDAY KATA - help me solution a sequence of digits *with* potential wilds
-	#var unique_values = []
-	#var number_of_twos = 0
-	#for value in player_dice_values:
-	#	if not unique_values.has(value):
-	#		unique_values.push_back(value)
-	#	if value == 2:
-	#		number_of_twos += 1
-#
-	#var highest_in_straight = 0
-	#var _current_sequence_length = 1
-	#var _result = _current_sequence_length
-	#for index in 6:
-	#	var sequence_is_continued = index < unique_values.size() and unique_values[index] - 1 == unique_values[index - 1]
-	#	if sequence_is_continued:
-	#		_current_sequence_length += 1
-	#		if _result > _current_sequence_length:
-	#			highest_in_straight = unique_values[index]
-	#		else:
-	#			_result = _current_sequence_length
-	#	else:
-	#		if number_of_twos > 0:
-	#			number_of_twos -= 1
-	#		else:
-	#			_current_sequence_length = 1
+	unique_values.sort();
+	var ascending_sequence = get_sequence(unique_values, true, str_size, amount_of_twos);
+	unique_values.sort_custom(func(a,b): return b - a);
+	var descending_sequence = get_sequence(unique_values, false, str_size, amount_of_twos);
 
-	#if _current_sequence_length >= str_size:
-	_selected_score += (str_size - 1) * 10
-	#_selected_score += highest_in_straight if str_size == 4 else highest_in_straight * 2
+	var has_straight = { "has_sequence": false, "highest_value": 0 }
+	if ascending_sequence.highest_value > descending_sequence.highest_value:
+		has_straight = ascending_sequence
+	else:
+		has_straight = descending_sequence
+
+	if has_straight.has_sequence:
+		_selected_score += (str_size - 1) * 10
+		_selected_score += has_straight.highest_value if str_size == 4 else has_straight.highest_value * 2
 
 	score_option_node.find_child("Right").text = str(_selected_score)
 	_score_to_set = "lower"
@@ -362,7 +387,7 @@ func score_chance(score_option_node):
 func get_dice_times(with_wild = true):
 	var has_dice_times = {6:0,5:0,4:0,3:0,2:0,1:0}
 	for value in player_dice_values:
-		if deuces_wild != null and deuces_wild.active and value == 2 and with_wild:
+		if deuces_wild != null and deuces_wild and value == 2 and with_wild:
 			has_dice_times[1] += 1
 			has_dice_times[2] += 1
 			has_dice_times[3] += 1
