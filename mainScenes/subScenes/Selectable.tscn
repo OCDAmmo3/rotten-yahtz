@@ -1,9 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://c605oljufrpsq"]
 
-[ext_resource type="Script" path="res://mainScenes/Selectable.gd" id="1_wvwb2"]
+[ext_resource type="Script" path="res://mainScenes/subScenes/Selectable.gd" id="1_wvwb2"]
 [ext_resource type="Theme" uid="uid://dk8vwpstc6pfj" path="res://dice_theme.tres" id="2_7taen"]
 [ext_resource type="Script" path="res://diceScenes/diceSelectionScenes/SelectionCheckBox.gd" id="2_so6m7"]
 [ext_resource type="Texture2D" uid="uid://wchucs6o6e0y" path="res://diceScenes/assets/diceFaceImages/d6/dice-1.png" id="2_wk4th"]
+
 
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb3ps"]

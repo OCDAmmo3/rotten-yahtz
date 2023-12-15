@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://c8to424mcs6u7"]
 
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/DiceSelectionOptions.gd" id="1_b6yl2"]
-[ext_resource type="Script" path="res://mainScenes/level_end_card.gd" id="1_tpvsm"]
+[ext_resource type="Script" path="res://mainScenes/subScenes/level_end_card.gd" id="1_tpvsm"]
 [ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="2_v5cyj"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/SelectButton.gd" id="3_qb578"]
-[ext_resource type="Script" path="res://mainScenes/DiceSelectionSubmit.gd" id="4_anxf7"]
+[ext_resource type="Script" path="res://diceScenes/diceSelectionScenes/DiceSelectionSubmit.gd" id="4_anxf7"]
 [ext_resource type="Script" path="res://playerControls/diceSelectionMenu/RemoveDiceButton.gd" id="4_njdol"]
 [ext_resource type="Script" path="res://SkipButtonButton.gd" id="5_ff1pp"]
-[ext_resource type="Script" path="res://mainScenes/EnhancementSelectionOptions.gd" id="8_5vjwi"]
-[ext_resource type="Script" path="res://mainScenes/EnhancementSelectionSubmit.gd" id="8_ii3np"]
+[ext_resource type="Script" path="res://characterScenes/player/enhancements/EnhancementSelectionOptions.gd" id="8_5vjwi"]
+[ext_resource type="Script" path="res://characterScenes/player/enhancements/EnhancementSelectionSubmit.gd" id="8_ii3np"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpynu"]
 bg_color = Color(0.294118, 0.360784, 0.2, 1)

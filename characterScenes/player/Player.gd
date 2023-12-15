@@ -1,6 +1,6 @@
 extends Node2D
 
-var dice_scene = preload("res://mainScenes/Selector.tscn")
+var dice_scene = preload("res://mainScenes/subScenes/Selector.tscn")
 var dice_removal_selection = preload("res://diceScenes/diceSelectionScenes/DiceRemovalSelection.tscn")
 var dice_pool_scene = preload("res://diceScenes/DicePoolContainer.tscn")
 

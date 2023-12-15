@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://v38eepse15d5"]
+
+[ext_resource type="Script" path="res://mainScenes/main_menu.gd" id="1_a7hbd"]
+[ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="1_i088q"]
+[ext_resource type="Script" path="res://mainScenes/start_game_button.gd" id="3_n8lxt"]
+
+[node name="main_menu" type="Node2D"]
+script = ExtResource("1_a7hbd")
+
+[node name="StartGame" type="PanelContainer" parent="."]
+offset_right = 20.0
+offset_bottom = 4.0
+theme = ExtResource("1_i088q")
+
+[node name="StartGameButton" type="Button" parent="StartGame"]
+layout_mode = 2
+script = ExtResource("3_n8lxt")
+
+[node name="StartGameLabel" type="Label" parent="StartGame"]
+layout_mode = 2
+text = "Start Game"

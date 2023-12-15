@@ -170,7 +170,7 @@ func initiate_score_selection(selected_score_node):
 	if deuces_wild.size() > 0:
 		deuces_wild = true
 	else:
-		deuces_wild = null
+		deuces_wild = false
 	if _selected_score_option != null:
 		_selected_score_option.find_child("Right").text = ""
 	player_dice_values = []
@@ -234,7 +234,7 @@ func score_num(score_option_node, num):
 	if not player_has_rolled:
 		return
 	var valid_dice = player_dice_values.filter(func(value):
-		var is_valid_wild = deuces_wild != null and deuces_wild and value == 2
+		var is_valid_wild = deuces_wild and value == 2
 		return value == num or is_valid_wild
 		)
 	_selected_score = num * valid_dice.size()
@@ -268,25 +268,25 @@ func score_full_house(score_option_node):
 		return
 	player_dice_values.sort_custom(func(a, b): return a > b)
 	var has_dice_times = get_dice_times(false)
-	var has_three_of_a_kind = player_dice_values.filter(func(value):
+	var has_three_of_a_kind = []
+	for value in player_dice_values:
 		if has_dice_times[value] >= 3:
-			return true
-		elif value != 2 and has_dice_times[value] + has_dice_times[2] >= 3:
+			has_three_of_a_kind.push_back(value)
+			break
+		elif deuces_wild and value != 2 and has_dice_times[value] + has_dice_times[2] >= 3:
 			has_dice_times[2] -= 3 - has_dice_times[value]
-			return true
-		else:
-			return false
-		)
+			has_three_of_a_kind.push_back(value)
+			break
 	if has_three_of_a_kind.size() > 0:
-		var has_different_two_of_a_kind = player_dice_values.filter(func(value):
+		var has_different_two_of_a_kind = []
+		for value in player_dice_values:
 			if has_dice_times[value] >= 2 and value != has_three_of_a_kind[0]:
-				return true
+				has_different_two_of_a_kind.push_back(value)
+				break
 			elif value != 2 and has_dice_times[value] + has_dice_times[2] >= 2 and value != has_three_of_a_kind[0]:
 				has_dice_times[2] -= 2 - has_dice_times[value]
-				return true
-			else:
-				return false
-			)
+				has_different_two_of_a_kind.push_back(value)
+				break
 		if has_different_two_of_a_kind.size() > 0:
 			_selected_score += 25
 			_selected_score += has_three_of_a_kind[0] * 3
@@ -334,7 +334,7 @@ func score_straight(score_option_node, str_size):
 	var unique_values = []
 	var amount_of_twos = 0
 	for value in player_dice_values:
-		if not unique_values.has(value) and (not deuces_wild or value != 2 && deuces_wild):
+		if not unique_values.has(value) and (not deuces_wild or (value != 2 and deuces_wild)):
 			unique_values.push_back(value)
 		elif deuces_wild and value == 2:
 			amount_of_twos += 1
@@ -388,7 +388,7 @@ func score_chance(score_option_node):
 func get_dice_times(with_wild = true):
 	var has_dice_times = {6:0,5:0,4:0,3:0,2:0,1:0}
 	for value in player_dice_values:
-		if deuces_wild != null and deuces_wild and value == 2 and with_wild:
+		if deuces_wild and value == 2 and with_wild:
 			has_dice_times[1] += 1
 			has_dice_times[2] += 1
 			has_dice_times[3] += 1

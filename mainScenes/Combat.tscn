@@ -1,104 +1,104 @@
 [gd_scene load_steps=75 format=3 uid="uid://cyqibwcbiv7kp"]
 
-[ext_resource type="Script" path="res://Combat.gd" id="2"]
-[ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_t5hs3"]
-[ext_resource type="Texture2D" uid="uid://cwshsrdhphk0h" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Idle_4.png" id="3_4h24f"]
-[ext_resource type="Texture2D" uid="uid://d11kdw06ien30" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Throw_4.png" id="3_yuf60"]
-[ext_resource type="Texture2D" uid="uid://blyxn2mb3udjc" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Death_8.png" id="4_414t5"]
-[ext_resource type="Script" path="res://characterScenes/enemies/Enemy.gd" id="4_eumfb"]
-[ext_resource type="Script" path="res://playerControls/RollButton.gd" id="4_nj5ko"]
-[ext_resource type="Texture2D" uid="uid://bn88fyhkyw4wc" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Throw_4.png" id="5_4ffqe"]
-[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="5_5yqr3"]
-[ext_resource type="Texture2D" uid="uid://b0n72cwo47l3p" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Idle_4.png" id="5_cev7j"]
-[ext_resource type="Texture2D" uid="uid://brtf35jxdage" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Hurt_4.png" id="5_ee8l7"]
-[ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="7_48lcp"]
-[ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="7_t0vkd"]
-[ext_resource type="Texture2D" uid="uid://cox3kg25otvb8" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Hurt_4.png" id="8_403rw"]
-[ext_resource type="Texture2D" uid="uid://bim6shdfw6vlq" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Death_8.png" id="8_b3u5j"]
-[ext_resource type="Script" path="res://ShowScorecardButton.gd" id="9_ph8fm"]
-[ext_resource type="Script" path="res://ShowEnemyScorecardButton.gd" id="11_0hn7a"]
-[ext_resource type="Script" path="res://SubmitScoreButton.gd" id="11_5wn3x"]
-[ext_resource type="Script" path="res://characterScenes/scorecard/Scorecard.gd" id="18_02tly"]
-[ext_resource type="Script" path="res://characterScenes/scorecard/EnemyScorecard.gd" id="20_6sfo4"]
+[ext_resource type="Script" path="res://Combat.gd" id="1_76lli"]
+[ext_resource type="Script" path="res://characterScenes/player/Player.gd" id="2_kji2d"]
+[ext_resource type="Texture2D" uid="uid://d11kdw06ien30" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Throw_4.png" id="3_5ec50"]
+[ext_resource type="Texture2D" uid="uid://blyxn2mb3udjc" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Death_8.png" id="4_r83ap"]
+[ext_resource type="Texture2D" uid="uid://cwshsrdhphk0h" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Idle_4.png" id="5_qrbcf"]
+[ext_resource type="Texture2D" uid="uid://brtf35jxdage" path="res://characterScenes/assets/playerSprites/player_turtlish/Dude_Monster_Hurt_4.png" id="6_0bkri"]
+[ext_resource type="Script" path="res://characterScenes/enemies/Enemy.gd" id="7_ywhlp"]
+[ext_resource type="Texture2D" uid="uid://bn88fyhkyw4wc" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Throw_4.png" id="8_0qtv4"]
+[ext_resource type="Texture2D" uid="uid://bim6shdfw6vlq" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Death_8.png" id="9_raqm0"]
+[ext_resource type="Texture2D" uid="uid://b0n72cwo47l3p" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Idle_4.png" id="10_xmh0l"]
+[ext_resource type="Texture2D" uid="uid://cox3kg25otvb8" path="res://characterScenes/assets/playerSprites/player_owlet/Owlet_Monster_Hurt_4.png" id="11_cx6x2"]
+[ext_resource type="Script" path="res://characterScenes/enemies/EnemyHealthBar.gd" id="12_esndq"]
+[ext_resource type="Theme" uid="uid://ddykdqg70qvt5" path="res://player_menu.tres" id="13_qy0tc"]
+[ext_resource type="Script" path="res://playerControls/RollButton.gd" id="14_vp6fv"]
+[ext_resource type="Script" path="res://playerControls/diceSelectionMenu/AddDiceButton.gd" id="15_m653w"]
+[ext_resource type="Script" path="res://ShowScorecardButton.gd" id="16_qxnth"]
+[ext_resource type="Script" path="res://ShowEnemyScorecardButton.gd" id="17_dpxp6"]
+[ext_resource type="Script" path="res://characterScenes/scorecard/Scorecard.gd" id="18_ujual"]
+[ext_resource type="Script" path="res://SubmitScoreButton.gd" id="19_0mpgi"]
+[ext_resource type="Script" path="res://characterScenes/scorecard/EnemyScorecard.gd" id="20_xbico"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xr2ca"]
-atlas = ExtResource("3_yuf60")
+atlas = ExtResource("3_5ec50")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wfhbs"]
-atlas = ExtResource("3_yuf60")
+atlas = ExtResource("3_5ec50")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_otd0v"]
-atlas = ExtResource("3_yuf60")
+atlas = ExtResource("3_5ec50")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txsau"]
-atlas = ExtResource("3_yuf60")
+atlas = ExtResource("3_5ec50")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4f2q4"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_22ycn"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ct3x"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jh57u"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vwu4s"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yor6k"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqa80"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gok60"]
-atlas = ExtResource("4_414t5")
+atlas = ExtResource("4_r83ap")
 region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mhavj"]
-atlas = ExtResource("3_4h24f")
+atlas = ExtResource("5_qrbcf")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sjduo"]
-atlas = ExtResource("3_4h24f")
+atlas = ExtResource("5_qrbcf")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fqe6o"]
-atlas = ExtResource("3_4h24f")
+atlas = ExtResource("5_qrbcf")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kl7f3"]
-atlas = ExtResource("3_4h24f")
+atlas = ExtResource("5_qrbcf")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00hus"]
-atlas = ExtResource("5_ee8l7")
+atlas = ExtResource("6_0bkri")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0y3lr"]
-atlas = ExtResource("5_ee8l7")
+atlas = ExtResource("6_0bkri")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i543v"]
-atlas = ExtResource("5_ee8l7")
+atlas = ExtResource("6_0bkri")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yyv5r"]
-atlas = ExtResource("5_ee8l7")
+atlas = ExtResource("6_0bkri")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1j1vr"]
@@ -231,83 +231,83 @@ func play_death():
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7fb7m"]
-atlas = ExtResource("5_4ffqe")
+atlas = ExtResource("8_0qtv4")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpw75"]
-atlas = ExtResource("5_4ffqe")
+atlas = ExtResource("8_0qtv4")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o408b"]
-atlas = ExtResource("5_4ffqe")
+atlas = ExtResource("8_0qtv4")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fg6im"]
-atlas = ExtResource("5_4ffqe")
+atlas = ExtResource("8_0qtv4")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s7hrg"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pd166"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_edura"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyenf"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tmvcd"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcge4"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ew33c"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c40bc"]
-atlas = ExtResource("8_b3u5j")
+atlas = ExtResource("9_raqm0")
 region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pph7s"]
-atlas = ExtResource("5_cev7j")
+atlas = ExtResource("10_xmh0l")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7enb2"]
-atlas = ExtResource("5_cev7j")
+atlas = ExtResource("10_xmh0l")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m2fb8"]
-atlas = ExtResource("5_cev7j")
+atlas = ExtResource("10_xmh0l")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_faryc"]
-atlas = ExtResource("5_cev7j")
+atlas = ExtResource("10_xmh0l")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pu6y6"]
-atlas = ExtResource("8_403rw")
+atlas = ExtResource("11_cx6x2")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ec103"]
-atlas = ExtResource("8_403rw")
+atlas = ExtResource("11_cx6x2")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_54cbm"]
-atlas = ExtResource("8_403rw")
+atlas = ExtResource("11_cx6x2")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhj7x"]
-atlas = ExtResource("8_403rw")
+atlas = ExtResource("11_cx6x2")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tcjcl"]
@@ -463,13 +463,13 @@ border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
 [node name="BattleRollScene" type="Node"]
-script = ExtResource("2")
+script = ExtResource("1_76lli")
 
 [node name="Observable" type="Node2D" parent="."]
 
 [node name="Player" type="Node2D" parent="Observable"]
 position = Vector2(178, 266)
-script = ExtResource("2_t5hs3")
+script = ExtResource("2_kji2d")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Observable/Player"]
 position = Vector2(96, 212)
@@ -501,7 +501,7 @@ horizontal_alignment = 1
 
 [node name="Enemy" type="Node2D" parent="Observable"]
 position = Vector2(733, 266)
-script = ExtResource("4_eumfb")
+script = ExtResource("7_ywhlp")
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="Observable/Enemy"]
 position = Vector2(97.0001, 212)
@@ -523,7 +523,7 @@ max_value = 150.0
 step = 1.0
 value = 150.0
 show_percentage = false
-script = ExtResource("7_48lcp")
+script = ExtResource("12_esndq")
 
 [node name="Label" type="Label" parent="Observable/Enemy/EnemyHealthBar"]
 custom_minimum_size = Vector2(100, 10)
@@ -551,12 +551,12 @@ layout_mode = 2
 
 [node name="RollButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
+theme = ExtResource("13_qy0tc")
 
 [node name="RollButton" type="Button" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
-script = ExtResource("4_nj5ko")
+theme = ExtResource("13_qy0tc")
+script = ExtResource("14_vp6fv")
 
 [node name="RollButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/RollButtonContainer"]
 layout_mode = 2
@@ -566,12 +566,12 @@ horizontal_alignment = 1
 
 [node name="AddDiceButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
+theme = ExtResource("13_qy0tc")
 
 [node name="AddDiceButton" type="Button" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
-script = ExtResource("5_5yqr3")
+theme = ExtResource("13_qy0tc")
+script = ExtResource("15_m653w")
 
 [node name="AddDiceButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/AddDiceButtonContainer"]
 layout_mode = 2
@@ -580,12 +580,12 @@ horizontal_alignment = 1
 
 [node name="ShowScorecardButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
+theme = ExtResource("13_qy0tc")
 
 [node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
-script = ExtResource("9_ph8fm")
+theme = ExtResource("13_qy0tc")
+script = ExtResource("16_qxnth")
 
 [node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/ShowScorecardButtonContainer"]
 layout_mode = 2
@@ -594,12 +594,12 @@ horizontal_alignment = 1
 
 [node name="EnemyShowScorecardButtonContainer" type="PanelContainer" parent="Control/PlayerControls/GameplayButtons"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
+theme = ExtResource("13_qy0tc")
 
 [node name="ShowScorecardButton" type="Button" parent="Control/PlayerControls/GameplayButtons/EnemyShowScorecardButtonContainer"]
 layout_mode = 2
-theme = ExtResource("7_t0vkd")
-script = ExtResource("11_0hn7a")
+theme = ExtResource("13_qy0tc")
+script = ExtResource("17_dpxp6")
 
 [node name="ShowScorecardButtonLabel" type="Label" parent="Control/PlayerControls/GameplayButtons/EnemyShowScorecardButtonContainer"]
 layout_mode = 2
@@ -613,7 +613,7 @@ offset_right = 1149.0
 offset_bottom = 146.0
 mouse_filter = 2
 theme_override_constants/separation = -2
-script = ExtResource("18_02tly")
+script = ExtResource("18_ujual")
 
 [node name="ScorecardHeader" type="PanelContainer" parent="Scorecard"]
 custom_minimum_size = Vector2(265, 0)
@@ -659,7 +659,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_cydea")
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("11_5wn3x")
+script = ExtResource("19_0mpgi")
 
 [node name="SubmitScoreButtonLabel" type="Label" parent="Scorecard/PanelContainer"]
 layout_mode = 2
@@ -673,7 +673,7 @@ offset_top = 291.0
 offset_right = 422.0
 offset_bottom = 410.0
 theme_override_constants/separation = -2
-script = ExtResource("20_6sfo4")
+script = ExtResource("20_xbico")
 
 [node name="ScorecardHeader" type="PanelContainer" parent="EnemyScorecard"]
 custom_minimum_size = Vector2(265, 0)

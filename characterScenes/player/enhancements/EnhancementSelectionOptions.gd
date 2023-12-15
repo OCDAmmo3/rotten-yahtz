@@ -5,7 +5,7 @@ extends HBoxContainer
 @onready var enhancement_options = EnhancementSelectables.enhancement_options
 var selected
 
-var enhancement_selectable = preload("res://mainScenes/Selectable.tscn")
+var enhancement_selectable = preload("res://mainScenes/subScenes/Selectable.tscn")
 
 func create_enhancement_selectables():
 	selected = null
