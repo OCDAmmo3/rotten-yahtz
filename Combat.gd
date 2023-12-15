@@ -1,6 +1,6 @@
 extends Node
 
-var level_end_card_node = preload("res://mainScenes/level_end_card.tscn")
+var level_end_card_node = preload("res://mainScenes/subScenes/level_end_card.tscn")
 
 @onready var player_dice_pool = $Observable/Player/DicePoolContainer/DicePool.get_children()
 @onready var enemy_dice_pools = $Observable/Enemy/DicePoolContainer/DicePool.get_children()
